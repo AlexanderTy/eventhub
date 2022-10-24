@@ -15,6 +15,7 @@ class LoginController extends Controller
             "message" => "yo",
         ]);
     }
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
@@ -33,5 +34,11 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
+    public function destroy(): Response
+    {
+        Auth::logout();
+
+        return Inertia::render('Login');
+    }
 
 }

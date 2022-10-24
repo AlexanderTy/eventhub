@@ -1,15 +1,19 @@
 <template>
     <div class="h-full fixed bg-slate-400 justify-between flex flex-col py-12 pl-4 ">
-        <MenuNavList />
-        <MenuUser :name="name" />
+        <div class="flex flex-col space-y-24">
+            <MenuUser :name="name" />
+            <MenuNavList />
+        </div>
+        <Logout />
     </div>
 </template>
 
 <script>
 import MenuNavList from "./Partials/MenuNavList.vue";
 import MenuUser from "./Partials/MenuUser";
+import Logout from "./Partials/Logout";
 export default {
-    components: {MenuUser, MenuNavList},
+    components: {Logout, MenuUser, MenuNavList},
     props: {
         name: String,
     },

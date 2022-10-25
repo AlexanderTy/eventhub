@@ -17,6 +17,7 @@
             />
         </div>
         <SubmitBtn />
+        {{errors}}
 
     </form>
 
@@ -26,6 +27,10 @@ import Input from "../Partials/Input";
 import SubmitBtn from "../Partials/SubmitBtn";
 export default {
     components: {SubmitBtn, Input},
+
+    props:{
+        errors: Object,
+    },
 
     data() {
         return {

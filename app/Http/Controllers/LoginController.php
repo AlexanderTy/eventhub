@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthenticateLoginRequest;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -16,14 +20,10 @@ class LoginController extends Controller
         ]);
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(AuthenticateLoginRequest $request): RedirectResponse
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
@@ -34,11 +34,10 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-    public function destroy(): Response
+    public function destroy(): RedirectResponse
     {
         Auth::logout();
-
-        return Inertia::render('Login');
+        return redirect()->route('login');
     }
 
 }

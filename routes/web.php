@@ -23,4 +23,6 @@ Route::get('/', function () {
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'authenticate'])->name('authenticate');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('logout', [LoginController::class, 'destroy'])->name('logout');
+Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
+
+

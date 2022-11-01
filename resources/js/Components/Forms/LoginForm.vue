@@ -16,7 +16,8 @@
                 v-model="form.password"
             />
         </div>
-        <SubmitBtn />
+        <Btn :type="'back'" :text="'back'"/>
+        <Btn :type="'submit'" :text="'login'"/>
         {{errors}}
 
     </form>
@@ -24,12 +25,15 @@
 </template>
 <script>
 import Input from "../Partials/Input";
-import SubmitBtn from "../Partials/SubmitBtn";
+import Btn from "../Partials/Btn";
+
 export default {
-    components: {SubmitBtn, Input},
+    components: {Btn, Input},
 
     props:{
         errors: Object,
+        type: String,
+        text: String
     },
 
     data() {

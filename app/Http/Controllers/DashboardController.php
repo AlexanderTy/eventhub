@@ -12,6 +12,6 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
 
-        return Inertia::render('Dashboard', ["name" => Auth::user()->name]);
+        return Inertia::render('Dashboard', ["authUser" => Auth::user()]);
     }
 }

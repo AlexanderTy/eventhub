@@ -2,7 +2,7 @@
     <LoginLayout class="items-center flex justify-center">
 
         <div class="w-96 rounded bg-white ">
-            <LoginForm>
+            <LoginForm :errors="errors">
             </LoginForm>
         </div>
     </LoginLayout>
@@ -20,6 +20,7 @@ export default {
     },
     // passed from controller
     props: {
+        errors: Object
     },
     // custom set
     data() {

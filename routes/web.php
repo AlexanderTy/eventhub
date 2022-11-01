@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +18,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group([
+    'middleware' => [HandleInertiaRequests::class],
+], function () {
+
+    Route::get('/', function () {
+        return redirect('login');
+    });
+
+    Route::get('login', [LoginController::class, 'index'])->name('login');
+    Route::post('login', [LoginController::class, 'authenticate'])->name('authenticate');
+
+    Route::group([
+        'middleware' => [Authenticate::class],
+    ], function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
+
+        Route::resource('users', UserController::class)->except('show');
+/*        Route::get('users', [UserController::class, 'index'])->name('users');
+        Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');*/
+
+    });
+
 });
-
-Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('login', [LoginController::class, 'authenticate'])->name('authenticate');
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
-
-

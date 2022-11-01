@@ -1,10 +1,26 @@
 <?php
 
 namespace App\Enums;
+use App\Enums\Traits\Listable;
 
-enum UserRole: string {
+enum UserRole: string
+{
+    use Listable;
+
     case USER = 'user';
     case EDITOR = 'editor';
     case ADMIN = 'admin';
+
+
+    public function name()
+    {
+        return match ($this) {
+            UserRole::USER => 'user',
+            UserRole::EDITOR => 'editor',
+            UserRole::ADMIN => 'admin',
+        };
+    }
+
+
 }
 

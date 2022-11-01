@@ -1,6 +1,5 @@
 <template>
-    <DefaultLayout :name="name">
-    <p>yo</p>
+    <DefaultLayout>
     </DefaultLayout>
 </template>
 
@@ -14,25 +13,20 @@ export default {
     },
     // passed from controller
     props: {
-        name: String
     },
     // custom set
     data() {
-        return {
-
-        };
+        return {};
     },
     // actions on init
     mounted() {
-
         this.myFirstFunction();
     },
     // methods
     methods: {
         myFirstFunction() {
-            console.log("works")
-
+            console.log("works");
         },
     },
-}
+};
 </script>

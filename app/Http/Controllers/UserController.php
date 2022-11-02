@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
 use App\Http\Requests\AuthenticateLoginRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Policies\UserPolicy;
@@ -35,7 +36,6 @@ class UserController extends Controller
             'User/Index',
             [
                 "users"    => $users,
-                "authUser" => $authUser
             ]);
     }
 
@@ -43,22 +43,31 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Inertia\Response
      */
     public function create()
     {
-        //
+        $authUser = Auth::user();
+        $users = User::latest()->get();
+        return Inertia::render(
+            'User/Create',
+            [
+                "roles" => UserRole::list(),
+            ]);
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request): RedirectResponse
     {
-        //
+
+        User::create($request->validated());
+        return redirect()->route('users.index');
     }
 
 
@@ -86,7 +95,6 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user): \Inertia\Response |RedirectResponse
     {
-
         $user->update(
             $request->validated()
         );
@@ -96,11 +104,14 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @param User $user
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(User $user): RedirectResponse
     {
         //
+
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }

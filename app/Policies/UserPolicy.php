@@ -39,11 +39,11 @@ class UserPolicy
      * Determine whether the user can create models.
      *
      * @param User $user
-     * @return void
+     * @return bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
-        //
+        return Auth::user()->role == UserRole::ADMIN;
     }
 
     /**
@@ -65,9 +65,10 @@ class UserPolicy
      * @param User $model
      * @return bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, User $model): bool
     {
-        //
+        return Auth::user()->role == UserRole::ADMIN;
+
     }
 
     /**

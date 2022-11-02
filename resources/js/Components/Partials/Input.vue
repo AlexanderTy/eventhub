@@ -2,7 +2,7 @@
     <input
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="bg-gray-100 rounded px-2 py-1"
+        class="border shadow  rounded px-2 py-1"
 
     />
 </template>

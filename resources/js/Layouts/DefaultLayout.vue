@@ -1,7 +1,7 @@
 <template>
-    <div class="flex">
+    <div class="flex relative" id="content">
         <Menu class="w-80 text-white" />
-        <main class="pl-4 ml-80 min-h-screen flex items-center justify-center flex-col h-full w-full">
+        <main class="px-12 ml-80 min-h-screen flex items-center flex-col h-full w-full pt-12">
             <slot />
         </main>
     </div>

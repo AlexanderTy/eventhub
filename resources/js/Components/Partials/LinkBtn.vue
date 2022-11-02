@@ -1,6 +1,7 @@
 <template>
 
-    <button
+    <a
+        :href="$route(to)"
         :class="
             type === 'back' || type === 'cancel'
                 ? 'bg-lg hover:bg-lg-h'
@@ -14,13 +15,14 @@
         :type="type==='submit' ? 'submit' : 'button' "
     >
         {{ text ? text : type }}
-    </button>
+    </a>
 </template>
 <script>
 export default {
     props: {
         type: String,
         text: String,
+        to: String,
     },
 };
 </script>

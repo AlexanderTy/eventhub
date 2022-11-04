@@ -5,7 +5,7 @@
         v-model="modelValue"
         class="border w-full rounded h-full w-full shadow px-2 py-1 cursor-pointer"
     >
-        <option v-for="role in roles"  :selected="role === 'user'">{{ role }}</option>
+        <option v-for="(value, key) in options" :key="key" :value="key" >{{ value }}</option>
     </select>
 
 </template>
@@ -15,7 +15,7 @@ export default {
 
 
     props: {
-        roles: Object,
+        options: Object,
         modelValue: String,
 
     },

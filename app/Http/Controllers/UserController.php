@@ -47,8 +47,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $authUser = Auth::user();
-        $users = User::latest()->get();
+
         return Inertia::render(
             'User/Create',
             [

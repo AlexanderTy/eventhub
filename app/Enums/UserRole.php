@@ -15,9 +15,9 @@ enum UserRole: string
     public function name()
     {
         return match ($this) {
-            UserRole::USER => 'user',
-            UserRole::EDITOR => 'editor',
-            UserRole::ADMIN => 'admin',
+            UserRole::USER => 'User',
+            UserRole::EDITOR => 'Editor',
+            UserRole::ADMIN => 'Admin',
         };
     }
 

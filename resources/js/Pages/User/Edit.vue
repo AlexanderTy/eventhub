@@ -84,7 +84,7 @@
                 </div>
                 <div class="flex flex-col w-full h-full">
                     <label class="text-sm text-g mb-2">Role </label>
-                    <Select v-model="form.role" :roles="roles" />
+                    <Select v-model="form.role" :options="roles" />
                 </div>
             </div>
 

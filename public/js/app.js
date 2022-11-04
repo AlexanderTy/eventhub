@@ -19783,7 +19783,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    roles: Object,
+    options: Object,
     modelValue: String
   }
 });
@@ -19958,7 +19958,7 @@ __webpack_require__.r(__webpack_exports__);
         password: null,
         first_name: null,
         last_name: null,
-        role: null
+        role: "user"
       })
     };
   },
@@ -19967,7 +19967,7 @@ __webpack_require__.r(__webpack_exports__);
   // methods
   methods: {
     submit: function submit() {
-      this.form.post(this.$route("users.store", {}));
+      this.form.post(this.$route("users.store"));
     }
   }
 });
@@ -20401,7 +20401,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = ["selected"];
+var _hoisted_1 = ["value"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("select", {
     onChange: _cache[0] || (_cache[0] = function ($event) {
@@ -20411,11 +20411,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $props.modelValue = $event;
     }),
     "class": "border w-full rounded h-full w-full shadow px-2 py-1 cursor-pointer"
-  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.roles, function (role) {
+  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.options, function (value, key) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-      selected: role === 'user'
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(role), 9 /* TEXT, PROPS */, _hoisted_1);
-  }), 256 /* UNKEYED_FRAGMENT */))], 544 /* HYDRATE_EVENTS, NEED_PATCH */)), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $props.modelValue]]);
+      key: key,
+      value: key
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(value), 9 /* TEXT, PROPS */, _hoisted_1);
+  }), 128 /* KEYED_FRAGMENT */))], 544 /* HYDRATE_EVENTS, NEED_PATCH */)), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $props.modelValue]]);
 }
 
 /***/ }),
@@ -20613,8 +20614,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return $data.form.role = $event;
         }),
-        roles: $props.roles
-      }, null, 8 /* PROPS */, ["modelValue", "roles"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Btn, {
+        options: $props.roles
+      }, null, 8 /* PROPS */, ["modelValue", "options"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Btn, {
         type: 'back'
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Btn, {
         text: 'save',
@@ -20763,8 +20764,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
           return $data.form.role = $event;
         }),
-        roles: $props.roles
-      }, null, 8 /* PROPS */, ["modelValue", "roles"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Input, {
+        options: $props.roles
+      }, null, 8 /* PROPS */, ["modelValue", "options"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Input, {
         modelValue: $data.form.first_name,
         "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
           return $data.form.first_name = $event;

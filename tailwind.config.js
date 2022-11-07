@@ -18,7 +18,10 @@ module.exports = {
                 'b': '#557a95',
                 'b-h': '#6F94AF',
                 'br': '#B1A296',
-                'br-h': '#CBBCB0'
+                'br-h': '#CBBCB0',
+                'primary': '#DF3838',
+                'secondary': '#2C1526',
+                'tertiary': '#412C3C',
             },
         },
     },

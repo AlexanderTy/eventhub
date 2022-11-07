@@ -1,19 +1,13 @@
 <template>
     <ul class="pl-4 font-semibold text-2xl space-y-6">
         <li class="hover:text-gray-100 cursor-pointer">
-            <a href="/">Home</a>
-        </li>
-        <li class="hover:text-gray-100 cursor-pointer">
             <a href="/">Dashboard</a>
         </li>
         <li class="hover:text-gray-100 cursor-pointer">
-            <a href="/">Do Stuff</a>
+            <a href="/">Events</a>
         </li>
         <li class="hover:text-gray-100 cursor-pointer">
-            <a href="/">Todo list </a>
-        </li>
-        <li class="hover:text-gray-100 cursor-pointer">
-            <a href="/">Settings</a>
+            <a href="/">Artists</a>
         </li>
         <li class="hover:text-gray-100 cursor-pointer">
             <a href="/users">Users</a>

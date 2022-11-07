@@ -1,15 +1,17 @@
 <template>
     <div class="flex relative" id="content">
-        <Menu class="w-80 text-white" />
-        <main class="px-12 ml-80 min-h-screen flex items-center flex-col h-full w-full pt-12">
+        <SideMenu />
+        <TopMenu />
+        <main class="bg-tertiary pl-64 pr-12  min-h-screen flex items-center flex-col h-full w-full pt-20">
             <slot />
         </main>
     </div>
 </template>
 <script>
-import Menu from "../Components/Menu";
+import SideMenu from "../Components/SideMenu";
+import TopMenu from "../Components/TopMenu";
 export default {
-    components: { Menu },
+    components: {TopMenu, SideMenu },
     props: {
     },
     data() {

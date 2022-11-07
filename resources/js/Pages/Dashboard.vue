@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout >
+    <DefaultLayout>
     </DefaultLayout>
 </template>
 

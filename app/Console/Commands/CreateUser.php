@@ -13,7 +13,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'create:user {--email=} {--password=} {--name=} {--role=}';
+    protected $signature = 'create:user {--email=} {--password=} {--first_name=} {--last_name=} {--role=}';
 
     /**
      * The console command description.
@@ -33,7 +33,9 @@ class CreateUser extends Command
             'email'    => $this->option('email'),
             'password' => Hash::make($this->option('password')),
             'role'     => $this->option('role'),
-            'name'     => $this->option('name'),
+            'first_name'     => $this->option('first_name'),
+            'last_name'     => $this->option('last_name'),
+
         ]);
 
         $this->info("Successfully created user $user->name with email $user->email role: {$user->role->name()}");

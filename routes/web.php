@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
@@ -36,9 +37,8 @@ Route::group([
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::resource('users', UserController::class)->except('show');
-/*        Route::get('users', [UserController::class, 'index'])->name('users');
+        Route::resource('events', EventController::class);
+        /*        Route::get('users', [UserController::class, 'index'])->name('users');
         Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');*/
-
     });
-
 });

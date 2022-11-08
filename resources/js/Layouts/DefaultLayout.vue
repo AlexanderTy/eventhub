@@ -2,7 +2,7 @@
     <div class="flex relative" id="content">
         <SideMenu />
         <TopMenu />
-        <main class="bg-tertiary pl-64 pr-12  min-h-screen flex items-center flex-col h-full w-full pt-20">
+        <main class="bg-white-secondary  pt-36 pl-80 pr-12  min-h-screen h-full w-full">
             <slot />
         </main>
     </div>

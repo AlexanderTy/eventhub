@@ -1,10 +1,9 @@
 <template>
-    <DefaultLayout :currentRoute="'events'">
+    <DefaultLayout currentRoute="events">
         <h1 class="font-bold text-3xl mb-8">Events</h1>
         <p class="mb-8">
             We've found
-            <span class="text-primary font-semibold">{{ events.length }}</span>
-            <span>{{ events.length === 1 ? "event" : "events" }}</span>
+            <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
         </p>
         <div class="flex flex-wrap gap-5">
             <div

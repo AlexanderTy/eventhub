@@ -40,7 +40,8 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'ziggy' => (new Ziggy)->toArray(),
-            'profile' => Auth::user()
+            'locale' => app()->getLocale(),
+            'profile' => Auth::user(),
         ]);
     }
 }

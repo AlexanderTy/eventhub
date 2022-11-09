@@ -30,8 +30,8 @@ class UserController extends Controller
      */
     public function index(): \Inertia\Response
     {
-        $authUser = Auth::user();
         $users = User::latest()->get();
+
         return Inertia::render(
             'User/Index',
             [

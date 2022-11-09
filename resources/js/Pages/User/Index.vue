@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout>
+    <DefaultLayout :currentRoute="'users'">
         <div class="flex justify-between w-full mb-12">
             <h1 class="text-3xl font-bold">Users</h1>
             <LinkBtn :type="'create'" :to="'users.create'" :btn-type="'link'"/>
@@ -37,6 +37,7 @@
                             class="text-sm text-amber-500 hover:text-amber-700 hover:underline"
                             >Edit
                         </Link>
+
                     </td>
                 </tr>
             </tbody>
@@ -61,10 +62,13 @@ export default {
     // passed from controller
     props: {
         users: Object,
+
     },
     // custom set
     data() {
-        return {};
+        return {
+            currentRoute: '',
+        };
     },
     // actions on init
 

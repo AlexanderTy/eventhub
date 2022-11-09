@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Event;
+use Inertia\Response;
 
 
 class EventController extends Controller
@@ -12,9 +13,9 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $events = Event::latest()->get();
         $eventCount = $events->count();
@@ -51,10 +52,10 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Event $event
+     * @return void
      */
-    public function show($id)
+    public function show(Event $event)
     {
         //
     }
@@ -62,10 +63,10 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Event $event
+     * @return void
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
         //
     }

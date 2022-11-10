@@ -13,7 +13,7 @@
             <div :class="closeSidemenu ? 'px-2' : ''" class="mx-auto">
                 <img
                     alt="logo"
-                    height="100%"
+                    height="100"
                     src="/images/logo.svg"
                     width="98"
                 />

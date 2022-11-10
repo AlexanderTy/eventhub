@@ -1,5 +1,5 @@
 <template>
-    <button class="w-full h-full text-primary">
+    <button class="w-full h-full text-primary hover:brightness-75">
         <CloseSidemenuSvg v-show="!close" />
         <OpenSidemenuSvg v-show="close" />
     </button>

@@ -6,6 +6,8 @@ use App\Enums\UserRole;
 use App\Http\Requests\AuthenticateLoginRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Artist;
+use App\Models\Event;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use Illuminate\Http\RedirectResponse;
@@ -30,6 +32,25 @@ class UserController extends Controller
      */
     public function index(): \Inertia\Response
     {
+       /* $artist=Artist::first();
+        $event=Event::first();
+
+        $artist->events()->attach($event);
+        $event->artists()->attach($artist);
+
+        $event->artists()->detach($artist);
+
+        $artist->events()->sync([$event->id]);
+        //$artist->events()->syncWithoutDetaching([$event1->id, $event2->id]);
+
+        $artist->events; // returns a collection
+        $artist->events()->get(); // ^the same
+        $artist->events()->where('...', '...'); // returns a query
+
+        dd($event,$artist);*/
+
+
+
         $users = User::latest()->get();
 
         return Inertia::render(

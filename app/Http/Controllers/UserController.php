@@ -7,6 +7,7 @@ use App\Http\Requests\AuthenticateLoginRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Artist;
+use App\Models\Date;
 use App\Models\Event;
 use App\Models\User;
 use App\Policies\UserPolicy;

@@ -1,6 +1,16 @@
 <template>
     <DefaultLayout currentRoute="events">
-        <h1 class="font-bold text-3xl mb-8">Events</h1>
+        <div class="flex justify-between">
+            <h1 class="font-bold text-3xl mb-8">Events</h1>
+            <button @click="openModal = !openModal">Create</button>
+            <Teleport to="#app">
+                <CreateModal
+                    v-show="openModal"
+
+                    @close-modal="openModal = false"
+                />
+            </Teleport>
+        </div>
         <p class="mb-8">
             We've found
             <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
@@ -65,12 +75,17 @@
 <script>
 import DefaultLayout from "../../Layouts/DefaultLayout";
 import PublishedStatus from "../../Components/Partials/PublishedStatus";
+import {Link} from "@inertiajs/inertia-vue3";
+import CreateModal from "../../Components/CreateModal";
 
 export default {
     // included child components
     components: {
+        CreateModal,
         DefaultLayout,
         PublishedStatus,
+        Link,
+
     },
     // passed from controller
     props: {
@@ -79,6 +94,7 @@ export default {
     data() {
         return {
             currentRoute: '',
+            openModal: false,
         };
     },};
 </script>

@@ -13,20 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('sub_title');
-            $table->dateTime('sale_start');
-            $table->dateTime('sale_end');
-            $table->boolean('public');
-            $table->string('artist');
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropColumn('artist');
 
+            $table->string('permalink')->nullable();
+            $table->string('seo_title')->nullable();
+            $table->string('seo_description')->nullable();
 
-
-
-
-            $table->timestamps();
         });
     }
 
@@ -37,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        //
     }
 };

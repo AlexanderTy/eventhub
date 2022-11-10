@@ -13,21 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('sub_title');
-            $table->dateTime('sale_start');
-            $table->dateTime('sale_end');
-            $table->boolean('public');
-            $table->string('artist');
+        //
 
-
-
-
-
-            $table->timestamps();
+        Schema::table('dates', function (Blueprint $table) {
+            $table->foreignId('event_id')->constrained('events');
         });
+
     }
 
     /**
@@ -37,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::table('dates', function (Blueprint $table) {
+            $table->dropColumn('first_name');
+        });
     }
 };

@@ -17,7 +17,7 @@ class ContentSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $artist = Artist::create([
                 'name'              => fake()->name(),
                 'description_short' => fake()->realText(50),
@@ -32,7 +32,7 @@ class ContentSeeder extends Seeder
                 'seo_description'   => fake()->text(69),
             ]);
             Venue::create([
-                'name'      => fake()->userName(),
+                'name'      => fake()->text(20),
                 'zipcode'   => fake()->postcode(),
                 'city'      => fake()->city(),
                 'country'   => Country::DENMARK,
@@ -40,12 +40,12 @@ class ContentSeeder extends Seeder
                 'longitude' => fake()->longitude(),
             ]);
             $event = Event::create([
-                'title'           => fake()->userName(),
-                'sub_title'       => fake()->userName(),
+                'title'           => fake()->text(20),
+                'sub_title'       => fake()->text(50),
                 'sale_start'      => fake()->dateTime(),
                 'sale_end'        => fake()->dateTime(),
                 'public'          => fake()->boolean(),
-                'seo_title'       => fake()->userName(),
+                'seo_title'       => fake()->text(20),
                 'seo_description' => fake()->realText(),
             ]);
             $event->artists()->syncWithoutDetaching($artist);

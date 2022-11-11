@@ -55,7 +55,6 @@ class Event extends Model
         'sale_start',
         'sale_end',
         'public',
-        'permalink',
         'seo_title',
         'seo_description',
     ];

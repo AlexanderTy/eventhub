@@ -15,17 +15,14 @@ return new class extends Migration
     {
         Schema::create('dates', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('release_date');
-            $table->string('venue');
-            $table->string('city');
-            $table->string('country');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->dateTime('date');
-            $table->time('duration');
-            $table->string('status');
-            $table->string('label');
-            $table->string('note');
+            $table->foreignId('event_id')->nullable()->constrained('events');
+            $table->foreignId('venue_id')->nullable()->constrained('venues');
+            $table->dateTime('release_date')->nullable();
+            $table->dateTime('date')->nullable();
+            $table->time('duration')->nullable();
+            $table->string('status')->nullable();
+            $table->string('label')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

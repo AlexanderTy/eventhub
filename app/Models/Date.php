@@ -44,14 +44,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Date whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Date whereVenue($value)
  * @mixin \Eloquent
+ * @property int|null $venue_id
+ * @property-read \App\Models\Event|null $event
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereVenueId($value)
  */
 class Date extends Model
 {
     use HasFactory;
 
-    public function date(): BelongsTo
+    protected $fillable = [
+        'release_date',
+        'date',
+        'duration',
+        'status',
+        'label',
+        'note',
+    ];
+
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
-
 }
+

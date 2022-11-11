@@ -32,7 +32,7 @@ class ContentSeeder extends Seeder
                 'seo_description'   => fake()->text(69),
             ]);
             Venue::create([
-                'name'      => fake()->title(),
+                'name'      => fake()->userName(),
                 'zipcode'   => fake()->postcode(),
                 'city'      => fake()->city(),
                 'country'   => Country::DENMARK,
@@ -40,12 +40,12 @@ class ContentSeeder extends Seeder
                 'longitude' => fake()->longitude(),
             ]);
             $event = Event::create([
-                'title'           => fake()->title(),
-                'sub_title'       => fake()->title(),
+                'title'           => fake()->userName(),
+                'sub_title'       => fake()->userName(),
                 'sale_start'      => fake()->dateTime(),
                 'sale_end'        => fake()->dateTime(),
                 'public'          => fake()->boolean(),
-                'seo_title'       => fake()->title(),
+                'seo_title'       => fake()->userName(),
                 'seo_description' => fake()->realText(),
             ]);
             $event->artists()->syncWithoutDetaching($artist);

@@ -1,15 +1,14 @@
-import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import { InertiaProgress } from '@inertiajs/progress'
-import route from 'ziggy-js';
-import moment from 'moment';
+import { createApp, h } from "vue";
+import { createInertiaApp } from "@inertiajs/inertia-vue3";
+import { InertiaProgress } from "@inertiajs/progress";
+import route from "ziggy-js";
+import moment from "moment";
 
-InertiaProgress.init()
+InertiaProgress.init();
 
 createInertiaApp({
-    resolve: name => require(`./Pages/${name}`),
+    resolve: (name) => require(`./Pages/${name}`),
     setup({ el, App, props, plugin }) {
-
         const vueApp = createApp({ render: () => h(App, props) });
 
         const Ziggy = {
@@ -19,17 +18,15 @@ createInertiaApp({
 
         moment.locale(props.initialPage.props.locale);
 
-        vueApp
-            .mixin({
-                methods: {
-                    $route: (name, params, absolute, config = Ziggy) => route(name, params, absolute, config),
-                    $date: (date, format = 'D. MMMM YYYY') => date ? moment(date).format(format) : '',
-                },
-            });
+        vueApp.mixin({
+            methods: {
+                $route: (name, params, absolute, config = Ziggy) =>
+                    route(name, params, absolute, config),
+                $date: (date, format = "D. MMMM YYYY") =>
+                    date ? moment(date).format(format) : "",
+            },
+        });
 
-        vueApp
-            .use(plugin)
-            .mount(el)
-
+        vueApp.use(plugin).mount(el);
     },
-})
+});

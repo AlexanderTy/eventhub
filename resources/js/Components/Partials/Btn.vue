@@ -3,9 +3,9 @@
     <button
         :class="
             type === 'back' || type === 'cancel'
-                ? 'bg-lg hover:bg-lg-h'
+                ? 'bg-gray-600 hover:bg-gray-800'
                 : type === 'submit'
-                ? 'bg-b hover:bg-b-h'
+                ? 'bg-primary hover:brightness-75'
                 : type === 'delete'
                 ? 'bg-red-600 hover:bg-red-700 '
                 : 'bg-lb'

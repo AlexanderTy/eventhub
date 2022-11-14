@@ -39,6 +39,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereRole($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $first_name
+ * @property string $last_name
+ * @property string|null $image
+ * @method static Builder|User whereFirstName($value)
+ * @method static Builder|User whereImage($value)
+ * @method static Builder|User whereLastName($value)
  */
 class User extends Authenticatable
 {
@@ -51,6 +57,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'image',
     ];
 
     protected $hidden = [

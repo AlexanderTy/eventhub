@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-
-        Schema::table('users', function ($table) {
-            $table->string('image')->nullable()->change();
+        Schema::create('artist_event', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('artist_id')->constrained('artists');
+            $table->foreignId('event_id')->constrained('events');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('artist_event');
     }
 };

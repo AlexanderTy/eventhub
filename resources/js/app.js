@@ -24,6 +24,7 @@ createInertiaApp({
                     route(name, params, absolute, config),
                 $date: (date, format = "D. MMMM YYYY") =>
                     date ? moment(date).format(format) : "",
+                $time: (time, format = 'HH:mm') => time ? moment(time).format(format) : '',
             },
         });
 

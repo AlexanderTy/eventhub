@@ -1,7 +1,7 @@
 <template>
     <div
         :class="closeSidemenu ? 'w-16' : 'w-52'"
-        class="z-20 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
+        class=" transition-all duration-500		z-20 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
     >
         <div class="w-14 h-auto absolute top-12 right-0 -mr-7">
             <ToggleSidemenuBtn
@@ -24,7 +24,15 @@
                 class="text-base space-y-2 text-white"
             >
                 <li class="flex gap-5 hover:text-primary cursor-pointer">
-                    <a class="pl-4 w-full flex border-l-4 py-2  border-transparent" :class="currentRoute === 'dashboard' ? 'bg-white bg-opacity-10 border-primary text-primary' : ''" href="/">
+                    <a
+                        class="pl-4 w-full flex border-l-4 py-2 border-transparent"
+                        :class="
+                            currentRoute === 'dashboard'
+                                ? 'bg-white bg-opacity-10 border-primary text-primary'
+                                : ''
+                        "
+                        :href="$route('dashboard')"
+                    >
                         <div class="w-8 h-6">
                             <svg
                                 class="w-full h-full"
@@ -43,7 +51,15 @@
                     </a>
                 </li>
                 <li class="flex gap-5 hover:text-primary cursor-pointer">
-                    <Link class="pl-4 w-full flex border-l-4 py-2 border-transparent" :class="currentRoute === 'events' ? 'bg-white bg-opacity-10 border-primary text-primary' : ''" :href="$route('events.index')">
+                    <Link
+                        class="pl-4 w-full flex border-l-4 py-2 border-transparent"
+                        :class="
+                            currentRoute === 'events'
+                                ? 'bg-white bg-opacity-10 border-primary text-primary'
+                                : ''
+                        "
+                        :href="$route('events.index')"
+                    >
                         <div class="w-8 h-6">
                             <svg
                                 class="w-full h-full"
@@ -62,7 +78,15 @@
                     </Link>
                 </li>
                 <li class="flex gap-5 hover:text-primary cursor-pointer">
-                    <a class="pl-4 w-full flex border-l-4 py-2 border-transparent" :class="currentRoute === 'artists' ? 'bg-white bg-opacity-10 border-primary text-primary' : ''" href="">
+                    <a
+                        class="pl-4 w-full flex border-l-4 py-2 border-transparent"
+                        :class="
+                            currentRoute === 'artists'
+                                ? 'bg-white bg-opacity-10 border-primary text-primary'
+                                : ''
+                        "
+                        href=""
+                    >
                         <div class="w-8 h-6">
                             <svg
                                 class="w-full h-full"
@@ -85,7 +109,15 @@
                     </a>
                 </li>
                 <li class="flex gap-5 hover:text-primary cursor-pointer">
-                    <Link class="pl-4 w-full flex border-l-4 py-2 border-transparent" :class="currentRoute === 'users' ? 'bg-white bg-opacity-10 border-primary text-primary' : ''" :href="$route('users.index')">
+                    <Link
+                        class="pl-4 w-full flex border-l-4 py-2 border-transparent"
+                        :class="
+                            currentRoute === 'users'
+                                ? 'bg-white bg-opacity-10 border-primary text-primary'
+                                : ''
+                        "
+                        :href="$route('users.index')"
+                    >
                         <div class="w-8 h-6">
                             <svg
                                 class="w-full h-full"
@@ -120,7 +152,7 @@ export default {
     // custom set
     data() {
         return {
-            closeSidemenu:false,
+            closeSidemenu: false,
         };
     },
 };

@@ -72,7 +72,7 @@
                                         {{ $date(event.sale_start) }}
                                     </p>
                                     <p class="text-xs">
-                                        {{ $date(event.sale_start, "HH:mm") }}
+                                        {{ $time(event.sale_start) }}
                                     </p>
                                 </div>
                                 <div class="self-center">-</div>
@@ -81,7 +81,7 @@
                                         {{ $date(event.sale_end) }}
                                     </p>
                                     <p class="text-xs">
-                                        {{ $date(event.sale_end, "HH:mm") }}
+                                        {{ $time(event.sale_end) }}
                                     </p>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div>
                     <p class="col-span-1 text-center text-xs">{{ event.sale_end }}</p>
-                    <p class="col-span-1 text-center text-xs">12:00 PM</p> 
+                    <p class="col-span-1 text-center text-xs">12:00 PM</p>
                 </div>
                 <div v-show="status" class="col-span-1 justify-self-center text-xs h-7 w-28 bg-success-bg flex justify-center items-center rounded-full">
                     <p class="text-success font-bold">Published</p>
@@ -119,7 +119,7 @@
             </div>
         </div>
 
-            
+
     </DefaultLayout>
 </template>
 

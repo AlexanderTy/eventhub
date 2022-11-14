@@ -75,7 +75,7 @@
             </div>
 
             <div class="flex justify-between">
-                <Btn :type="'back'" />
+                <LinkBtn :type="'back'" to="events.index"/>
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
@@ -93,10 +93,12 @@ import Input from "../../Components/Partials/Input";
 import Select from "../../Components/Partials/Select";
 import { directive } from "vue3-click-away";
 import Modal from "../../Components/Modal";
+import LinkBtn from "../../Components/Partials/LinkBtn";
 
 export default {
     // included child components
     components: {
+        LinkBtn,
         Modal,
         Select,
         Input,

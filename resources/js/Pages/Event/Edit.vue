@@ -1,9 +1,6 @@
 <template>
     <DefaultLayout>
-        <form
-            class="flex flex-col p-12 space-y-4 min-w-[350px] h-full gap-6"
-            @submit.prevent="submit"
-        >
+        <form class="flex flex-col p-12 space-y-4 min-w-[350px] h-full gap-6" @submit.prevent="submit">
             <div class="flex justify-between">
                 <div class="flex items-center mb-12">
                     <div class="">
@@ -13,11 +10,7 @@
                     </div>
                 </div>
                 <div v-click-away="onClickAway" class="relative">
-                    <button
-                        class="hover:bg-gray-100 rounded py-1"
-                        type="button"
-                        @click="open = !open"
-                    >
+                    <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">
                         <svg
                             class="w-6 h-6"
                             fill="none"
@@ -72,6 +65,20 @@
                     <label class="text-sm text-g mb-2">Title</label>
                     <Input v-model="form.title" />
                 </div>
+                <div class="flex flex-col">
+                    <label class="text-sm text-g mb-2">Subtitle</label>
+                    <Input v-model="form.sub_title" />
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-sm text-g mb-2">Event starts</label>
+                    <div class="flex flex-row">
+                                <Input type="date" v-model="form.sale_start_date" />
+                                <Input type="time" step="300" v-model="form.sale_start_time"  />
+
+                    </div>
+
+
+                </div>
             </div>
 
             <div class="flex justify-between">
@@ -115,6 +122,9 @@ export default {
         return {
             form: this.$inertia.form({
                 title: this.event.title,
+                sub_title: this.event.sub_title,
+                sale_start_date: this.$date(this.event.sale_start, 'YYYY-MM-DD'),
+                sale_start_time: this.$time(this.event.sale_start),
             }),
             open: false,
             openModal: false,

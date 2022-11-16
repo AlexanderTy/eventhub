@@ -78,14 +78,14 @@
                     </Link>
                 </li>
                 <li class="flex gap-5 hover:text-primary cursor-pointer">
-                    <a
+                    <Link
                         class="pl-4 w-full flex border-l-4 py-2 border-transparent"
                         :class="
                             currentRoute === 'artists'
                                 ? 'bg-white bg-opacity-10 border-primary text-primary'
                                 : ''
                         "
-                        href=""
+                        :href="$route('artists.index')"
                     >
                         <div class="w-8 h-6">
                             <svg
@@ -106,7 +106,7 @@
                             </svg>
                         </div>
                         <p v-show="!closeSidemenu" class="ml-4">Artists</p>
-                    </a>
+                    </Link>
                 </li>
                 <li class="flex gap-5 hover:text-primary cursor-pointer">
                     <Link

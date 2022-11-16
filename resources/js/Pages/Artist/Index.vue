@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout currentRoute="events">
+    <DefaultLayout currentRoute="artists">
         <div class="flex justify-between">
             <h1 class="font-bold text-3xl mb-8">Events</h1>
             <button @click="openModal = !openModal">Create</button>
@@ -9,14 +9,11 @@
         </div>
         <p class="mb-8">
             We've found
-            <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
+            <span class="text-primary font-semibold">{{ artists.length }} </span> <span> {{ artists.length === 1 ? "artist" : "artists" }}</span>
         </p>
-        <form @submit.prevent="submit">
-            <Input  v-model="filter.search" />
-
-        </form>
         <div class="flex flex-wrap gap-5">
-            <EventCard :event="event" v-for="event in events" />
+            <ArtistCard :artist="artist" v-for="artist in artists" />
+
             <div class="w-full px-12 grid gap-4 grid-cols-7 text-xs">
                 <p class="col-span-2">Title</p>
                 <p class="col-span-1">Artist</p>
@@ -26,15 +23,15 @@
                 <p class="col-span-1 text-center">Public</p>
             </div>
             <div class="grid gap-4 grid-cols-7 items-center col-span-1 px-12 text-sm bg-white w-full h-24 rounded-2xl shadow-[0px_8px_21px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]" v-for="event in events">
-                <h2 class="col-span-2 font-semibold text-base">{{ event.title }}</h2>
-                <h3 class="col-span-1 font-semibold text-primary">{{ event.artist }}</h3>
+                <h2 class="col-span-2 font-semibold text-base">{{ artist.name }}</h2>
+                <h3 class="col-span-1 font-semibold text-primary">{{ artist.name }}</h3>
                 <p class="col-span-1 text-center">32/32</p>
                 <div>
-                    <p class="col-span-1 text-center text-xs">{{ event.sale_start }}</p>
+                    <p class="col-span-1 text-center text-xs">{{ artist.name }}</p>
                     <p class="col-span-1 text-center text-xs">7:00 AM</p>
                 </div>
                 <div>
-                    <p class="col-span-1 text-center text-xs">{{ event.sale_end }}</p>
+                    <p class="col-span-1 text-center text-xs">{{ artist.name }}</p>
                     <p class="col-span-1 text-center text-xs">12:00 PM</p>
                 </div>
                 <div v-show="status" class="col-span-1 justify-self-center text-xs h-7 w-28 bg-success-bg flex justify-center items-center rounded-full">
@@ -56,14 +53,12 @@ import PublishedStatus from "../../Components/Partials/PublishedStatus";
 import { Link } from "@inertiajs/inertia-vue3";
 import CreateModal from "../../Components/CreateModal";
 import {directive} from "vue3-click-away";
-import EventCard from "../../Components/Partials/EventCard";
-import Input from "../../Components/Partials/Input";
+import ArtistCard from "../../Components/Partials/ArtistCard";
 
 export default {
     // included child components
     components: {
-        Input,
-        EventCard,
+        ArtistCard,
         CreateModal,
         DefaultLayout,
         PublishedStatus,
@@ -71,17 +66,12 @@ export default {
     },
     // passed from controller
     props: {
-        events: Object,
+        artists: Object,
         status: Boolean,
-        request: Object,
-
     },
      // custom set
      data() {
         return {
-            filter: this.$inertia.form({
-                search: this.request.search,
-            }),
             open: "",
             currentRoute: "",
             openModal: false,
@@ -91,10 +81,6 @@ export default {
     methods: {
         onClickAway(event) {
             this.open = "";
-            console.log("penis")
-        },
-        submit() {
-            this.filter.get(this.$route('events.index'));
         },
     },
     // directives

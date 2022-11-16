@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
@@ -38,6 +39,7 @@ Route::group([
 
         Route::resource('users', UserController::class)->except('show');
         Route::resource('events', EventController::class);
+        Route::resource('artists', ArtistController::class);
         /*        Route::get('users', [UserController::class, 'index'])->name('users');
         Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');*/
     });

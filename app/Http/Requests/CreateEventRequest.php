@@ -25,7 +25,7 @@ class CreateEventRequest extends FormRequest
     {
 
         return [
-            'title'      => ['required'],
+            'title' => ['required', 'min:3'],
         ];
     }
 }

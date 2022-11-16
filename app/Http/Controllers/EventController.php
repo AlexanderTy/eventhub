@@ -19,15 +19,24 @@ class EventController extends Controller
      *
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $events = Event::latest()->get();
-        $eventCount = $events->count();
+        $query = Event::query();
+        if (!empty($request->search)) {
+            $query
+                ->where(function ($query) use ($request) {
+                    $query
+                        ->where('title', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('sub_title', 'LIKE', '%' . $request->search . '%');
+                });
+        }
+        $events = $query->with('artists')->get();
+
         return Inertia::render(
             'Event/Index',
             [
                 "events"     => $events,
-                "eventCount" => $eventCount,
+                'request' => $request,
             ]
         );
     }
@@ -40,6 +49,13 @@ class EventController extends Controller
      */
     public function store(CreateEventRequest $request)
     {
+        if (!$request->validated()){
+            return back()->withErrors([
+                'title' => 'The provided credentials do not match our records.',
+            ])->onlyInput('title');
+        }
+
+
         $event = Event::create($request->validated());
         return redirect()->route('events.edit', [
             'event'=>$event

@@ -2,11 +2,10 @@
     <div class="col-span-1 bg-white w-72 h-80 rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
         <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
         <div class="text-white h-40 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-2.5 absolute top-0 left-0 w-full">
-            <PublishedStatus :status="event.public" />
             <div class="flex flex-row justify-between">
                 <div>
-                    <h2 class="font-semibold">{{ event.title }}</h2>
-                    <h3 class="text-sm">{{ event.sub_title }}</h3>
+                    <h2 class="font-semibold">{{ artist.name }}</h2>
+                    <h3 class="text-sm">{{ artist.name }}</h3>
                 </div>
                 <div class="relative z-30 self-end">
                     <button class="text-white self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
@@ -22,7 +21,7 @@
                             </svg>
                             View
                         </button>
-                        <Link class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('events.edit', { event: event.id, })" >
+                        <Link class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('artists.edit', { artist: artist.id, })" >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                                 <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
                             </svg>
@@ -42,7 +41,7 @@
             <div>
                 <h3 class="text-sm">
                     af
-                    <span v-for="artist in event.artists" class="text-primary font-bold">{{artist.name}}</span>
+                    <span class="text-primary font-bold">{{ artist.name }}</span>
                 </h3>
                 <p class="text-xs">32 out of 32 events</p>
             </div>
@@ -51,19 +50,19 @@
                 <div class="flex justify-between">
                     <div>
                         <p class="text-xs">
-                            {{ $date(event.sale_start) }}
+                            {{ artist.name }}
                         </p>
                         <p class="text-xs">
-                            {{ $time(event.sale_start) }}
+                            {{ artist.name }}
                         </p>
                     </div>
                     <div class="self-center">-</div>
                     <div>
                         <p class="text-xs">
-                            {{ $date(event.sale_end) }}
+                            {{ artist.name }}
                         </p>
                         <p class="text-xs">
-                            {{ $time(event.sale_end) }}
+                            {{ artist.name }}
                         </p>
                     </div>
                 </div>
@@ -89,7 +88,7 @@ export default {
     },
     // passed from controller
     props: {
-        event: Object,
+        artist: Object,
         status: Boolean,
     },
     // custom set

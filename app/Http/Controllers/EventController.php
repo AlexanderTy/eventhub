@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateEventRequest;
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\StoreEventRequest;
 use App\Models\Event;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,7 +33,7 @@ class EventController extends Controller
         return Inertia::render(
             'Event/Index',
             [
-                "events"     => $events,
+                "events"  => $events,
                 'request' => $request,
             ]
         );
@@ -44,21 +42,15 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreEventRequest $request
      * @return RedirectResponse
      */
-    public function store(CreateEventRequest $request)
+    public function store(StoreEventRequest $request): RedirectResponse
     {
-        if (!$request->validated()){
-            return back()->withErrors([
-                'title' => 'The provided credentials do not match our records.',
-            ])->onlyInput('title');
-        }
-
 
         $event = Event::create($request->validated());
         return redirect()->route('events.edit', [
-            'event'=>$event
+            'event' => $event
         ]);
     }
 
@@ -79,13 +71,13 @@ class EventController extends Controller
      * @param Event $event
      * @return Response
      */
-    public function edit(Event $event)
+    public function edit(Event $event): Response
     {
 
         return Inertia::render(
             'Event/Edit',
             [
-                "event"     => $event,
+                "event" => $event,
             ]
         );
     }

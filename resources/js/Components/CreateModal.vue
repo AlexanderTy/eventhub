@@ -14,7 +14,7 @@
                     <Btn :text="'cancel'" :type="'cancel'" @click="$emit('closeModal')"/>
                     <Btn :text="'Create'" :type="'submit'" />
                 </div>
-                {{ errors }}
+                {{ form.errors }}
 
             </form>
         </div>
@@ -41,7 +41,6 @@ export default {
     // passed from controller
     props: {
         roles: Object,
-        errors: Object,
     },
     // custom set
     data() {

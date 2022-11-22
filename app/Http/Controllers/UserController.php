@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
 use App\Http\Requests\AuthenticateLoginRequest;
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Artist;
 use App\Models\Date;
@@ -84,7 +84,7 @@ class UserController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(CreateUserRequest $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
 
         User::create($request->validated());

@@ -74,6 +74,9 @@ class EventController extends Controller
     public function edit(Event $event): Response
     {
 
+
+
+        $event = Event::where('id', $event->id)->with('dates')->get();
         return Inertia::render(
             'Event/Edit',
             [

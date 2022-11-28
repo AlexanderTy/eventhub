@@ -8,9 +8,11 @@
                 ? 'bg-primary hover:brightness-75'
                 : type === 'delete'
                 ? 'bg-red-600 hover:bg-red-700 '
+                : type === 'create'
+                ? 'bg-primary hover:bg-red-700'
                 : 'bg-lb'
         "
-        class="rounded w-24 px-4 py-2 text-white capitalize"
+        class="rounded-md px-4 py-2 text-white capitalize text-base"
         :type="type==='submit' ? 'submit' : 'button' "
     >
         {{ text ? text : type }}

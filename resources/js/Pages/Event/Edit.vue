@@ -1,13 +1,11 @@
 <template>
     <DefaultLayout>
-        <form class="flex flex-col p-12 space-y-4 min-w-[350px] h-full gap-6" @submit.prevent="submit">
+        <form class="flex flex-col min-w-[350px] h-full" @submit.prevent="submit">
             <div class="flex justify-between">
                 <div class="flex items-center mb-12">
-                    <div class="">
-                        <h2 class="font-bold text-2xl capitalize">
-                         {{ event.title }}
-                        </h2>
-                    </div>
+                    <h2 class="font-bold text-2xl capitalize">
+                        {{ event[0].title }}
+                    </h2>
                 </div>
                 <div v-click-away="onClickAway" class="relative">
                     <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">
@@ -60,24 +58,94 @@
                 </div>
             </div>
 
-            <div class="flex gap-12">
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Title</label>
-                    <Input v-model="form.title" />
-                </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Subtitle</label>
-                    <Input v-model="form.sub_title" />
-                </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Event starts</label>
-                    <div class="flex flex-row">
-                                <Input type="date" v-model="form.sale_start_date" />
-                                <Input type="time" step="300" v-model="form.sale_start_time"  />
-
+            <TabsMenu @clickedTabNext="" @activeTab="updateActiveTab"/>
+            <div class="relative mt-[-10px] z-10 w-full max-w-6xl h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col p-10">
+                    <div class="col-span-3 pr-10">
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Title</label>
+                            <Input v-model="form.title" />
+                        </div>
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Subtitle</label>
+                            <Input v-model="form.sub_title" />
+                        </div>
+                        <div class="flex flex-row justify-between mb-7">
+                            <div class="flex flex-col">
+                                <label class="text-xs text-g mb-2">Event starts</label>
+                                <div class="flex flex-row gap-5">
+                                    <Input type="date" v-model="form.sale_start_date" />
+                                    <Input type="time" step="300" v-model="form.sale_start_time"  />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="text-xs text-g mb-2">Event ends</label>
+                                <div class="flex flex-row gap-5">
+                                    <Input type="date" v-model="form.sale_end_date" />
+                                    <Input type="time" step="300" v-model="form.sale_end_time"  />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Upload image</label>
+                            <div class="flex flex-row text-gray-600 gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="self-center w-4 h-4">
+                                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                                </svg>
+                                <p>nikolaj_stokholm_2022.jpg </p>
+                            </div>
+                            <div class="flex flex-col justify-center items-center text-gray-600 bg-white-secondary h-28 rounded border border-dashed border-gray-400">
+                                <div class="flex flex-row gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
+                                    </svg>
+                                    <p>Add image</p>
+                                </div>
+                                <p class="text-sm">Or simply just drop it here</p>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-span-2">
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Add artists</label>
+                            <Input type="search" placeholder="Search for artists here..."/>
+                        </div>
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Added artists</label>
+                            <div>
+                                <div class="w-8 h-8 rounded-full bg-gray-500 mr-4"></div>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div v-show="activeTab === 'dates'" class="absolute top-0 left-0 w-full h-full p-10 overflow-y-auto" >
+                    <div class="text-xs grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4 mb-1">
+                        <label class="col-span-1"></label>
+                        <label class="col-span-3">Release Date</label>
+                        <label class="col-span-3">Venue</label>
+                        <label class="col-span-3">Date & Time</label>
+                        <label class="col-span-3">Duration</label>
+                        <label class="col-span-3">Status</label>
+                        <label class="col-span-3">Label</label>
+                        <label class="col-span-3">Note</label>
+                    </div>
+                    <div class="w-full grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4">
 
+                        <div class="col-span-full grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4"  v-for="index in dateAmount">
+
+<!--                            <Input readonly class="col-span-1" :placeholder="index" />-->
+                            <div class="col-span-1 flex justify-center items-center text-placeholder bg-white-secondary rounded text-gray-600">{{ index }}</div>
+                            <Input class="col-span-3" />
+                            <Input class="col-span-3" />
+                            <Input class="col-span-3" />
+                            <Input class="col-span-3" />
+                            <Input class="col-span-3" />
+                            <Input class="col-span-3" />
+                            <Input class="col-span-3" />
+                        </div>
+                        <Btn class="col-[20/-1]" type="create" text="Add row" @click="dateAmount++"></Btn>
+                    </div>
                 </div>
             </div>
 
@@ -101,10 +169,14 @@ import Select from "../../Components/Partials/Select";
 import { directive } from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
+import Tab from "../../Components/Partials/Tab";
+import TabsMenu from "../../Components/Partials/TabsMenu";
 
 export default {
     // included child components
     components: {
+        TabsMenu,
+        Tab,
         LinkBtn,
         Modal,
         Select,
@@ -121,13 +193,18 @@ export default {
     data() {
         return {
             form: this.$inertia.form({
-                title: this.event.title,
-                sub_title: this.event.sub_title,
-                sale_start_date: this.$date(this.event.sale_start, 'YYYY-MM-DD'),
-                sale_start_time: this.$time(this.event.sale_start),
+                title: this.event[0].title,
+                sub_title: this.event[0].sub_title,
+                sale_start_date: this.$date(this.event[0].sale_start, 'YYYY-MM-DD'),
+                sale_start_time: this.$time(this.event[0].sale_start),
+                sale_end_date: this.$date(this.event[0].sale_end, 'YYYY-MM-DD'),
+                sale_end_time: this.$time(this.event[0].sale_end),
             }),
             open: false,
             openModal: false,
+            activeTab: 'general',
+            activeTabContent: false,
+            dateAmount: this.event[0].dates.length
         };
     },
     // actions on init
@@ -139,6 +216,10 @@ export default {
         myFirstFunction() {
             console.log(this.openModal);
         },
+        updateActiveTab(e){
+          this.activeTab = e;
+        },
+
         submit() {
             this.form
                 .transform((data) => ({

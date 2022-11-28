@@ -13,6 +13,7 @@ module.exports = {
                 'secondary': '#2C1526',
                 'tertiary': '#412C3C',
                 'white-secondary': '#F0EDED',
+                'placeholder': '#B9A9A9',
                 'success': '#3FD23C',
                 'success-bg': '#EFFCEA',
                 'error': '#E53633',

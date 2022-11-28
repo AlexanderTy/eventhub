@@ -1,0 +1,25 @@
+<template>
+    <li class="z-0 flex justify-center items-center pb-2.5 h-11 w-36 rounded-md cursor-pointer text-sm"
+         :class="activeTab === type ? 'bg-white font-bold' : 'bg-gray-300 font-regular'"
+         @click="$emit('tabClick')"
+    >
+       {{text}}
+    </li>
+
+</template>
+
+<script>
+export default {
+
+    props: {
+        text: String,
+        type: String,
+        active: Boolean,
+        activeTab: String,
+    },
+}
+</script>
+
+<style scoped>
+
+</style>

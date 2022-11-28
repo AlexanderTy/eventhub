@@ -1,14 +1,8 @@
 <template>
-    <div class="col-span-1 bg-white w-72 h-80 rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
-        <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
-        <div class="text-white h-40 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-2.5 absolute top-0 left-0 w-full">
+    <div class="col-span-1 bg-white w-[14.375rem] h-[17rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col items-center">
             <div class="flex flex-row justify-between">
-                <div>
-                    <h2 class="font-semibold">{{ artist.name }}</h2>
-                    <h3 class="text-sm">{{ artist.name }}</h3>
-                </div>
                 <div class="relative z-30 self-end">
-                    <button class="text-white self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
+                    <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
                             <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                         </svg>
@@ -35,39 +29,14 @@
                         </button>
                     </div>
                 </div>
-            </div>
         </div>
-        <div class="flex flex-col justify-between px-4 h-40 pb-5 pt-2.5">
-            <div>
-                <h3 class="text-sm">
-                    af
-                    <span class="text-primary font-bold">{{ artist.name }}</span>
-                </h3>
-                <p class="text-xs">32 out of 32 events</p>
-            </div>
-            <div>
-                <h4 class="font-semibold text-sm">Sales dates</h4>
-                <div class="flex justify-between">
-                    <div>
-                        <p class="text-xs">
-                            {{ artist.name }}
-                        </p>
-                        <p class="text-xs">
-                            {{ artist.name }}
-                        </p>
-                    </div>
-                    <div class="self-center">-</div>
-                    <div>
-                        <p class="text-xs">
-                            {{ artist.name }}
-                        </p>
-                        <p class="text-xs">
-                            {{ artist.name }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="bg-[url('/images/artist.png')] bg-cover w-40 h-40 rounded-full"></div>
+<!--
+        <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
+-->
+                <h2 class="text-xl mt-5 font-medium">
+                    {{ artist.name }}
+                </h2>
     </div>
 </template>
 

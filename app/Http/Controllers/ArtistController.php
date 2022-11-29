@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreArtistRequest;
 use App\Models\Artist;
-use App\Models\Event;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -15,7 +16,7 @@ class ArtistController extends Controller
      *
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $artists = Artist::latest()->get();
         return Inertia::render(
@@ -38,19 +39,22 @@ class ArtistController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  StoreArtistRequest $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreArtistRequest $request): RedirectResponse
     {
-        //
+        $artist = Artist::create($request->validate());
+        return redirect()->route('artists.edit', [
+            'artist' => $artist,
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Artist  $artist
+     * @return void
      */
     public function show($id)
     {
@@ -60,18 +64,23 @@ class ArtistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Artist $artist
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Artist $artist): Response
     {
-        //
+        return Inertia::render(
+            'Artist/Edit',
+            [
+                "artist" => $artist,
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

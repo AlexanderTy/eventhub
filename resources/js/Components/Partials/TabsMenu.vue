@@ -3,7 +3,6 @@
         <Tab type="general" text="General" @tabClick="activeTab = 'general'; $emit('activeTab', 'general')"  :activeTab="activeTab"/>
         <Tab type="dates" text="Dates & Venues" @tabClick="activeTab = 'dates'; $emit('activeTab', 'dates')"  :activeTab="activeTab"/>
         <Tab type="seo" text="SEO" @tabClick="activeTab = 'seo'; $emit('activeTab', 'seo')"  :activeTab="activeTab"/>
-
     </ul>
 </template>
 

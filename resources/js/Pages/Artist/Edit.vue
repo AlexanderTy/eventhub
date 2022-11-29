@@ -5,7 +5,7 @@
                 <div class="flex items-center mb-12">
                     <div class="">
                         <h2 class="font-bold text-2xl capitalize">
-                         {{ event.title }}
+                         {{ artist.name }}
                         </h2>
                     </div>
                 </div>
@@ -60,34 +60,13 @@
                 </div>
             </div>
 
-            <div class="flex gap-12">
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Title</label>
-                    <Input v-model="form.title" />
-                </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Subtitle</label>
-                    <Input v-model="form.sub_title" />
-                </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Event starts</label>
-                    <div class="flex flex-row">
-                                <Input type="date" v-model="form.sale_start_date" />
-                                <Input type="time" step="300" v-model="form.sale_start_time"  />
-
-                    </div>
-
-
-                </div>
-            </div>
-
             <div class="flex justify-between">
-                <LinkBtn :type="'back'" to="events.index"/>
+                <LinkBtn :type="'back'" to="artists.index"/>
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
             {{ form.errors }}
-            {{event}}
+            {{artist}}
         </form>
     </DefaultLayout>
 </template>
@@ -115,16 +94,13 @@ export default {
     },
     // passed from controller
     props: {
-        event: Object,
+        artist: Object,
     },
     // custom set
     data() {
         return {
             form: this.$inertia.form({
-                title: this.event.title,
-                sub_title: this.event.sub_title,
-                sale_start_date: this.$date(this.event.sale_start, 'YYYY-MM-DD'),
-                sale_start_time: this.$time(this.event.sale_start),
+                name: this.artist.name,
             }),
             open: false,
             openModal: false,

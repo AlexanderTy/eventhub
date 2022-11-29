@@ -17,25 +17,8 @@
                 We've found
                 <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
             </p>
-            <div class="flex flex-row items-center gap-2.5">
-                <button @click="selectedButton = 'cards'"  :class="selectedButton === 'cards' ? 'text-primary' : 'text-gray-600'">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 18" fill="currentColor" class="w-5 h-5">
-                        <rect fill-rule="evenodd" y="10" width="6" height="8" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" x="8" y="10" width="6" height="8" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" x="16" y="10" width="6" height="8" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" x="16" width="6" height="8" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" x="8" width="6" height="8" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" width="6" height="8" clip-rule="evenodd"/>
-                    </svg>
-                </button>
-                <button @click="selectedButton = 'list'"  :class="selectedButton === 'list' ? 'text-primary' : 'text-gray-600'">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 15" fill="currentColor" class="w-5 h-5" >
-                        <rect fill-rule="evenodd" width="20" height="3" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" y="6" width="20" height="3" clip-rule="evenodd"/>
-                        <rect fill-rule="evenodd" y="12" width="20" height="3" clip-rule="evenodd"/>
-                    </svg>
-                </button>
-            </div>
+
+            <DisplayButtons @btnClick="setSelectedButton"/>
         </div>
 
 
@@ -68,10 +51,12 @@ import EventCard from "../../Components/Partials/EventCard";
 import Input from "../../Components/Partials/Input";
 import EventList from "../../Components/Partials/EventList";
 import Btn from "../../Components/Partials/Btn";
+import DisplayButtons from "../../Components/Partials/DisplayButtons";
 
 export default {
     // included child components
     components: {
+        DisplayButtons,
         Btn,
         EventList,
         Input,
@@ -109,6 +94,9 @@ export default {
         },
         submit() {
             this.filter.get(this.$route('events.index'));
+        },
+        setSelectedButton(e){
+            this.selectedButton = e;
         },
     },
     // directives

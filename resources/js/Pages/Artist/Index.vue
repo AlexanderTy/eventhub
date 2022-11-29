@@ -7,21 +7,26 @@
                 <CreateModal v-show="openModal" @close-modal="openModal = false"/>
             </Teleport>
         </div>
-        <p class="mb-8">
+
+        <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
+        <p class="">
             We've found
             <span class="text-primary font-semibold">{{ artists.length }} </span> <span> {{ artists.length === 1 ? "artist" : "artists" }}</span>
         </p>
-        <div class="flex flex-wrap gap-5">
-            <ArtistCard :artist="artist" v-for="artist in artists" />
+        <DisplayButtons @btnClick="setSelectedButton"/>
+        </div>
 
-            <div class="w-full px-12 grid text-xs">
-                <p class="">Image</p>
-                <p class="">Artist</p>
-                <p class="">Short Description</p>
-                <p class="">Events</p>
+        <div class="flex flex-wrap gap-5">
+            <ArtistCard :artist="artist" v-for="artist in artists" v-show="selectedButton === 'cards'" />
+
+            <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] w-full px-12 grid text-xs" v-show="selectedButton === 'list'">
+                <p class="col-span-2">Image</p>
+                <p class="col-span-5">Artist</p>
+                <p class="col-span-7">Short Description</p>
+                <p class="col-span-3 text-center">Events</p>
             </div>
 
-            <ArtistList :artist="artist" v-for="artist in artists" />
+            <ArtistList :artist="artist" v-for="artist in artists" v-show="selectedButton === 'list'" />
 
         </div>
 
@@ -37,10 +42,12 @@ import CreateModal from "../../Components/CreateModal";
 import {directive} from "vue3-click-away";
 import ArtistCard from "../../Components/Partials/ArtistCard";
 import ArtistList from "../../Components/Partials/ArtistList";
+import DisplayButtons from "../../Components/Partials/DisplayButtons";
 
 export default {
     // included child components
     components: {
+        DisplayButtons,
         ArtistList,
         ArtistCard,
         CreateModal,
@@ -59,6 +66,7 @@ export default {
             open: "",
             currentRoute: "",
             openModal: false,
+            selectedButton: 'cards',
         };
     },
     // methods
@@ -66,6 +74,9 @@ export default {
         onClickAway(event) {
             this.open = "";
         },
+        setSelectedButton(e){
+            this.selectedButton = e;
+        }
     },
     // directives
     directives: {

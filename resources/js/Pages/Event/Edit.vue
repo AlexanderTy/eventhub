@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout>
+    <DefaultLayout  currentRoute="events">
         <form class="flex flex-col min-w-[350px] h-full" @submit.prevent="submit">
             <div class="flex justify-between">
                 <div class="flex items-center mb-12">

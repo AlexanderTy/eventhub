@@ -1,7 +1,6 @@
 <template>
-    <div class="col-span-1 bg-white w-[14.375rem] h-[17rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col items-center">
-            <div class="flex flex-row justify-between">
-                <div class="relative z-30 self-end">
+    <div class="bg-white p-4 pt-7 w-[14.375rem] h-[17rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-4 items-center">
+                <div class="absolute top-4 right-3.5 z-30 self-end">
                     <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
                             <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
@@ -29,12 +28,11 @@
                         </button>
                     </div>
                 </div>
-        </div>
         <div class="bg-[url('/images/artist.png')] bg-cover w-40 h-40 rounded-full"></div>
 <!--
         <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
 -->
-                <h2 class="text-xl mt-5 font-medium">
+                <h2 class="text-xl font-mediu text-center">
                     {{ artist.name }}
                 </h2>
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <DefaultLayout>
+    <DefaultLayout currentRoute="users">
         <form
             class="flex flex-col p-12 space-y-4 min-w-[350px] h-full gap-6"
             @submit.prevent="submit"

@@ -58,6 +58,7 @@
                 </div>
             </div>
 
+
             <TabsMenu @clickedTabNext="" @activeTab="updateActiveTab"/>
             <div class="relative mt-[-10px] z-10 w-full max-w-6xl h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                 <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col p-10">
@@ -147,7 +148,24 @@
                         <Btn class="col-[20/-1]" type="create" text="Add row" @click="dateAmount++"></Btn>
                     </div>
                 </div>
+                <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 w-full grid grid-cols-5 gap-12 flex-col p-10">
+                    <div class="col-span-3 pr-10">
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">SEO Title</label>
+                            <Input />
+                        </div>
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2 ">SEO Discription</label>
+                            <TextArea class="h-72 resize-none" placeholder="Write a SEO description here..." />
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
+
+
 
             <div class="flex justify-between">
                 <LinkBtn :type="'back'" to="events.index"/>
@@ -171,10 +189,12 @@ import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import Tab from "../../Components/Partials/Tab";
 import TabsMenu from "../../Components/Partials/TabsMenu";
+import TextArea from "../../Components/Partials/TextArea";
 
 export default {
     // included child components
     components: {
+        TextArea,
         TabsMenu,
         Tab,
         LinkBtn,
@@ -204,7 +224,7 @@ export default {
             openModal: false,
             activeTab: 'general',
             activeTabContent: false,
-            dateAmount: this.event[0].dates.length
+            dateAmount: this.event[0].dates.length === 0 ? 1 : this.event[0].dates.length,
         };
     },
     // actions on init

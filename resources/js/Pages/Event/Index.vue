@@ -2,48 +2,56 @@
     <DefaultLayout currentRoute="events">
         <div class="flex justify-between">
             <h1 class="font-bold text-3xl mb-8">Events</h1>
-            <button @click="openModal = !openModal">Create</button>
+            <Btn type="create" @click="openModal = !openModal">Create</Btn>
             <Teleport to="#app">
                 <CreateModal v-show="openModal" @close-modal="openModal = false"/>
             </Teleport>
         </div>
-        <p class="mb-8">
-            We've found
-            <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
-        </p>
-        <form @submit.prevent="submit">
-            <Input  v-model="filter.search" />
 
+        <form @submit.prevent="submit" class="mb-20">
+            <Input type="search" placeholder="Search for events, artists" v-model="filter.search" bg="bg-white" :class="'shadow w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]' "/>
         </form>
+
+        <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
+            <p>
+                We've found
+                <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
+            </p>
+            <div class="flex flex-row items-center gap-2.5">
+                <button @click="selectedButton = 'cards'"  :class="selectedButton === 'cards' ? 'text-primary' : 'text-gray-600'">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 18" fill="currentColor" class="w-5 h-5">
+                        <rect fill-rule="evenodd" y="10" width="6" height="8" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" x="8" y="10" width="6" height="8" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" x="16" y="10" width="6" height="8" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" x="16" width="6" height="8" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" x="8" width="6" height="8" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" width="6" height="8" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button @click="selectedButton = 'list'"  :class="selectedButton === 'list' ? 'text-primary' : 'text-gray-600'">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 15" fill="currentColor" class="w-5 h-5" >
+                        <rect fill-rule="evenodd" width="20" height="3" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" y="6" width="20" height="3" clip-rule="evenodd"/>
+                        <rect fill-rule="evenodd" y="12" width="20" height="3" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+
+
+
         <div class="flex flex-wrap gap-5">
-            <EventCard :event="event" v-for="event in events" />
-            <div class="w-full px-12 grid gap-4 grid-cols-7 text-xs">
-                <p class="col-span-2">Title</p>
-                <p class="col-span-1">Artist</p>
-                <p class="col-span-1 text-center">Events</p>
-                <p class="col-span-1 text-center">Sale date (start)</p>
-                <p class="col-span-1 text-center">Sale date (end)</p>
-                <p class="col-span-1 text-center">Public</p>
+            <EventCard :event="event" v-for="event in events" v-show="selectedButton === 'cards'"/>
+            <div v-show="selectedButton === 'list'" class="w-full px-12 grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] text-xs">
+                <p class="col-span-4">Title</p>
+                <p class="col-span-2">Artist</p>
+                <p class="col-span-2 text-center">Events</p>
+                <p class="col-span-3 text-center">Sale date (start)</p>
+                <p class="col-span-3 text-center">Sale date (end)</p>
+                <p class="col-span-2 text-center">Public</p>
             </div>
-            <div class="grid gap-4 grid-cols-7 items-center col-span-1 px-12 text-sm bg-white w-full h-24 rounded-2xl shadow-[0px_8px_21px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]" v-for="event in events">
-                <h2 class="col-span-2 font-semibold text-base">{{ event.title }}</h2>
-                <h3 class="col-span-1 font-semibold text-primary">{{ event.artist }}</h3>
-                <p class="col-span-1 text-center">32/32</p>
-                <div>
-                    <p class="col-span-1 text-center text-xs">{{ event.sale_start }}</p>
-                    <p class="col-span-1 text-center text-xs">7:00 AM</p>
-                </div>
-                <div>
-                    <p class="col-span-1 text-center text-xs">{{ event.sale_end }}</p>
-                    <p class="col-span-1 text-center text-xs">12:00 PM</p>
-                </div>
-                <div v-show="status" class="col-span-1 justify-self-center text-xs h-7 w-28 bg-success-bg flex justify-center items-center rounded-full">
-                    <p class="text-success font-bold">Published</p>
-                </div>
-                <div v-show="!status" class="col-span-1 justify-self-center text-xs h-7 w-28 bg-error-bg flex justify-center items-center rounded-full">
-                    <p class="text-error font-bold">Not published</p>
-                </div>
-            </div>
+            <EventList :event="event" v-for="event in events" v-show="selectedButton === 'list'" />
         </div>
 
 
@@ -58,10 +66,14 @@ import CreateModal from "../../Components/CreateModal";
 import {directive} from "vue3-click-away";
 import EventCard from "../../Components/Partials/EventCard";
 import Input from "../../Components/Partials/Input";
+import EventList from "../../Components/Partials/EventList";
+import Btn from "../../Components/Partials/Btn";
 
 export default {
     // included child components
     components: {
+        Btn,
+        EventList,
         Input,
         EventCard,
         CreateModal,
@@ -74,6 +86,7 @@ export default {
         events: Object,
         status: Boolean,
         request: Object,
+        type: String,
 
     },
      // custom set
@@ -85,6 +98,7 @@ export default {
             open: "",
             currentRoute: "",
             openModal: false,
+            selectedButton: 'cards',
         };
     },
     // methods

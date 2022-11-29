@@ -3,7 +3,7 @@
 
         <SideMenu :currentRoute="currentRoute" />
         <TopMenu />
-        <main class="bg-white-secondary  pt-36 pl-72 pr-20  min-h-screen h-full w-full">
+        <main class="bg-white-secondary  py-36  pl-72 pr-20  min-h-screen h-full w-full">
             <slot />
         </main>
     </div>

@@ -1,8 +1,10 @@
 <template>
-    <div class="col-span-1 bg-white w-72 h-80 rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
+    <div class="col-span-1 bg-white w-[15.8rem] h-80 rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
         <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
         <div class="text-white h-40 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-2.5 absolute top-0 left-0 w-full">
-            <PublishedStatus :status="event.public" />
+            <div class="absolute top-2.5 right-2.5 self-end">
+                <PublishedStatus :status="event.public" class=""/>
+            </div>
             <div class="flex flex-row justify-between">
                 <div>
                     <h2 class="font-semibold">{{ event.title }}</h2>

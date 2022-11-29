@@ -2,7 +2,8 @@
     <input
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
-        class="bg-white-secondary rounded px-2 py-1 text-gray-600 placeholder:text-placeholder"
+        class=" rounded px-2 py-1 text-gray-600 placeholder:text-placeholder"
+        :class="bg ? bg : 'bg-white-secondary' "
 
     />
 </template>
@@ -11,6 +12,7 @@
 export default {
     props:{
         modelValue: String,
+        bg: String,
     }
 }
 

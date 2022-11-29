@@ -15,9 +15,9 @@ enum Country: string
     public function name()
     {
         return match ($this) {
-            Country::DENMARK => 'denmark',
-            Country::SWEDEN => 'sweden',
-            Country::NORWAY => 'norway',
+            Country::DENMARK => 'Denmark',
+            Country::SWEDEN => 'Sweden',
+            Country::NORWAY => 'Norway',
         };
     }
 

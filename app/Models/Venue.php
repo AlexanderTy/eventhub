@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Venue whereVenue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Venue whereZipcode($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereName($value)
  */
 class Venue extends Model
 {

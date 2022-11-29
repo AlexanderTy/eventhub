@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VenueController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::group([
         Route::resource('users', UserController::class)->except('show');
         Route::resource('events', EventController::class);
         Route::resource('artists', ArtistController::class);
+        Route::resource('venues', VenueController::class);
         /*        Route::get('users', [UserController::class, 'index'])->name('users');
         Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');*/
     });

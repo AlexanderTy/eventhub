@@ -5,14 +5,25 @@
         <TopMenu />
         <main class="bg-white-secondary  py-36  pl-72 pr-20  min-h-screen h-full w-full">
             <slot />
+            <div aria-live="assertive" class="fixed inset-0 flex items-end p-4 z-30 pointer-events-none sm:items-start">
+                <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+                    <Notification
+                        v-if="$page.props.flash.success"
+                        @closed="$page.props.flash.success = null"
+                    >
+                        {{ $page.props.flash.success }}
+                    </Notification>
+                </div>
+            </div>
         </main>
     </div>
 </template>
 <script>
 import SideMenu from "../Components/SideMenu";
 import TopMenu from "../Components/TopMenu";
+import Notification from "../Components/Partials/Notification";
 export default {
-    components: {TopMenu, SideMenu },
+    components: {Notification, TopMenu, SideMenu },
     props: {
         currentRoute:{
             type: String,

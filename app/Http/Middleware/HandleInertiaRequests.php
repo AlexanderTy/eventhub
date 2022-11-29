@@ -38,10 +38,14 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+
         return array_merge(parent::share($request), [
             'ziggy' => (new Ziggy)->toArray(),
             'locale' => app()->getLocale(),
             'profile' => Auth::user(),
+            'flash' => [
+                'success' => fn () => ucfirst($request->session()->get('success')),
+            ],
         ]);
     }
 }

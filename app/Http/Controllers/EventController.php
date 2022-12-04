@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\Artist;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -71,16 +75,16 @@ class EventController extends Controller
      * @param Event $event
      * @return Response
      */
-    public function edit(Event $event): Response
+    public function edit(Event $event, Request $request): Response
     {
+        $event->load(['dates', 'artists']);
 
-
-
-        $event = Event::where('id', $event->id)->with('dates')->get();
         return Inertia::render(
             'Event/Edit',
             [
                 "event" => $event,
+                'request' => $request,
+
             ]
         );
     }
@@ -92,9 +96,13 @@ class EventController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateEventRequest $request, Event $event): \Inertia\Response |RedirectResponse
     {
-        //
+
+        $event->update(
+            $request->validated()
+        );
+        return redirect()->back();
     }
 
     /**

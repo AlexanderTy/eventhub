@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 
 /**
  * App\Models\Venue
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @method static \Illuminate\Database\Eloquent\Builder|Venue whereName($value)
  */
+
 class Venue extends Model
 {
     use HasFactory;
@@ -47,5 +49,30 @@ class Venue extends Model
         'longitude',
     ];
 
+    public function calculateCoordinates()
+    {
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($this->zipcode . ' ' . $this->city . ' ' . $this->country) . '&key=' . env('GOOGLE_API_KEY');
+        $data = Http::acceptJson()
+            ->get($url)
+            ->object();
 
+        $this->latitude = $data->results[0]->geometry->location->lat;
+        $this->longitude = $data->results[0]->geometry->location->lng;
+        $this->save();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Venue $venue) {
+            $venue->calculateCoordinates();
+        });
+
+        static::updating(function (Venue $venue) {
+            if ($venue->isDirty(['address', 'zipcode', 'city', 'country'])) {
+                $venue->calculateCoordinates();
+            }
+        });
+    }
 }

@@ -99,4 +99,17 @@ class ArtistController extends Controller
     {
         //
     }
+
+    /**
+     * Search artists and return array.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function search(Request $request)
+    {
+        return Artist::query()
+            ->where('name', 'LIKE', '%' . $request->search . '%')
+            ->get();
+    }
 }

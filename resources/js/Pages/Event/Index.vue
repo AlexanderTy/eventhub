@@ -90,7 +90,6 @@ export default {
     methods: {
         onClickAway(event) {
             this.open = "";
-            console.log("penis")
         },
         submit() {
             this.filter.get(this.$route('events.index'));

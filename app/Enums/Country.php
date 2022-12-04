@@ -7,9 +7,9 @@ enum Country: string
 {
     use Listable;
 
-    case DENMARK = 'denmark';
-    case SWEDEN = 'sweden';
-    case NORWAY = 'norway';
+    case DENMARK = 'DK';
+    case SWEDEN = 'SE';
+    case NORWAY = 'NO';
 
 
     public function name()

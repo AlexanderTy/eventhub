@@ -41,6 +41,8 @@ Route::group([
         Route::resource('users', UserController::class)->except('show');
         Route::resource('events', EventController::class);
         Route::resource('artists', ArtistController::class);
+        Route::get('artists-search', [ArtistController::class, 'search'])->name('artists.search');
+
         Route::resource('venues', VenueController::class);
         /*        Route::get('users', [UserController::class, 'index'])->name('users');
         Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');*/

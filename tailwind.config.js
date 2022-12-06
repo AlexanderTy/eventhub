@@ -21,6 +21,9 @@ module.exports = {
                 'error-bg': '#FCEBEA',
             },
         },
+        fontFamily: {
+            'custom': ['Urbanist', 'sans-serif']
+        }
     },
     plugins: [],
 }

@@ -115,14 +115,12 @@ import { directive } from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import Tab from "../../Components/Partials/Tab";
-import TabsMenu from "../../Components/Partials/TabsMenu";
 import TextArea from "../../Components/Partials/TextArea";
 
 export default {
     // included child components
     components: {
         TextArea,
-        TabsMenu,
         Tab,
         LinkBtn,
         Modal,

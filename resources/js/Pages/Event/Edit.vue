@@ -61,7 +61,11 @@
             </div>
 
 
-            <TabsMenu @clickedTabNext="" @activeTab="updateActiveTab"/>
+            <ul class="flex flex-row gap-2.5 z-0">
+                <Tab type="general" text="General" @tabClick="this.activeTab = 'general'"  :activeTab="activeTab"/>
+                <Tab type="dates" text="Dates & Venues" @tabClick="this.activeTab = 'dates'"  :activeTab="activeTab"/>
+                <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'"  :activeTab="activeTab"/>
+            </ul>
             <div class="relative mt-[-10px] z-10 w-full max-w-6xl h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                 <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col p-10">
                     <div class="col-span-3 pr-10">
@@ -206,7 +210,6 @@ import { directive } from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import Tab from "../../Components/Partials/Tab";
-import TabsMenu from "../../Components/Partials/TabsMenu";
 import TextArea from "../../Components/Partials/TextArea";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
@@ -215,7 +218,6 @@ export default {
     // included child components
     components: {
         TextArea,
-        TabsMenu,
         Tab,
         LinkBtn,
         Modal,

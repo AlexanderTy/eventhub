@@ -1,7 +1,7 @@
 <template>
     <div
         :class="closeSidemenu ? 'w-16' : 'w-52'"
-        class=" transition-all duration-500		z-20 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
+        class=" transition-all duration-500	z-30 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
     >
         <div class="w-14 h-auto absolute top-12 right-0 -mr-7">
             <ToggleSidemenuBtn

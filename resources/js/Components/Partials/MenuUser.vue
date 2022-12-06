@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center">
-        <div class="w-12 h-12 rounded-full bg-gray-500 cursor-pointer mr-4"></div>
+        <div class="w-9 h-9 rounded-full bg-gray-500 cursor-pointer mr-4"></div>
         <div class="text-black capitalize mr-5">
             <p class="text-sm font-semibold">
                 {{ $page.props.profile.first_name }} {{ $page.props.profile.last_name }}

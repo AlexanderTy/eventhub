@@ -3,7 +3,7 @@
 
         <SideMenu :currentRoute="currentRoute" />
         <TopMenu />
-        <main class="bg-white-secondary  py-36  pl-72 pr-20  min-h-screen h-full w-full">
+        <main class="bg-white-secondary  py-24  pl-72 pr-20  min-h-screen h-full w-full">
             <slot />
             <div aria-live="assertive" class="fixed inset-0 flex items-end p-4 z-30 pointer-events-none sm:items-start">
                 <div class="w-full flex flex-col items-center space-y-4 sm:items-end">

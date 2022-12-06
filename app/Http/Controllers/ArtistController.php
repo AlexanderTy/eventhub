@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtistRequest;
+use App\Http\Requests\UpdateArtistRequest;
 use App\Models\Artist;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -54,11 +55,18 @@ class ArtistController extends Controller
      * Display the specified resource.
      *
      * @param  Artist  $artist
-     * @return void
+     * @return Response
      */
-    public function show($id)
+    public function show(Artist $artist): Response
     {
-        //
+        $artist->load(['events']);
+
+        return  Inertia::render(
+            'Artist/Show',
+            [
+                "artist" => $artist,
+            ]
+        );
     }
 
     /**
@@ -84,9 +92,12 @@ class ArtistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateArtistRequest $request, Artist $artist): \Inertia\Response |RedirectResponse
     {
-        //
+        $artist->update(
+            $request->validated()
+        );
+        return redirect()->back();
     }
 
     /**

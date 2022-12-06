@@ -62,11 +62,18 @@ class EventController extends Controller
      * Display the specified resource.
      *
      * @param Event $event
-     * @return void
+     * @return Response
      */
-    public function show(Event $event)
+    public function show(Event $event): Response
     {
-        //
+        $event->load(['dates', 'artists']);
+
+        return Inertia::render(
+            'Event/Show',
+            [
+                "event" => $event,
+            ]
+        );
     }
 
     /**

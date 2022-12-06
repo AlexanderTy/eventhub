@@ -98,10 +98,16 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event): \Inertia\Response |RedirectResponse
     {
+        $event->update([
+            'title' => $request->title,
+            'sub_title' => $request->sub_title,
+            'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
+            'sale_end' => $request->sale_end_date . ' ' . $request->sale_end_time,
+        ]);
+        //save events->artists
+        $event->artists()->sync($request->artists);
+        //save dates to $event
 
-        $event->update(
-            $request->validated()
-        );
         return redirect()->back();
     }
 

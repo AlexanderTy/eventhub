@@ -108,29 +108,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-span-2">
-                        <div class="flex flex-col mb-7">
+                    <div class="col-span-2 h-fit" v-click-away="closeSearch">
+                        <div class="flex flex-col mb-7 relative">
                             <label class="text-xs text-g mb-2">Add artists</label>
-                            <Input type="searchArtists" v-model="artistFilter"  placeholder="Search for artists here..." @keyup="searchArtists"/>
-                            <button type="button" @click="searchArtists">search</button>
-                            <div v-show="showSearch">
-                                <ul>
-                                    <li v-for="(artist, index) in artistOptions"><button type="button" @click="selectArtist(artist)">{{artist.name}}</button></li>
+                            <Search v-model="artistFilter"  placeholder="Search for artists here..." @keyup="searchArtists" @click="searchArtists" :open="showSearch"/>
+
+                            <div v-show="showSearch" class="absolute top-full bg-white-secondary w-full px-4 max-h-72 overflow-y-auto " :class="showSearch ? 'rounded-b-md' : 'rounded-md ' ">
+                                <div class="border-t border-white mb-2"></div>
+
+                                <ul class="pb-2">
+                                    <li class="my-2" v-for="(artist, index) in artistOptions"><button type="button" @click="selectArtist(artist)">{{artist.name}}</button></li>
                                 </ul>
                             </div>
+
+
+
                         </div>
-                        <div class="flex flex-col mb-7">
+                        <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Added artists</label>
-                            <div class="max-h-[19.2rem] overflow-y-auto flex flex-col mb-7">
-                            <div class="flex justify-between items-center mb-4">
-                                <div class="flex flex-row items-center">
-                                    <div class="w-8 h-8 rounded-full bg-gray-500 mr-4"></div>
-                                    <p>Nikolaj Stokholm</p>
+                            <div class="max-h-[19.2rem] overflow-y-auto flex flex-col">
+                                <div class="flex justify-between items-center">
+                                    <ul class="">
+                                        <li class="flex flex-row items-center" v-for="artist in selectedArtists">
+                                            <div class="w-8 h-8 rounded-full bg-gray-500 mr-4"></div>
+                                            <p>{{artist.name}}</p>
+                                            <button type="button" @click="removeArtist(artist)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 cursor-pointer">
+                                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 cursor-pointer">
-                                    <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
                             </div>
 
                         </div>
@@ -190,8 +199,8 @@
                 <Btn :text="'save'" :type="'submit'" />
             </div>
 
-            {{ form.artists}}
-            {{ selectedArtists}}
+            {{ form.artists }}
+            {{ selectedArtists }}
         </form>
     </DefaultLayout>
 </template>
@@ -210,10 +219,12 @@ import TabsMenu from "../../Components/Partials/TabsMenu";
 import TextArea from "../../Components/Partials/TextArea";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+import Search from "../../Components/Partials/Search";
 
 export default {
     // included child components
     components: {
+        Search,
         TextArea,
         TabsMenu,
         Tab,
@@ -269,10 +280,23 @@ export default {
                 .get(this.$route('artists.search', { search: this.artistFilter }))
                 .then((res) => {
                     this.artistOptions = res.data;
+                    // remove selected artists from options
+                    this.artistOptions = this.artistOptions.filter(
+                        (x) => !this.selectedArtists.some((y) => y.id === x.id)
+                    );
+                    // if this.artistoptions is empty, show 'no artists found' message
+                        if (this.artistOptions.length === 0) {
+                            this.artistOptions = [{ id: 0, name: 'No artists found' }];
+                        }
+
                     this.showSearch = true;
                 })
         },
         selectArtist(artist) {
+            if (this.selectedArtists.some((x) => x.id === artist.id)) {
+                return;
+            }
+            this.searchArtists();
             this.form.artists.push(artist.id);
             this.selectedArtists.push(artist);
         },
@@ -296,9 +320,20 @@ export default {
                 })
             );
         },
+
         onClickAway(event) {
             this.open = false;
         },
+
+        closeSearch(event) {
+            this.showSearch = false;
+        },
+
+        removeArtist(artist) {
+            this.form.artists = this.form.artists.filter((x) => x !== artist.id);
+            this.selectedArtists = this.selectedArtists.filter((x) => x.id !== artist.id);
+        },
+
         addDate() {
             this.form.dates.push({
                 id: uuidv4(),

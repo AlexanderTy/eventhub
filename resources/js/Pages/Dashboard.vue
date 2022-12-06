@@ -21,6 +21,7 @@ export default {
     },
     // actions on init
     mounted() {
+
         this.myFirstFunction();
     },
     // methods

@@ -24,7 +24,11 @@ class UpdateEventRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'min:3'],
+            'title'           => ['required', 'min:3'],
+            'sale_start_date' => ['date_format:Y-m-d'],
+            'sale_start_time' => ['date_format:H:i'],
+
+
         ];
     }
 }

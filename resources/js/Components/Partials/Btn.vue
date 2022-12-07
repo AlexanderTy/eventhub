@@ -12,7 +12,7 @@
                 ? 'bg-primary hover:bg-red-700'
                 : 'bg-lb'
         "
-        class="rounded-md px-4 py-2 text-white capitalize text-base"
+        class="rounded-md px-4 py-2 text-white capitalize text-base flex flex-row items-center justify-center gap-2 rounded-full py-2 px-6 font-semibold"
         :type="type==='submit' ? 'submit' : 'button' "
     >
         {{ text ? text : type }}

@@ -16,7 +16,7 @@
         <DisplayButtons @btnClick="setSelectedButton"/>
         </div>
 
-        <div class="flex flex-wrap gap-5">
+        <div class="flex flex-wrap gap-3">
             <ArtistCard :artist="artist" v-for="artist in artists" v-show="selectedButton === 'cards'" />
 
             <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] w-full px-12 grid text-xs" v-show="selectedButton === 'list'">

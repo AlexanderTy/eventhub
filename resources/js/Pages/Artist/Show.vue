@@ -65,12 +65,12 @@
                         <Tab type="social media" text="Social Media" @tabClick="this.activeTab = 'social media'"  :activeTab="activeTab"/>
                         <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'"  :activeTab="activeTab"/>
                     </ul>
-                    <div class="relative mt-[-10px] min-h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                        <div v-show="activeTab === 'general'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">
-                            <div class="flex flex-row gap-11">
+                    <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                        <div v-show="activeTab === 'general'" class="absolute overflow-scroll top-0 left-0 h-full w-full p-8 flex flex-col gap-4">
+                            <div class="flex flex-row gap-6">
                                 <div class="bg-[url('/images/artist.png')] bg-cover w-40 h-40 rounded-full shrink-0"></div>
                                 <div>
-                                    <h2 class="text-xl font-bold mb-4 mt-2.5" >{{artist.name}}</h2>
+                                    <h2 class="text-xl font-bold mb-2 mt-2.5" >{{artist.name}}</h2>
                                     <label class="text-xs text-g mb-2">Short Description</label>
                                     <p>{{artist.description_short}}</p>
                                 </div>
@@ -84,7 +84,7 @@
                                 <p>{{artist.link_press}}</p>
                             </div>
                         </div>
-                        <div v-show="activeTab === 'social media'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">
+                        <div v-show="activeTab === 'social media'" class="absolute top-0 overflow-scroll left-0 h-full w-full p-8 flex flex-col gap-7">
                             <div>
                                 <label class="text-xs text-g mb-2">Website url</label>
                                 <p>{{ artist.link_website }}</p>
@@ -106,7 +106,7 @@
                                 <p>{{ artist.link_spotify }}</p>
                             </div>
                         </div>
-                        <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">
+                        <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 overflow-scroll  h-full w-full p-8 flex flex-col gap-7">
                             <div>
                                 <label class="text-xs text-g mb-2">SEO Title</label>
                                 <p>{{ artist.seo_title }}</p>
@@ -124,8 +124,8 @@
                     <Tab type="current" text="Current Events" @tabClick="this.secondaryActiveTab = 'current'"  :secondaryActiveTab="secondaryActiveTab"/>
                     <Tab type="previous" text="Previous Events" @tabClick="this.secondaryActiveTab = 'previous'"  :secondaryActiveTab="secondaryActiveTab"/>
                 </ul>
-                <div class="relative mt-[-10px] h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                    <div v-show="secondaryActiveTab === 'current'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 max-h-[550px] overflow-scroll">
+                <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                    <div v-show="secondaryActiveTab === 'current'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
                         <div v-for="event in artist.events" class="bg-white-secondary w-full h-24 rounded-md grid grid-cols-3">
                             <img alt="" class="rounded-l-md h-24 w-full col-span-1" src="/images/nikolaj_stokholm.jpg"/>
                             <div class="col-span-2 p-3 flex flex-col justify-between">
@@ -164,7 +164,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-show="secondaryActiveTab === 'previous'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 max-h-[550px]">
+                    <div v-show="secondaryActiveTab === 'previous'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
                         <div v-for="event in artist.events" class="bg-white-secondary w-full h-24 rounded-md grid grid-cols-3">
                             <img alt="" class="rounded-l-md h-24 w-full col-span-1" src="/images/nikolaj_stokholm.jpg"/>
                             <div class="col-span-2 p-3 flex flex-col justify-between">

@@ -7,56 +7,6 @@
                         {{ event.title }}
                     </h2>
                 </div>
-                <div v-click-away="onClickAway" class="relative">
-                    <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">
-                        <svg
-                            class="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </button>
-                    <div
-                        v-show="open"
-                        class="absolute right-0 border rounded p-1 whitespace-nowrap flex flex-col gap-2 text-left"
-                    >
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
-                            Option 1
-                        </button>
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
-                            Option 2
-                        </button>
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-red-700 text-sm"
-                            type="button"
-                            @click="openModal = true"
-                        >
-                            Delete
-                        </button>
-                        <!--                        <Teleport to="#app">
-
-                                                    <Modal
-                                                        v-show="openModal"
-                                                        :text="'Are you sure you want to delete'"
-                                                        :type="'event'"
-                                                        @close-modal="openModal = false"
-                                                        @action-modal="deleteEvent"
-                                                    />
-                                                </Teleport>-->
-                    </div>
-                </div>
             </div>
             <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-3">
                 <div class="col-span-2">
@@ -82,18 +32,30 @@
                             </div>
                         </div>
                         <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">
-
+                            <div>
+                                <label class="text-xs text-g mb-2">SEO Title</label>
+                                <p>{{ event.seo_title }}</p>
+                            </div>
+                            <div>
+                                <label class="text-xs text-g mb-2">SEO Description</label>
+                                <p>{{ event.seo_description }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-span-1 relative mt-[34px] 2xl:h-[550px] xl:h-[450px] p-5 bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                     <img alt="" class="rounded-lg h-48 w-full" src="/images/nikolaj_stokholm.jpg"/>
-                    <div class="p-3">
-                        <h2 class="font-bold text-xl">{{ event.title }}</h2>
-                        <h3 class="">{{ event.sub_title }}</h3>
-                        <p class="font-sm mt-3"> af
+                    <div class="p-3 pt-5 pt-1 flex flex-row justify-between">
+                        <div>
+                            <h2 class="font-bold text-xl">{{ event.title }}</h2>
+                            <h3 class="text-gray-400 text-sm">{{ event.sub_title }}</h3>
+                        </div>
+                    </div>
+                    <div class="px-3">
+                        <p class="font-sm"> af
                             <span v-for="artist in event.artists" class="text-primary font-bold">{{artist.name}}</span>
                         </p>
+                        <p class="text-sm xl:mb-5 2xl:mb-12">32 out of 32 events</p>
 
                             <div class="flex justify-between">
                                 <div>
@@ -107,7 +69,7 @@
                                 </div>
                                 <div class="self-center">-</div>
                                 <div>
-                                    <label class="text-xs">Start Date</label>
+                                    <label class="text-xs">End Date</label>
                                     <p>
                                         {{ $date(event.sale_end) }}
                                     </p>
@@ -133,12 +95,14 @@ import DefaultLayout from "../../Layouts/DefaultLayout";
 import Modal from "../../Components/Modal";
 import { directive } from "vue3-click-away";
 import Tab from "../../Components/Partials/Tab";
+import {Link} from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
         Tab,
         DefaultLayout,
         Modal,
+        Link,
     },
     props: {
         event: Object,

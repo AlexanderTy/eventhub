@@ -1,20 +1,22 @@
 <template>
-    <div class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-24 rounded-2xl shadow-[0px_8px_21px_rgba(0,0,0,0.25)] cursor-pointer">
-        <h2 class="col-span-4 font-semibold text-base">{{ event.title }}</h2>
-        <h3 v-for="artist in event.artists"
-            class="col-span-2 font-semibold text-primary">
-            {{ artist.name }}
-        </h3>
-        <p class="col-span-2 text-center">32/32</p>
+    <div class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
+        <div class="col-span-4 flex flex-col">
+            <h2 class=" font-semibold text-base">{{ event.title }}</h2>
+            <h3 v-for="artist in event.artists"
+                class="text-primary">
+                {{ artist.name }}
+            </h3>
+        </div>
+        <p class="col-span-3 text-center">32/32</p>
         <div class="col-span-3">
-            <p class="text-center text-xs">{{ $date(event.sale_start) }}</p>
-            <p class="text-center text-xs">{{ $time(event.sale_start) }}</p>
+            <p class="text-center">{{ $date(event.sale_start) }}</p>
+            <p class="text-center">{{ $time(event.sale_start) }}</p>
         </div>
         <div class="col-span-3">
-            <p class="text-center text-xs">{{ $date(event.sale_end) }}</p>
-            <p class="text-center text-xs">{{ $time(event.sale_end) }}</p>
+            <p class="text-center">{{ $date(event.sale_end) }}</p>
+            <p class="text-center">{{ $time(event.sale_end) }}</p>
         </div>
-        <div class="col-span-2">
+        <div class="col-span-3 m-auto">
             <PublishedStatus :status="event.public"/>
         </div>
         <div class="relative col-span-1 justify-self-end">

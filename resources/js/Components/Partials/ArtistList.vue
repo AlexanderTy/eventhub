@@ -1,6 +1,6 @@
 <template>
-    <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-24 rounded-2xl shadow-[0px_8px_21px_rgba(0,0,0,0.25)] cursor-pointer">
-        <div class="bg-[url('/images/artist.png')] col-span-2 bg-cover w-14 h-14 rounded-full"></div>
+    <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
+        <div class="bg-[url('/images/artist.png')] col-span-2 bg-cover w-10 h-10 rounded-full"></div>
         <h2 class="col-span-5 text-lg font-semibold">{{ artist.name }}</h2>
         <p class="col-span-7">{{ artist.description_short }}</p>
         <p class="col-span-3 self-center text-center">32</p>

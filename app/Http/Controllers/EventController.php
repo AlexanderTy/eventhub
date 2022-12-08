@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DateStatus;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\Artist;
+use App\Models\Date;
 use App\Models\Event;
-use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,6 +32,11 @@ class EventController extends Controller
                         ->orWhere('sub_title', 'LIKE', '%' . $request->search . '%');
                 });
         }
+
+        if (!empty($request->filter)) {
+            $query->where('status', $request->filter);
+        }
+
         $events = $query->with('artists')->get();
 
         return Inertia::render(
@@ -84,14 +89,18 @@ class EventController extends Controller
      */
     public function edit(Event $event, Request $request): Response
     {
-        $event->load(['dates', 'artists']);
-
+        $event->load([
+            'dates' => fn($query) => $query->with('venue'),
+            'artists',
+        ]);
+        $venueOptions = Venue::all();
         return Inertia::render(
             'Event/Edit',
             [
-                "event" => $event,
-                'request' => $request,
-
+                "event"      => $event,
+                'request'    => $request,
+                "dateStatus" => DateStatus::list(),
+                "venueOptions" => $venueOptions,
             ]
         );
     }
@@ -103,19 +112,54 @@ class EventController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEventRequest $request, Event $event): \Inertia\Response |RedirectResponse
+    public function update(UpdateEventRequest $request, Event $event): \Inertia\Response|RedirectResponse
     {
+/*        $event->update($request->safe()->merge([
+            'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
+            'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
+        ]));*/ //->toArray()
         $event->update([
             'title' => $request->title,
             'sub_title' => $request->sub_title,
             'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
             'sale_end' => $request->sale_end_date . ' ' . $request->sale_end_time,
         ]);
+
         //save events->artists
         $event->artists()->sync($request->artists);
-        //save dates to $event
+
+        $dates = $event->dates;
+        $items = [];
+        $now = now();
+
+        foreach ($request->dates as $item) {
+
+            $item = (object) $item;
+            $date = null;
+
+            if (! ($item->is_new ?? false)) {
+                $date = $dates->firstWhere('id', $item->id);
+            }
+
+            if (! $date) {
+                $date = new Date;
+            }
+
+            $date->fill([
+                'status' => $item->status,
+                // ...
+            ]);
+
+            $date->updateTimestamps();
+            $items[] = $date;
+
+        }
+
+        $event->dates()->saveMany($items);
+        $event->dates()->where('updated_at', '<', $now)->delete();
 
         return redirect()->back();
+
     }
 
     /**

@@ -10,7 +10,7 @@
                     <Notification
                         v-if="$page.props.flash.success"
                         @closed="$page.props.flash.success = null"
-                    >2
+                    >
                         {{ $page.props.flash.success }}
                     </Notification>
                 </div>

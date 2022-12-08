@@ -24,12 +24,12 @@ class UpdateVenueRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'zipcode' => ['required'],
-            'city' => ['required'],
-            'country' => ['required'],
-            'latitude' => ['required'],
-            'longitude' => ['required'],
+            'name' => 'required|nullable|string',
+            'address' => 'nullable|string',
+            'zipcode' => 'nullable|string',
+            'city' => 'nullable|string',
+            'country' => 'nullable|string',
+
         ];
     }
 }

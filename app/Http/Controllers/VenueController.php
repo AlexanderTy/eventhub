@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Enums\Country;
 use App\Enums\UserRole;
 use App\Http\Requests\UpdateVenueRequest;
+use App\Models\Artist;
 use App\Models\Venue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -64,7 +66,7 @@ class VenueController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Venue $venue
      * @return \Inertia\Response
      */
     public function edit(Venue $venue): \Inertia\Response
@@ -81,6 +83,7 @@ class VenueController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateVenueRequest $request
+     * @param Venue $venue
      * @return \Inertia\Response|RedirectResponse
      */
     public function update(UpdateVenueRequest $request, Venue $venue):  \Inertia\Response|RedirectResponse
@@ -98,5 +101,12 @@ class VenueController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request): Collection|array
+    {
+        return Venue::query()
+            ->where('name', 'LIKE', '%' . $request->search . '%')
+            ->get();
     }
 }

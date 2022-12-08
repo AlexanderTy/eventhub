@@ -1,13 +1,19 @@
 <template>
     <DefaultLayout currentRoute="venues">
-        <form class="flex flex-col min-w-[350px] h-full" @submit.prevent="submit">
+        <form
+            class="flex flex-col min-w-[350px] h-full"
+            @submit.prevent="submit"
+        >
             <div class="flex justify-between">
                 <div class="flex items-center mb-12">
-                    <h2 class="font-bold text-2xl capitalize">
-                    </h2>
+                    <h2 class="font-bold text-2xl capitalize"></h2>
                 </div>
                 <div v-click-away="onClickAway" class="relative">
-                    <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">
+                    <button
+                        class="hover:bg-gray-100 rounded py-1"
+                        type="button"
+                        @click="open = !open"
+                    >
                         <svg
                             class="w-6 h-6"
                             fill="none"
@@ -57,13 +63,20 @@
                 </div>
             </div>
 
-
-            <div class="relative mt-[-10px] z-10 w-full max-w-6xl h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                <div class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col p-10">
+            <div
+                class="relative mt-[-10px] z-10 w-full max-w-6xl h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+            >
+                <div
+                    class="absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col p-10"
+                >
                     <div class="col-span-3 pr-10">
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">Name</label>
                             <Input v-model="form.name" />
+                        </div>
+                        <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Address</label>
+                            <Input v-model="form.address" />
                         </div>
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">Zipcode</label>
@@ -75,28 +88,17 @@
                         </div>
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">Country</label>
-                            <Select v-model="form.country" :options="countries" />
-                        </div>
-                        <div class="flex flex-col mb-7">
-                            <label class="text-xs text-g mb-2">Latitude</label>
-                            <Input v-model="form.latitude" />
-                        </div>
-                        <div class="flex flex-col mb-7">
-                            <label class="text-xs text-g mb-2">Longitude</label>
-                            <Input v-model="form.longitude" />
+                            <Select
+                                v-model="form.country"
+                                :options="countries"
+                            />
                         </div>
                     </div>
-
                 </div>
-
-
-
             </div>
 
-
-
             <div class="flex justify-between">
-                <LinkBtn :type="'back'" to="venues.index"/>
+                <LinkBtn :type="'back'" to="venues.index" />
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
@@ -140,11 +142,10 @@ export default {
         return {
             form: this.$inertia.form({
                 name: this.venue.name,
+                address: this.venue.address,
                 zipcode: this.venue.zipcode,
-                city:  this.venue.city,
-                country:  this.venue.country,
-                latitude:  this.venue.latitude,
-                longitude:  this.venue.longitude,
+                city: this.venue.city,
+                country: this.venue.country,
             }),
             open: false,
             openModal: false,
@@ -153,9 +154,8 @@ export default {
 
     // methods
     methods: {
-
-        updateActiveTab(e){
-          this.activeTab = e;
+        updateActiveTab(e) {
+            this.activeTab = e;
         },
 
         submit() {

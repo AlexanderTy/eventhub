@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\DateStatus;
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,10 +62,18 @@ class Date extends Model
         'label',
         'note',
     ];
+    protected $casts = [
+        'status'=> DateStatus::class,
+    ];
+
 
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
+    }
+    public function venue(): BelongsTo
+    {
+        return $this->belongsTo(Venue::class);
     }
 }
 

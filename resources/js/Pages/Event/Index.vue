@@ -4,6 +4,11 @@
             <h1 class="font-bold text-3xl">Events</h1>
             <form @submit.prevent="submit" class="">
                 <Input type="search" placeholder="Search for events, artists" v-model="filter.search" bg="bg-white" :class="'shadow w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]' "/>
+                <select v-model="filter.filter" @update:modelValue="submit" class="shadow w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]">
+                    <option value="">All</option>
+                    <option value="public">Public</option>
+                </select>
+
             </form>
             <Btn type="create" @click="openModal = !openModal">
                 Create
@@ -73,12 +78,14 @@ export default {
         request: Object,
         type: String,
 
+
     },
      // custom set
      data() {
         return {
             filter: this.$inertia.form({
                 search: this.request.search,
+                filter: this.request.filter,
             }),
             open: "",
             currentRoute: "",

@@ -3,7 +3,7 @@
         <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
         <div class="text-white h-40 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-2.5 absolute top-0 left-0 w-full">
             <div class="absolute top-2.5 right-2.5 self-end">
-                <PublishedStatus :status="event.public" class=""/>
+                <PublishedStatus :status="event.public" />
             </div>
             <div class="flex flex-row justify-between">
                 <div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArtistRequest;
 use App\Http\Requests\UpdateArtistRequest;
 use App\Models\Artist;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -115,9 +117,9 @@ class ArtistController extends Controller
      * Search artists and return array.
      *
      * @param Request $request
-     * @return void
+     * @return Artist[]|Builder[]|Collection
      */
-    public function search(Request $request)
+    public function search(Request $request): Collection|array
     {
         return Artist::query()
             ->where('name', 'LIKE', '%' . $request->search . '%')

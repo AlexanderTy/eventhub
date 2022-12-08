@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -33,6 +34,10 @@ use Illuminate\Support\Facades\Http;
  * @mixin \Eloquent
  * @property string $name
  * @method static \Illuminate\Database\Eloquent\Builder|Venue whereName($value)
+ * @property string|null $address
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Date[] $dates
+ * @property-read int|null $dates_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereAddress($value)
  */
 
 class Venue extends Model
@@ -41,6 +46,7 @@ class Venue extends Model
 
     protected $fillable = [
         'name',
+        'address',
         'zipcode',
         'city',
         'country',
@@ -51,7 +57,7 @@ class Venue extends Model
 
     public function calculateCoordinates()
     {
-        $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($this->zipcode . ' ' . $this->city . ' ' . $this->country) . '&key=' . env('GOOGLE_API_KEY');
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($this->zipcode . ' ' . $this->city . ' ' . $this->country) . '&key=' . config('integrations.google.geocoding_api_key');
         $data = Http::acceptJson()
             ->get($url)
             ->object();
@@ -61,18 +67,19 @@ class Venue extends Model
         $this->save();
     }
 
-    protected static function boot()
+  /*  protected static function boot()
     {
         parent::boot();
-
-        static::creating(function (Venue $venue) {
-            $venue->calculateCoordinates();
-        });
 
         static::updating(function (Venue $venue) {
             if ($venue->isDirty(['address', 'zipcode', 'city', 'country'])) {
                 $venue->calculateCoordinates();
             }
         });
+    }*/
+
+    public function dates(): HasMany
+    {
+        return $this->hasMany(Date::class);
     }
 }

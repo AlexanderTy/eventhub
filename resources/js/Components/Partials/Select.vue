@@ -3,7 +3,7 @@
     <select
         @change="$emit('update:modelValue', $event.target.value)"
         v-model="modelValue"
-        class="border w-full rounded h-full w-full shadow px-2 py-1 cursor-pointer"
+        class="h-8 rounded w-full px-2 py-1 cursor-pointer bg-white-secondary text-gray-600 placeholder:text-placeholder"
     >
         <option v-for="(value, key) in options" :key="key" :value="key" >{{ value }}</option>
     </select>

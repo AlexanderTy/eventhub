@@ -9,18 +9,28 @@
         </div>
         <p class="mb-8">
             We've found
-            <span class="text-primary font-semibold"> venues</span> <span></span>
+            <span class="text-primary font-semibold"> {{ venues.length }} </span> <span> {{ venues.length === 1 ? "venue" : "venues" }}</span>
         </p>
 <!--        <form @submit.prevent="submit">
             <Input  v-model="filter.search" />
 
         </form>-->
+
+
         <div class="flex flex-wrap gap-3">
-            <div class="grid gap-4 grid-cols-8 items-center col-span-1 px-12 bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]" v-for="venue in venues">
-                <p class="col-span-1 text-base">{{ venue.id }}</p>
-                <h3 class="col-span-2 font-semibold text-lg text-primary">{{ venue.name }}</h3>
-                <p class="col-span-2 text-center capitalize">{{ venue.city }}</p>
-                <p class="col-span-2 text-center capitalize">{{venue.country}}</p>
+            <div class="grid gap-4 grid-cols-7 text-xs items-center px-12 w-full">
+                <p class="col-span-2">Name</p>
+                <p class="col-span-2">Address</p>
+                <p class="col-span-2">Country</p>
+            </div>
+            <div class="grid gap-4 grid-cols-7 text-sm items-center col-span-1 px-12 bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]"
+                 v-for="venue in venues">
+                <h2 class="col-span-2 font-semibold text-lg">{{ venue.name }}</h2>
+                <div class="col-span-2">
+                    <p class="capitalize">{{ venue.address }}</p>
+                    <p>{{ venue.zipcode }} {{ venue.city }}</p>
+                </div>
+                <p class="col-span-2 capitalize">{{venue.country}}</p>
                <Link class="col-span-1" :href="$route('venues.edit', { venue: venue.id, })" >
                    Edit
                </Link>

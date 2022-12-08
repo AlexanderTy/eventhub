@@ -2,9 +2,9 @@
     <div class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <div class="col-span-4 flex flex-col">
             <h2 class=" font-semibold text-base">{{ event.title }}</h2>
-            <h3 v-for="artist in event.artists"
-                class="text-primary">
-                {{ artist.name }}
+            <h3 v-for="artist in event.artists">
+                by
+                <span class="text-primary font-semibold"> {{ artist.name }}</span>
             </h3>
         </div>
         <p class="col-span-3 text-center">32/32</p>

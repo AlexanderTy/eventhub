@@ -87,7 +87,7 @@
                 />
             </ul>
             <div
-                class="relative mt-[-10px] z-10 w-full max-w-6xl h-[450px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                class="relative mt-[-10px] z-10 w-full max-w-6xl xl:h-[450px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
             >
                 <div
                     v-show="activeTab === 'general'"
@@ -303,6 +303,7 @@
                                 <!--
                                 <Input class="col-span-3" :modelValue="date.venue?.name" @update:modelValue="date.venue.name = $event" />
 -->
+
                                 <Search
                                     v-model="venueSearchInputs[date.id]"
                                     placeholder="Search for venues here..."

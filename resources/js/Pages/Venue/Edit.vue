@@ -5,8 +5,8 @@
             @submit.prevent="submit"
         >
             <div class="flex justify-between">
-                <div class="flex items-center mb-12">
-                    <h2 class="font-bold text-2xl capitalize"></h2>
+                <div class="flex items-center 2xl:mb-12 xl:mb-5">
+                    <h2 class="font-bold text-2xl capitalize">{{ venue.name }} - {{ venue.city }}</h2>
                 </div>
                 <div v-click-away="onClickAway" class="relative">
                     <button
@@ -64,29 +64,31 @@
             </div>
 
             <div
-                class="relative mt-[-10px] z-10 w-full max-w-6xl h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                class="relative z-10 w-full max-w-6xl xl:h-[450px] 2XL:h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
             >
                 <div
-                    class="absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col p-10"
+                    class="absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col xl:px-10 xl:py-6"
                 >
-                    <div class="col-span-3 pr-10">
-                        <div class="flex flex-col mb-7">
+                    <div class="col-span-3 pr-10 flex flex-col xl:gap-6 2xl:gap-7">
+                        <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Name</label>
                             <Input v-model="form.name" />
                         </div>
-                        <div class="flex flex-col mb-7">
+                        <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Address</label>
                             <Input v-model="form.address" />
                         </div>
-                        <div class="flex flex-col mb-7">
-                            <label class="text-xs text-g mb-2">Zipcode</label>
-                            <Input v-model="form.zipcode" />
+                        <div class="grid grid-cols-4 gap-5">
+                            <div class="flex flex-col col-span-1">
+                                <label class="text-xs text-g mb-2">Zipcode</label>
+                                <Input v-model="form.zipcode" />
+                            </div>
+                            <div class="flex flex-col col-span-3">
+                                <label class="text-xs text-g mb-2">City</label>
+                                <Input v-model="form.city" />
+                            </div>
                         </div>
-                        <div class="flex flex-col mb-7">
-                            <label class="text-xs text-g mb-2">City</label>
-                            <Input v-model="form.city" />
-                        </div>
-                        <div class="flex flex-col mb-7">
+                        <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Country</label>
                             <Select
                                 v-model="form.country"

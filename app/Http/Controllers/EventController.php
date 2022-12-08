@@ -71,7 +71,11 @@ class EventController extends Controller
      */
     public function show(Event $event): Response
     {
-        $event->load(['dates', 'artists']);
+        $event->load(
+            [
+                'dates' => fn($query) => $query->with('venue'),
+                'artists'
+            ]);
 
         return Inertia::render(
             'Event/Show',

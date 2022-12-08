@@ -23,9 +23,10 @@
                                         <p class="text-2xl font-bold">{{ $date(date.date, 'DD') }}</p>
                                         <p class="text-xs">{{ $date(date.date, 'YYYY') }}</p>
                                     </div>
-                                    <div class="self-start flex flex-col gap-0.5">
+                                    <div class="self-start flex flex-col gap-1">
                                         <p class="text-sm">{{ $date(date.date, 'dddd') }} {{ $time(date.date) }} - 15:00</p>
-                                        <h3 class="h-8 font-semibold text-xl">Lille VEGA - København</h3>
+                                        <h3 class="font-semibold text-xl">{{ date.venue.name }} - {{ date.venue.city }}</h3>
+                                        <p class="text-xs">{{ date.venue.country }}</p>
                                     </div>
                                 </div>
                                 <div class="bg-success text-success-bg font-semibold px-6 py-1 w-28 rounded-full flex items-center justify-center">{{ date.status }}</div>
@@ -52,7 +53,7 @@
                         </div>
                     </div>
                     <div class="px-3">
-                        <p class="font-sm"> af
+                        <p class="font-sm"> by
                             <span v-for="artist in event.artists" class="text-primary font-bold">{{artist.name}}</span>
                         </p>
                         <p class="text-sm xl:mb-5 2xl:mb-12">32 out of 32 events</p>

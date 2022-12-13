@@ -1,77 +1,70 @@
 <template>
     <DefaultLayout :currentRoute="'users'">
-        <div class="flex justify-between w-full mb-12">
+        <div class="flex justify-between w-full mb-8">
             <h1 class="text-3xl font-bold">Users</h1>
             <LinkBtn :type="'create'" :to="'users.create'" :btn-type="'link'"/>
         </div>
-        <section class="h-full">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2 text-left">Email</th>
-                    <th class="px-4 py-2 text-left">First name</th>
-                    <th class="px-4 py-2 text-left">Last name</th>
-                    <th class="px-4 py-2 text-left">Role</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="user in users">
-                    <td class="px-4 py-2">
-                        {{ user.email }}
-                    </td>
-                    <td class="px-4 py-2">
-                        {{ user.first_name }}
-                    </td>
-                    <td class="px-4 py-2">
-                        {{ user.last_name }}
-                    </td>
-                    <td class="px-4 py-2">
-                        {{ user.role }}
-                    </td>
-                    <td>
-                        <Link
-                            :href="
-                                $route('users.edit', {
-                                    user: user.id,
-                                })
-                            "
-                            class="text-sm text-amber-500 hover:text-amber-700 hover:underline"
-                            >Edit
-                        </Link>
 
-                    </td>
-                </tr>
-            </tbody>
-        </section>
+        <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
+            <p class="">
+                We've found
+                <span class="text-primary font-semibold">{{ users.length }} </span> <span> {{ users.length === 1 ? "artist" : "artists" }}</span>
+            </p>
+            <DisplayButtons @btnClick="setSelectedButton"/>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+            <UserCard :user="user" v-for="user in users" v-show="selectedButton === 'cards'"/>
+            <UserList :user="user" v-for="user in users" v-show="selectedButton === 'list'"/>
+        </div>
+
     </DefaultLayout>
 </template>
 
 <script>
-import { Link } from "@inertiajs/inertia-vue3";
 import DefaultLayout from "../../Layouts/DefaultLayout";
-import Btn from "../../Components/Partials/Btn";
+import {Link} from "@inertiajs/inertia-vue3";
+import {directive} from "vue3-click-away";
 import LinkBtn from "../../Components/Partials/LinkBtn";
+import DisplayButtons from "../../Components/Partials/DisplayButtons";
+import UserCard from "../../Components/Partials/UserCard";
+import UserList from "../../Components/Partials/UserList";
 
 export default {
     // included child components
     components: {
-        LinkBtn,
-        Btn,
+        UserList,
+        UserCard,
+        DisplayButtons,
         DefaultLayout,
         Link,
+        LinkBtn,
     },
     // passed from controller
     props: {
         users: Object,
-
     },
     // custom set
     data() {
         return {
-            currentRoute: '',
+            open: false,
+            currentRoute: "",
+            openModal: false,
+            selectedButton: 'cards',
         };
     },
-    // actions on init
-
     // methods
-};
+    methods: {
+        onClickAway(user) {
+            this.open = false;
+        },
+        setSelectedButton(e){
+            this.selectedButton = e;
+        },
+    },
+    // directives
+    directives: {
+        ClickAway: directive,
+    },
+}
 </script>

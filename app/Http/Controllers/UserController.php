@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use App\Http\Requests\AuthenticateLoginRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateUserSettingsRequest;
 use App\Models\Artist;
 use App\Models\Date;
 use App\Models\Event;
@@ -134,5 +135,14 @@ class UserController extends Controller
 
         $user->delete();
         return redirect()->route('users.index');
+    }
+    public function saveSettings( UpdateUserSettingsRequest $request): RedirectResponse
+    {
+      // only update user field 'settings' to request
+        //get logged in user
+        $user = Auth::user();
+        $user->settings = json_encode($request->validated());
+        $user->save();
+        return redirect()->back();
     }
 }

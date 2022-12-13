@@ -34,7 +34,7 @@ class EventController extends Controller
         }
 
         if (!empty($request->filter)) {
-            $query->where('status', $request->filter);
+            $query->where($request->filter, true);
         }
 
         $events = $query->with('artists')->get();

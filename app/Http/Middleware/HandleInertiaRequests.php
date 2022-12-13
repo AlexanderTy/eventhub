@@ -42,7 +42,8 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'ziggy' => (new Ziggy)->toArray(),
             'locale' => app()->getLocale(),
-            'profile' => Auth::user(),
+            'profile' => Auth::user()->without('settings'),
+            'settings' => json_decode(Auth::user()->settings),
             'flash' => [
                 'success' => fn () => ucfirst($request->session()->get('success')),
             ],

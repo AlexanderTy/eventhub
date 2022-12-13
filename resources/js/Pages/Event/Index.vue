@@ -4,10 +4,13 @@
             <h1 class="font-bold text-3xl">Events</h1>
             <form @submit.prevent="submit" class="flex flex-row gap-7">
                 <Input type="search" placeholder="Search for events, artists" v-model="filter.search" bg="bg-white" :class="'shadow w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]' "/>
-                <select v-model="filter.filter" @update:modelValue="submit" class="shadow rounded w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]">
-                    <option value="">All</option>
-                    <option value="public">Public</option>
-                </select>
+                <Select multiple
+                    class="shadow rounded w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]"
+                    :options="{'': 'All', 'public': 'Public'}"
+                    @update:modelValue="submit"
+                />
+
+
             </form>
             <Btn type="create" @click="openModal = !openModal">
                 Create
@@ -56,10 +59,12 @@ import Input from "../../Components/Partials/Input";
 import EventList from "../../Components/Partials/EventList";
 import Btn from "../../Components/Partials/Btn";
 import DisplayButtons from "../../Components/Partials/DisplayButtons";
+import Select from "../../Components/Partials/Select";
 
 export default {
     // included child components
     components: {
+        Select,
         DisplayButtons,
         Btn,
         EventList,
@@ -97,7 +102,8 @@ export default {
         onClickAway(event) {
             this.open = "";
         },
-        submit() {
+        submit(event) {
+            this.filter.filter = event;
             this.filter.get(this.$route('events.index'));
         },
         setSelectedButton(e){

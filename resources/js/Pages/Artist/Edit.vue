@@ -57,7 +57,6 @@
                     </div>
                 </div>
             </div>
-
             <ul class="flex flex-row gap-2.5 z-0">
                 <Tab type="general" text="General" @tabClick="this.activeTab = 'general'"  :activeTab="activeTab"/>
                 <Tab type="social media" text="Social Media" @tabClick="this.activeTab = 'social media'"  :activeTab="activeTab"/>
@@ -66,30 +65,7 @@
             <div class="relative mt-[-10px] z-10 w-full max-w-6xl min-h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                 <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-2 pr-10 flex flex-col gap-5">
-                        <div>
-                            <div class="flex flex-col">
-                                <label class="text-xs text-g mb-2">Upload image</label>
-                                <div class="pb-5 flex flex-col justify-center items-center text-gray-600 bg-white-secondary h-36 rounded border border-dashed border-gray-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 20" fill="currentColor" class="w-16 h-16 text-tab-secondary">
-                                            <path fill-rule="evenodd" d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
-                                        </svg>
-                                        <p>Drag & drop image</p>
-                                    <p class="text-xs">Or <span class="text-primary cursor-pointer hover:underline underline-offset-2">upload an image</span> from the computer</p>
-                                </div>
-                            </div>
-                            <div class="px-3 flex flex-row items-center mt-4 justify-between text-gray-600">
-                                <div class="flex flex-row gap-3 items-center">
-                                    <div class="bg-[url('/images/artist.png')] col-span-2 bg-cover w-10 h-10 rounded-full"></div>
-                                    <div>
-                                        <p class="text-sm mb-1">nikolaj_stokholm_2022.jpg</p>
-                                        <p class="text-xs">749,23 Mb</p>
-                                    </div>
-                                </div>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
+                        <ImageUpload @imageUploaded="setImage" :image="this.form.image" @imageRemoved="this.form.image = ''" />
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Name</label>
                             <Input v-model="form.name" />
@@ -146,7 +122,6 @@
                 </div>
             </div>
 
-
             <div class="flex justify-between">
                 <LinkBtn :type="'back'" to="artists.index"/>
 
@@ -168,10 +143,12 @@ import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import TextArea from "../../Components/Partials/TextArea";
 import Tab from "../../Components/Partials/Tab";
+import ImageUpload from "../../Components/Partials/ImageUpload";
 
 export default {
     // included child components
     components: {
+        ImageUpload,
         TextArea,
         Tab,
         LinkBtn,
@@ -191,6 +168,7 @@ export default {
         return {
             form: this.$inertia.form({
                 name: this.artist.name,
+                image: this.artist.image,
                 description_short: this.artist.description_short,
                 description_long: this.artist.description_long,
                 link_facebook: this.artist.link_facebook,
@@ -206,6 +184,7 @@ export default {
             openModal: false,
             activeTab: 'general',
             activeTabContent: false,
+            theImage: '',
         };
     },
     // actions on init
@@ -232,6 +211,10 @@ export default {
                     })
                 );
         },
+        setImage(event) {
+            this.form.image = event;
+            this.theImage = event.name;
+        },
 
         deleteEvent() {
             this.$inertia.delete(
@@ -243,6 +226,7 @@ export default {
         onClickAway(event) {
             this.open = false;
         },
+
     },
     directives: {
         ClickAway: directive,

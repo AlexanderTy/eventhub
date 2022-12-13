@@ -3,7 +3,7 @@
         <div class="border-t border-white mb-2 "></div>
 
         <ul class="pb-2">
-            <li class="my-2" v-for="(option, index) in options"><button type="button" >{{option.name}}</button></li>
+            <li class="my-2" v-for="(option, index) in options"><button type="button" @click="$emit('selectOption', option.id)" >{{option.name}}</button></li>
         </ul>
     </div>
 </template>

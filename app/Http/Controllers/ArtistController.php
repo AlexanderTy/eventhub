@@ -25,9 +25,24 @@ class ArtistController extends Controller
         return Inertia::render(
             'Artist/Index',
             [
-                "artists"     => $artists,
+                "artists" => $artists,
             ]
-        );    }
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreArtistRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StoreArtistRequest $request): RedirectResponse
+    {
+        $artist = Artist::create($request->validate());
+        return redirect()->route('artists.edit', [
+            'artist' => $artist,
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -40,30 +55,16 @@ class ArtistController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  StoreArtistRequest $request
-     * @return RedirectResponse
-     */
-    public function store(StoreArtistRequest $request): RedirectResponse
-    {
-        $artist = Artist::create($request->validate());
-        return redirect()->route('artists.edit', [
-            'artist' => $artist,
-        ]);
-    }
-
-    /**
      * Display the specified resource.
      *
-     * @param  Artist  $artist
+     * @param Artist $artist
      * @return Response
      */
     public function show(Artist $artist): Response
     {
         $artist->load(['events']);
 
-        return  Inertia::render(
+        return Inertia::render(
             'Artist/Show',
             [
                 "artist" => $artist,
@@ -74,7 +75,7 @@ class ArtistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Artist $artist
+     * @param Artist $artist
      * @return Response
      */
     public function edit(Artist $artist): Response
@@ -90,22 +91,34 @@ class ArtistController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArtistRequest $request, Artist $artist): \Inertia\Response |RedirectResponse
+    public function update(UpdateArtistRequest $request, Artist $artist): \Inertia\Response|RedirectResponse
     {
-        $artist->update(
-            $request->validated()
-        );
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            //get the name of the image
+            $imageName = str_replace(' ', '_', $artist->name) . '_' . time() . '.' . $image->getClientOriginalExtension();
+            //move the image to the public folder
+            $image->move(public_path('images/artists'), $imageName);
+            //set the image name to the image name
+            $artist->image = $imageName;
+            $artist->update(array_merge($request->validated(), ['image' => $imageName]));
+
+        } else {
+            $artist->update($request->validated());
+        }
+
+
         return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

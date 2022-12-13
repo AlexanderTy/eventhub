@@ -58,6 +58,7 @@ class User extends Authenticatable
         'password',
         'role',
         'image',
+        'settings',
     ];
 
     protected $hidden = [
@@ -65,7 +66,9 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'role'=> UserRole::class,
+        'role'     => UserRole::class,
+        'settings' => 'json'
     ];
+
 
 }

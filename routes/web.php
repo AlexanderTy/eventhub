@@ -45,6 +45,7 @@ Route::group([
 
         Route::get('artists-search', [ArtistController::class, 'search'])->name('artists.search');
         Route::get('venues-search', [VenueController::class, 'search'])->name('venues.search');
+        Route::patch('user-save-settings', [UserController::class, 'saveSettings'])->name('user.saveSettings');
 
         /*        Route::get('users', [UserController::class, 'index'])->name('users');
         Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');*/

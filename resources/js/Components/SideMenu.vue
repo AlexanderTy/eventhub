@@ -4,7 +4,7 @@
         class="transition-all duration-500 z-30 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
     >
         <div class="w-14 h-auto absolute top-12 right-0 -mr-7">
-            <ToggleSidemenuBtn :close="closeSidemenu" @click="closeSidemenu = !closeSidemenu; $emit('clickSidemenu', closeSidemenu)"/>
+            <ToggleSidemenuBtn :close="closeSidemenu" @click="setSidemenu"/>
         </div>
         <nav class="flex flex-col space-y-16">
             <div :class="closeSidemenu ? 'px-2' : ''" class="mx-auto">
@@ -153,8 +153,10 @@ export default {
     },
     methods: {
         setSidemenu() {
+            console.log("yo")
             this.closeSidemenu = !this.closeSidemenu;
             this.form.closeSidemenu = this.closeSidemenu;
+            this.$emit('clickSidemenu', this.closeSidemenu);
             //post form to route user.settings
             this.$inertia.post(this.$route('user.saveSettings'), this.form)
             this.form

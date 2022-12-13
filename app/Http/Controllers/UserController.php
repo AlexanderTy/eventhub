@@ -141,6 +141,7 @@ class UserController extends Controller
       // only update user field 'settings' to request
         //get logged in user
         $user = Auth::user();
+
         $user->settings = json_encode($request->validated());
         $user->save();
         return redirect()->back();

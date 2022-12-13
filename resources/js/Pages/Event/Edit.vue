@@ -313,6 +313,7 @@
                                 <SearchResults
                                     v-show="this.showSearchVenues === date.id"
                                     :options="this.filteredVenueOptions"
+                                    @selectOption="selectVenue(date)"
                                 />
                             </div>
                             <Input v-model="date.date" class="col-span-3" />
@@ -480,6 +481,11 @@ export default {
                 venue.name.toLowerCase().includes(searchInput.toLowerCase())
             );
             this.showSearchVenues = date.id;
+        },
+        selectVenue( date, event) {
+console.log(date);
+console.log(event);
+this.showSearchVenues = "";
         },
 
         submit() {

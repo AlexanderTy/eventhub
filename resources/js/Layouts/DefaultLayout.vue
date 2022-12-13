@@ -1,9 +1,10 @@
 <template>
     <div class="flex" id="content">
 
-        <SideMenu :currentRoute="currentRoute" />
+        <SideMenu :currentRoute="currentRoute" @clickSidemenu="(n) => this.closeSidemenu = n " />
         <TopMenu />
-        <main class="bg-white-secondary  pt-24 pb-12  pl-72 pr-20  min-h-screen h-full w-full">
+        <main class="transition-all duration-500 bg-white-secondary pt-24 pb-12 pr-16 min-h-screen w-full"
+              :class="closeSidemenu ? 'pl-32' : 'pl-[17rem]'">
             <slot />
             <div aria-live="assertive" class="fixed inset-0 flex items-end p-4 z-30 pointer-events-none sm:items-start">
                 <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
@@ -31,7 +32,14 @@ export default {
         }
     },
     data() {
-        return {};
+        return {
+            closeSidemenu: false,
+        };
+    },
+    methods: {
+        clickedSidemenu(event){
+            this.closeSidemenu = event;
+        }
     },
 };
 </script>

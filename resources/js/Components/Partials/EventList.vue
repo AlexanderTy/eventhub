@@ -1,10 +1,12 @@
 <template>
-    <div class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
+    <Link
+        :href="$route('events.show', { event: event.id })"
+        class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <div class="col-span-4 flex flex-col">
-            <h2 class=" font-semibold text-base">{{ event.title }}</h2>
+            <Link :href="$route('events.show', { event: event.id })" class="font-semibold text-base hover:underline">{{ event.title }}</Link>
             <h3 v-for="artist in event.artists">
                 by
-                <span class="text-primary font-semibold"> {{ artist.name }}</span>
+                <Link :href="$route('artists.show', { artist: artist.id })" class="text-primary font-semibold hover:underline"> {{ artist.name }}</Link>
             </h3>
         </div>
         <p class="col-span-3 text-center">32/32</p>
@@ -20,7 +22,7 @@
             <PublishedStatus :status="event.public"/>
         </div>
         <div class="relative col-span-1 justify-self-end">
-            <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
+            <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
                     <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                 </svg>
@@ -47,7 +49,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </Link>
 
 </template>
 

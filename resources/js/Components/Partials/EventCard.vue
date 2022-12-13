@@ -1,12 +1,14 @@
 <template>
-    <div class="p-2.5 bg-white w-[16rem] h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
+    <Link
+        :href="$route('events.show', { event: event.id })"
+        class="p-2.5 bg-white w-60 h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
         <img alt="" class="rounded-xl h-32 w-full relative" src="/images/nikolaj_stokholm.jpg"/>
-        <div class="text-white rounded-xl m-2.5 h-32 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-3 absolute top-0 left-0 w-[236px]">
+        <div class="text-white rounded-xl m-2.5 h-32 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-3 absolute top-0 left-0 w-[220px]">
             <div class="absolute top-3 right-3 self-end">
                 <PublishedStatus :status="event.public" />
             </div>
             <div class="flex flex-row justify-between">
-                <h2 class="font-semibold">{{ event.title }}</h2>
+                <Link :href="$route('events.show', { event: event.id })" class="font-semibold hover:underline">{{ event.title }}</Link>
             </div>
         </div>
         <div class="pt-3 px-2 flex flex-row items-center justify-between">
@@ -18,13 +20,13 @@
                     </h3>
 
             </div>
-            <div class="relative z-30 self-end">
-                <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
+            <div class="relative self-end">
+                <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
                         <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                     </svg>
                 </button>
-                <div v-show="open" class="absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
+                <div v-show="open" class="z-10 absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
                     <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('events.show', { event: event.id })">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                             <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -47,7 +49,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </Link>
 <!--    <div class="col-span-1 bg-white w-[15.8rem] h-80 rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
         <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
         <div class="text-white h-40 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-2.5 absolute top-0 left-0 w-full">

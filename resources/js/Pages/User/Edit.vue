@@ -116,18 +116,6 @@
                         </div>
                     </div>
                     <div class="col-span-2 flex flex-col gap-5">
-                        <div class="flex flex-col">
-                            <label class="text-xs text-g mb-2">Current password</label>
-                            <Input/>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="text-xs text-g mb-2">New password</label>
-                            <Input/>
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="text-xs text-g mb-2">Re-enter password</label>
-                            <Input/>
-                        </div>
                     </div>
                 </div>
             </div>

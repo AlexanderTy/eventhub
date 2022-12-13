@@ -6,13 +6,13 @@
         <div class="col-span-4 text-xs h-7 w-28 bg-error-bg flex justify-center items-center rounded-full">
             <p class="text-error font-bold capitalize">{{ user.role }}</p>
         </div>
-        <div class="col-span-1 relative z-10">
+        <div class="col-span-1 relative">
             <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
                     <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                 </svg>
             </button>
-            <div v-show="open" class="absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
+            <div v-show="open" class="z-10 absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
                 <div class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />

@@ -6,7 +6,7 @@
         <div class="w-14 h-auto absolute top-12 right-0 -mr-7">
             <ToggleSidemenuBtn
                 :close="closeSidemenu"
-                @click="closeSidemenu = !closeSidemenu"
+                @click="closeSidemenu = !closeSidemenu; $emit('clickSidemenu', closeSidemenu)"
             />
         </div>
         <nav class="flex flex-col space-y-16">
@@ -93,7 +93,6 @@
 
             </ul>
         </nav>
-        <Logout />
     </div>
 </template>
 

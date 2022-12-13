@@ -1,16 +1,18 @@
 <template>
-    <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
+    <Link
+        :href="$route('artists.show', { artist: artist.id, })"
+        class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]">
         <div class="bg-[url('/images/artist.png')] col-span-2 bg-cover w-10 h-10 rounded-full"></div>
-        <h2 class="col-span-5 text-lg font-semibold">{{ artist.name }}</h2>
+        <Link :href="$route('artists.show', { artist: artist.id, })" class="col-span-5 text-lg font-semibold hover:underline">{{ artist.name }}</Link>
         <p class="col-span-7">{{ artist.description_short }}</p>
         <p class="col-span-3 self-center text-center">32</p>
-        <div class="col-span-1 relative z-10">
-            <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
+        <div class="col-span-1 relative">
+            <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
                     <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                 </svg>
             </button>
-            <div v-show="open" class="absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
+            <div v-show="open" class="z-10 absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
                 <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('artists.show', { artist: artist.id })">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -32,7 +34,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </Link>
 </template>
 
 <script>

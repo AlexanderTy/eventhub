@@ -1,14 +1,17 @@
 <template>
     <DefaultLayout currentRoute="events">
-        <div class="flex gap-8 mb-8">
-            <h1 class="font-bold text-3xl">Events</h1>
-            <form @submit.prevent="submit" class="flex flex-row gap-7">
-                <Input type="search" placeholder="Search for events, artists" v-model="filter.search" bg="bg-white" :class="'shadow w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]' "/>
-                <select v-model="filter.filter" @update:modelValue="submit" class="shadow rounded w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]">
-                    <option value="">All</option>
-                    <option value="public">Public</option>
-                </select>
-            </form>
+        <div class="flex mb-8 w-full justify-between">
+            <div class="flex gap-8">
+                <h1 class="font-bold text-3xl">Events</h1>
+                <form @submit.prevent="submit" class="flex flex-row gap-7">
+                    <Input type="search" placeholder="Search for events, artists" v-model="filter.search" bg="bg-white" :class="'shadow w-96 2xl:w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]' "/>
+                    <select v-model="filter.filter" @update:modelValue="submit" class="text-gray-900 shadow rounded w-36 2xl:w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]">
+                        <option value="">All</option>
+                        <option value="public">Public</option>
+                    </select>
+                    <select class="shadow rounded w-36 2xl:w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]"></select>
+                </form>
+            </div>
             <Btn type="create" @click="openModal = !openModal">
                 Create
             </Btn>
@@ -17,17 +20,13 @@
             </Teleport>
         </div>
 
-        <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
+        <div class="flex flex-row w-full justify-between mb-5 text-gray-600">
             <p>
                 We've found
                 <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
             </p>
-
             <DisplayButtons @btnClick="setSelectedButton"/>
         </div>
-
-
-
 
         <div class="flex flex-wrap gap-3">
             <EventCard :event="event" v-for="event in events" v-show="selectedButton === 'cards'"/>
@@ -92,6 +91,7 @@ export default {
             selectedButton: 'cards',
         };
     },
+
     // methods
     methods: {
         onClickAway(event) {

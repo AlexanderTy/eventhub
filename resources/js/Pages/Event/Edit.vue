@@ -114,7 +114,6 @@
                                     />
                                     <Input
                                         v-model="form.sale_start_time"
-                                        step="300"
                                         type="time"
                                     />
                                 </div>
@@ -130,7 +129,6 @@
                                     />
                                     <Input
                                         v-model="form.sale_end_time"
-                                        step="300"
                                         type="time"
                                     />
                                 </div>
@@ -487,6 +485,7 @@ export default {
             this.showSearchVenues = date.id;
         },
         selectVenue(id, date) {
+
             this.form.dates = this.form.dates.map((x) => {
                 if (x.id === date.id) {
                     x.venue_id = id;

@@ -101,9 +101,9 @@ class EventController extends Controller
         return Inertia::render(
             'Event/Edit',
             [
-                "event"      => $event,
-                'request'    => $request,
-                "dateStatus" => DateStatus::list(),
+                "event"        => $event,
+                'request'      => $request,
+                "dateStatus"   => DateStatus::list(),
                 "venueOptions" => $venueOptions,
             ]
         );
@@ -118,15 +118,15 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event): \Inertia\Response|RedirectResponse
     {
-/*        $event->update($request->safe()->merge([
+        /*        $event->update($request->safe()->merge([
+                    'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
+                    'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
+                ]));*/ //->toArray()
+        $event->update([
+            'title'      => $request->title,
+            'sub_title'  => $request->sub_title,
             'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
             'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
-        ]));*/ //->toArray()
-        $event->update([
-            'title' => $request->title,
-            'sub_title' => $request->sub_title,
-            'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
-            'sale_end' => $request->sale_end_date . ' ' . $request->sale_end_time,
         ]);
 
         //save events->artists
@@ -138,29 +138,36 @@ class EventController extends Controller
 
         foreach ($request->dates as $item) {
 
-            $item = (object) $item;
+            $item = (object)$item;
             $date = null;
 
-            if (! ($item->is_new ?? false)) {
+            if (!($item->is_new ?? false)) {
                 $date = $dates->firstWhere('id', $item->id);
             }
 
-            if (! $date) {
+            if (!$date) {
                 $date = new Date;
             }
 
             $date->fill([
-                'status' => $item->status,
-                // ...
+                'event_id' => $item->event_id,
+                'venue_id' => $item->venue_id,
+                'status'   => $item->status,
+                'label'    => $item->label,
+                'note'    => $item->note,
+
             ]);
 
             $date->updateTimestamps();
             $items[] = $date;
 
+
         }
 
         $event->dates()->saveMany($items);
+
         $event->dates()->where('updated_at', '<', $now)->delete();
+
 
         return redirect()->back();
 

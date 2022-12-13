@@ -31,10 +31,15 @@ class UpdateEventRequest extends FormRequest
             'sale_end_time'   => ['date_format:H:i'],
             'dates' => 'array',
             'dates.*.id' => 'required',
-            'dates.*.venue' => '',
+            'dates.*.event_id' => 'integer',
             'dates.*.status' => 'required',
-            'dates.*.date' => 'required',
-            // lav validering for alle properties
+            'dates.*.label' => '',
+            'dates.*.note' => '',
+            'dates.*.venue_id' => '',
+
+
+
+
         ];
     }
 }

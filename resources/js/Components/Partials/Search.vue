@@ -1,10 +1,7 @@
 <template>
-    <div class="flex px-2 py-2 text-gray-600 placeholder:text-placeholder bg-white-secondary w-full" :class="open ? 'rounded-t-md' : 'rounded-md' ">
-        <div
-            class=""
-        >
+    <div class="flex items-center px-2 py-2 text-gray-600 placeholder:text-placeholder bg-white-secondary w-full" :class="open ? 'rounded-t-md' : 'rounded-md' ">
             <svg
-                class="w-6 h-6"
+                class="w-5 h-5 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
@@ -17,7 +14,6 @@
                     stroke-linejoin="round"
                 />
             </svg>
-        </div>
         <input
             :value="modelValue"
             class="bg-transparent mx-2 focus:outline-none w-full"

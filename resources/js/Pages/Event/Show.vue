@@ -54,7 +54,7 @@
                     </div>
                     <div class="px-3">
                         <p class="font-sm"> by
-                            <span v-for="artist in event.artists" class="text-primary font-bold">{{artist.name}}</span>
+                            <Link v-for="artist in event.artists" class="text-primary font-bold hover:underline" :href="$route('artists.show', { artist: artist.id })">{{artist.name}}</Link>
                         </p>
                         <p class="text-sm xl:mb-5 2xl:mb-12">32 out of 32 events</p>
 

@@ -1,8 +1,8 @@
 <template>
-    <form class="flex flex-col p-12 space-y-4" @submit.prevent="submit">
+    <form class="flex flex-col p-10 mx-auto w-96 gap-4 rounded-xl bg-white shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]" @submit.prevent="submit">
         <div class="flex flex-col">
+            <h2 class="py-10 text-2xl text-secondary font-bold self-center">Login</h2>
             <label>E-mail</label>
-
             <Input
                 v-model="form.email"
             />
@@ -14,11 +14,11 @@
             </label>
             <Input
                 v-model="form.password"
+                type="password"
             />
         </div>
-        <Btn :type="'back'" :text="'back'"/>
-        <Btn :type="'submit'" :text="'login'"/>
-        {{errors}}
+        <Btn :type="'submit'" :text="'login'" class="mt-8 m-auto px-16"/>
+        <p class="text-primary hover:underline cursor-pointer text-center text-sm mb-10">Forgot password?</p>
 
     </form>
 

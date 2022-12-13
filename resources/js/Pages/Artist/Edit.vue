@@ -3,9 +3,9 @@
         <form class="flex flex-col min-w-[350px] h-full" @submit.prevent="submit">
             <div class="flex justify-between">
                 <div class="flex items-center mb-5">
-                        <h2 class="font-bold text-2xl capitalize">
-                         {{ artist.name }}
-                        </h2>
+                    <h2 class="font-bold text-2xl capitalize">
+                        {{ artist.name }}
+                    </h2>
                 </div>
                 <div v-click-away="onClickAway" class="relative">
                     <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">

@@ -225,16 +225,15 @@
                             <div
                                 class="max-h-[19.2rem] overflow-y-auto flex flex-col"
                             >
-                                <div class="flex justify-between items-center">
                                     <ul class="">
                                         <li
                                             v-for="artist in selectedArtists"
-                                            class="flex flex-row items-center"
+                                            class="flex flex-row items-center justify-between w-full"
                                         >
-                                            <div
-                                                class="w-8 h-8 rounded-full bg-gray-500 mr-4"
-                                            ></div>
-                                            <p>{{ artist.name }}</p>
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-8 h-8 rounded-full bg-gray-500"></div>
+                                                <p>{{ artist.name }}</p>
+                                            </div>
                                             <button
                                                 type="button"
                                                 @click="removeArtist(artist)"
@@ -254,7 +253,6 @@
                                             </button>
                                         </li>
                                     </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -315,7 +313,7 @@
                                     :options="this.filteredVenueOptions"
                                 />
                             </div>
-                            <Input v-model="date.date" class="col-span-3" />
+                            <Input v-model="date.date" class="col-span-3" type="datetime-local"/>
                             <Input v-model="date.duration" class="col-span-3" />
                             <Select
                                 v-model="date.status"

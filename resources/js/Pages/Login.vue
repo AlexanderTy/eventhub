@@ -1,9 +1,13 @@
 <template>
-    <LoginLayout class="items-center flex justify-center">
-
-        <div class="w-96 rounded bg-white ">
-            <LoginForm :errors="errors">
-            </LoginForm>
+    <LoginLayout>
+        <div class="flex items-center justify-center h-4/5 px-8 lg:px-12">
+            <div class="flex-1">
+                <h1 class="text-primary font-medium text-xl lg:text-2xl">We are 1260. A digital bureau.</h1>
+                <p class="text-black text-6xl font-bold">From digital potential to measurable results</p>
+            </div>
+            <div class="flex-1">
+                <LoginForm :errors="errors" />
+            </div>
         </div>
     </LoginLayout>
 </template>

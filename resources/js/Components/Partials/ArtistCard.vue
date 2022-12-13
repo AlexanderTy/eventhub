@@ -28,9 +28,11 @@
                         </button>
                     </div>
                 </div>
-        <div class="bg-[url('/images/artist.png')] bg-cover w-32 h-32 rounded-full shrink-0"></div>
+        <div class="bg-gray-4git00 bg-cover w-32 h-32 rounded-full shrink-0 overflow-hidden">
+            <img v-show="artist.image" alt="" class="w-full h-full" :src="'/images/artists/' + artist.image"/>
+
+        </div>
 <!--
-        <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
 -->
                 <h2 class="text-lg font-mediu text-center">
                     {{ artist.name }}

@@ -228,7 +228,7 @@
                                     <ul class="">
                                         <li
                                             v-for="artist in selectedArtists"
-                                            class="flex flex-row items-center justify-between w-full"
+                                            class="flex flex-row items-center justify-between m-4 mt-0"
                                         >
                                             <div class="flex items-center gap-4">
                                                 <div class="w-8 h-8 rounded-full bg-gray-500"></div>

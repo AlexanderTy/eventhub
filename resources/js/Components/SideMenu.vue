@@ -1,32 +1,35 @@
 <template>
     <div
         :class="closeSidemenu ? 'w-16' : 'w-52'"
-        class=" transition-all duration-500	z-30 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
+        class="transition-all duration-500 z-30 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
     >
         <div class="w-14 h-auto absolute top-12 right-0 -mr-7">
-            <ToggleSidemenuBtn
-                :close="closeSidemenu"
-                @click="closeSidemenu = !closeSidemenu"
-            />
+            <ToggleSidemenuBtn :close="closeSidemenu" @click="closeSidemenu = !closeSidemenu; $emit('clickSidemenu', closeSidemenu)"/>
         </div>
         <nav class="flex flex-col space-y-16">
             <div :class="closeSidemenu ? 'px-2' : ''" class="mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 630.2 334.1" fill="currentColor" class="hover:text-primary text-white h-auto w-[98px]">
-                    <path d="M114.3 203.3V220c0 2.9-2.3 5.2-5.2 5.2H32.4c-2.9 0-5.2-2.3-5.2-5.2v-16.7c0-2.9 2.3-5.2 5.2-5.2h19.4c2.9 0 5.2-2.3 5.2-5.2V99.4c0-3.5-3.3-6-6.7-5l-14.8 4.3c-3.3 1-6.7-1.5-6.7-5V76.9c0-2.3 1.4-4.2 3.6-5l46.8-15.5c3.4-1.1 6.9 1.4 6.9 5v131.5c0 2.9 2.3 5.2 5.2 5.2H109c3 0 5.3 2.3 5.3 5.2zm154.5-1.4h-18c-2.8 0-5 2.1-5.2 4.9l-.8 13.5c-.2 2.8-2.5 4.9-5.2 4.9h-64c-2.9 0-5.2-2.3-5.2-5.2v-7.5c0-18.5 19.3-25.8 39.2-27.2 39.5-2.6 64.3-12 64.3-51.3 0-37.8-31-52.5-62.3-52.5-34.2 0-61.1 10.1-66.2 44.8-.5 3.2 2 6 5.2 6h19.1c2.6 0 4.7-1.9 5.1-4.4 3.1-17.9 22.8-20.1 36.9-20.1 19.7 0 33.2 8.4 33.2 26.7 0 19.3-22.9 23.8-35.4 24.5-34.2 2.2-68.8 14.9-68.8 53.4v34.7c0 2.9 2.3 5.2 5.2 5.2H269c2.9 0 5.2-2.3 5.2-5.2V207c-.2-2.7-2.5-5.1-5.4-5.1zM438 172.3c0 37.3-35.6 55.4-69.3 55.4-39.5 0-70.3-18.1-70.3-56.1v-63.3c0-37.1 34.4-53.9 68.8-53.9 36.1 0 64.1 12.2 67.1 42.9.3 3.1-2.1 5.7-5.2 5.7h-19.3c-2.5 0-4.7-1.8-5.1-4.2-2.5-13.6-18.5-19.4-37-19.4-20.7 0-40.4 9.6-40.4 29.6v13.5c0 4.2 4.7 6.6 8.2 4.3 10.3-6.8 22.2-9.1 33.5-9.1 33.6 0 69 13.5 69 54.6zm-29.4 0c0-20.2-17.8-28.6-39.5-28.6-21.4 0-41.4 9.1-41.2 28.9.2 19.5 19.7 28.4 40.7 28.4 20.5-.5 40-9.2 40-28.7zM603 100.8V127c0 49.3-31.5 73.4-72 73.4-41.4 0-71.7-24.3-71.7-73.4v-26.2c0-49.1 35.6-73.6 72.4-73.6 39.6 0 71.3 24.3 71.3 73.6zm-29.6-.4c0-30.6-15.6-45.5-41.6-45.5-24.1 0-42.8 15.2-42.8 46v26.2c0 30.6 17.8 45.7 41.9 45.7 23.8 0 42.6-14.9 42.6-46.2v-26.2zM433 279.7H303.3c-2.7 0-4.9 2.2-4.9 4.9V302c0 2.7 2.2 4.9 4.9 4.9H433c2.7 0 4.9-2.2 4.9-4.9v-17.4c0-2.7-2.2-4.9-4.9-4.9z"/>
+                <svg
+                    class="hover:text-primary text-white h-auto w-[98px]"
+                    fill="currentColor"
+                    viewBox="0 0 630.2 334.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M114.3 203.3V220c0 2.9-2.3 5.2-5.2 5.2H32.4c-2.9 0-5.2-2.3-5.2-5.2v-16.7c0-2.9 2.3-5.2 5.2-5.2h19.4c2.9 0 5.2-2.3 5.2-5.2V99.4c0-3.5-3.3-6-6.7-5l-14.8 4.3c-3.3 1-6.7-1.5-6.7-5V76.9c0-2.3 1.4-4.2 3.6-5l46.8-15.5c3.4-1.1 6.9 1.4 6.9 5v131.5c0 2.9 2.3 5.2 5.2 5.2H109c3 0 5.3 2.3 5.3 5.2zm154.5-1.4h-18c-2.8 0-5 2.1-5.2 4.9l-.8 13.5c-.2 2.8-2.5 4.9-5.2 4.9h-64c-2.9 0-5.2-2.3-5.2-5.2v-7.5c0-18.5 19.3-25.8 39.2-27.2 39.5-2.6 64.3-12 64.3-51.3 0-37.8-31-52.5-62.3-52.5-34.2 0-61.1 10.1-66.2 44.8-.5 3.2 2 6 5.2 6h19.1c2.6 0 4.7-1.9 5.1-4.4 3.1-17.9 22.8-20.1 36.9-20.1 19.7 0 33.2 8.4 33.2 26.7 0 19.3-22.9 23.8-35.4 24.5-34.2 2.2-68.8 14.9-68.8 53.4v34.7c0 2.9 2.3 5.2 5.2 5.2H269c2.9 0 5.2-2.3 5.2-5.2V207c-.2-2.7-2.5-5.1-5.4-5.1zM438 172.3c0 37.3-35.6 55.4-69.3 55.4-39.5 0-70.3-18.1-70.3-56.1v-63.3c0-37.1 34.4-53.9 68.8-53.9 36.1 0 64.1 12.2 67.1 42.9.3 3.1-2.1 5.7-5.2 5.7h-19.3c-2.5 0-4.7-1.8-5.1-4.2-2.5-13.6-18.5-19.4-37-19.4-20.7 0-40.4 9.6-40.4 29.6v13.5c0 4.2 4.7 6.6 8.2 4.3 10.3-6.8 22.2-9.1 33.5-9.1 33.6 0 69 13.5 69 54.6zm-29.4 0c0-20.2-17.8-28.6-39.5-28.6-21.4 0-41.4 9.1-41.2 28.9.2 19.5 19.7 28.4 40.7 28.4 20.5-.5 40-9.2 40-28.7zM603 100.8V127c0 49.3-31.5 73.4-72 73.4-41.4 0-71.7-24.3-71.7-73.4v-26.2c0-49.1 35.6-73.6 72.4-73.6 39.6 0 71.3 24.3 71.3 73.6zm-29.6-.4c0-30.6-15.6-45.5-41.6-45.5-24.1 0-42.8 15.2-42.8 46v26.2c0 30.6 17.8 45.7 41.9 45.7 23.8 0 42.6-14.9 42.6-46.2v-26.2zM433 279.7H303.3c-2.7 0-4.9 2.2-4.9 4.9V302c0 2.7 2.2 4.9 4.9 4.9H433c2.7 0 4.9-2.2 4.9-4.9v-17.4c0-2.7-2.2-4.9-4.9-4.9z"
+                    />
                 </svg>
-<!--                <img
-                    alt="logo"
-                    height="100"
-                    src="/images/logo.svg"
-                    width="98"
-                />-->
             </div>
 
             <ul
                 :class="closeSidemenu ? 'flex justify-center flex-col' : ''"
                 class="text-base space-y-2 text-white"
             >
-                <SidemenuItem text="Dashboard" route="dashboard" :active="currentRoute === 'dashboard' || !currentRoute">
+                <SidemenuItem
+                    :active="currentRoute === 'dashboard' || !currentRoute"
+                    :closeSidemenu="closeSidemenu"
+                    route="dashboard"
+                    text="Dashboard"
+                >
                     <svg
                         class="w-full h-full"
                         fill="currentColor"
@@ -40,7 +43,12 @@
                         />
                     </svg>
                 </SidemenuItem>
-                <SidemenuItem text="Events" route="events.index" :active="currentRoute === 'events' " >
+                <SidemenuItem
+                    :active="currentRoute === 'events'"
+                    :closeSidemenu="closeSidemenu"
+                    route="events.index"
+                    text="Events"
+                >
                     <svg
                         class="w-full h-full"
                         fill="currentColor"
@@ -54,7 +62,12 @@
                         />
                     </svg>
                 </SidemenuItem>
-                <SidemenuItem text="Artists" route="artists.index" :active="currentRoute === 'artists' " >
+                <SidemenuItem
+                    :active="currentRoute === 'artists'"
+                    :closeSidemenu="closeSidemenu"
+                    route="artists.index"
+                    text="Artists"
+                >
                     <svg
                         class="w-full h-full"
                         fill="currentColor"
@@ -72,13 +85,31 @@
                         />
                     </svg>
                 </SidemenuItem>
-                <SidemenuItem text="Venues" route="venues.index" :active="currentRoute === 'venues' " >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
-                        <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                <SidemenuItem
+                    :active="currentRoute === 'venues'"
+                    :closeSidemenu="closeSidemenu"
+                    route="venues.index"
+                    text="Venues"
+                >
+                    <svg
+                        class="w-full h-full"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            clip-rule="evenodd"
+                            d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+                            fill-rule="evenodd"
+                        />
                     </svg>
-
                 </SidemenuItem>
-                <SidemenuItem text="Users" route="users.index" :active="currentRoute === 'users' " >
+                <SidemenuItem
+                    :active="currentRoute === 'users'"
+                    :closeSidemenu="closeSidemenu"
+                    route="users.index"
+                    text="Users"
+                >
                     <svg
                         class="w-full h-full"
                         fill="currentColor"
@@ -90,30 +121,51 @@
                         />
                     </svg>
                 </SidemenuItem>
-
             </ul>
         </nav>
-        <Logout />
     </div>
 </template>
 
 <script>
 import Logout from "./Partials/Logout";
 import ToggleSidemenuBtn from "./Partials/ToggleSidemenuBtn";
-import { Link } from "@inertiajs/inertia-vue3";
+import {Link} from "@inertiajs/inertia-vue3";
 import SidemenuItem from "./Partials/SidemenuItem";
-
 export default {
-    components: {SidemenuItem, ToggleSidemenuBtn, Logout, Link },
+    components: {SidemenuItem, ToggleSidemenuBtn, Logout, Link},
     props: {
         currentRoute: String,
     },
     // custom set
     data() {
         return {
-            closeSidemenu: false,
             active: false,
+            closeSidemenu: this.$page.props.settings?.closeSidemenu ?? false,
+            form: this.$inertia.form({
+                ...this.$page.props.settings,
+                closeSidemenu: false,
+            }),
         };
+    },
+    //mounted function
+    mounted() {
+        this.form.closeSidemenu = this.closeSidemenu;
+    },
+    methods: {
+        setSidemenu() {
+            this.closeSidemenu = !this.closeSidemenu;
+            this.form.closeSidemenu = this.closeSidemenu;
+            //post form to route user.settings
+            this.$inertia.post(this.$route('user.saveSettings'), this.form)
+            this.form
+                .transform((data) => ({
+                    ...data,
+                    _method: "patch",
+                }))
+                .post(
+                    this.$route('user.saveSettings')
+                );
+        },
     },
 };
 </script>

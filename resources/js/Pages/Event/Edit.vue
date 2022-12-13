@@ -225,34 +225,36 @@
                             <div
                                 class="max-h-[19.2rem] overflow-y-auto flex flex-col"
                             >
-                                    <ul class="">
-                                        <li
-                                            v-for="artist in selectedArtists"
-                                            class="flex flex-row items-center justify-between m-4 mt-0"
+                                <ul class="">
+                                    <li
+                                        v-for="artist in selectedArtists"
+                                        class="flex flex-row items-center justify-between m-4 mt-0"
+                                    >
+                                        <div class="flex items-center gap-4">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-gray-500"
+                                            ></div>
+                                            <p>{{ artist.name }}</p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            @click="removeArtist(artist)"
                                         >
-                                            <div class="flex items-center gap-4">
-                                                <div class="w-8 h-8 rounded-full bg-gray-500"></div>
-                                                <p>{{ artist.name }}</p>
-                                            </div>
-                                            <button
-                                                type="button"
-                                                @click="removeArtist(artist)"
+                                            <svg
+                                                class="w-5 h-5 cursor-pointer"
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
                                             >
-                                                <svg
-                                                    class="w-5 h-5 cursor-pointer"
-                                                    fill="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                        clip-rule="evenodd"
-                                                        d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                                                        fill-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </li>
-                                    </ul>
+                                                <path
+                                                    clip-rule="evenodd"
+                                                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                                                    fill-rule="evenodd"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -311,10 +313,14 @@
                                 <SearchResults
                                     v-show="this.showSearchVenues === date.id"
                                     :options="this.filteredVenueOptions"
-                                    @selectOption="selectVenue(date)"
+                                    @selectOption="selectVenue($event, date)"
                                 />
                             </div>
-                            <Input v-model="date.date" class="col-span-3" type="datetime-local"/>
+                            <Input
+                                v-model="date.date"
+                                class="col-span-3"
+                                type="datetime-local"
+                            />
                             <Input v-model="date.duration" class="col-span-3" />
                             <Select
                                 v-model="date.status"
@@ -473,17 +479,22 @@ export default {
             this.selectedArtists.push(artist);
         },
         searchVenues(date) {
-            let searchInput = this.venueSearchInputs[date.id] || '';
+            let searchInput = this.venueSearchInputs[date.id] || "";
             //this.fillteredVenueOptions is an array from this.venueOptions where the name matches the search input
             this.filteredVenueOptions = this.venueOptions.filter((venue) =>
                 venue.name.toLowerCase().includes(searchInput.toLowerCase())
             );
             this.showSearchVenues = date.id;
         },
-        selectVenue( date, event) {
-console.log(date);
-console.log(event);
-this.showSearchVenues = "";
+        selectVenue(id, date) {
+            this.form.dates = this.form.dates.map((x) => {
+                if (x.id === date.id) {
+                    x.venue_id = id;
+                }
+                return x;
+            });
+            this.showSearchVenues = '';
+            this.venueSearchInputs[date.id] = this.venueOptions.find(x => x.id === id).name;
         },
 
         submit() {

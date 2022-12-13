@@ -1,5 +1,5 @@
 <template>
-1    <div class="bg-white p-2.5 pt-5 w-[12.8rem] h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
+   <div class="bg-white p-2.5 pt-5 w-[12.8rem] h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
                 <div class="absolute top-4 right-3.5 z-10 self-end">
                     <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">

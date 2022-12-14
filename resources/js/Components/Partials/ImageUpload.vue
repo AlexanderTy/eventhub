@@ -112,7 +112,6 @@ export default {
                 this.imageSrc = e.target.result;
             };
             reader.readAsDataURL(file)
-            this.$refs.input.value = file;
             this.$emit('imageUploaded', file);
 
         },

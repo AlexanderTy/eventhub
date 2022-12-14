@@ -535,7 +535,6 @@ export default {
         },
 
         addDate() {
-            console.log("yooo");
             this.form.dates.push({
                 id: uuidv4(),
                 is_new: true,

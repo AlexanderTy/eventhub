@@ -189,13 +189,9 @@ export default {
     },
     // actions on init
     mounted() {
-        this.myFirstFunction();
     },
     // methods
     methods: {
-        myFirstFunction() {
-            console.log(this.openModal);
-        },
         updateActiveTab(e){
             this.activeTab = e;
         },

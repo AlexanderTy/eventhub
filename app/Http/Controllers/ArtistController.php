@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -99,19 +100,12 @@ class ArtistController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            //get the name of the image
             $imageName = str_replace(' ', '_', $artist->name) . '_' . time() . '.' . $image->getClientOriginalExtension();
-            //move the image to the public folder
-            $image->move(public_path('images/artists'), $imageName);
-            //set the image name to the image name
-            $artist->image = $imageName;
+            Storage::disk('local')->put('images/artists/' . $imageName, $image);
             $artist->update(array_merge($request->validated(), ['image' => $imageName]));
-
         } else {
             $artist->update($request->validated());
         }
-
-
         return redirect()->back();
     }
 
@@ -119,7 +113,7 @@ class ArtistController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy($id)
     {

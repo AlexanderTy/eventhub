@@ -87,7 +87,7 @@
                 />
             </ul>
             <div
-                class="relative mt-[-10px] z-10 w-full max-w-6xl xl:h-[450px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                class="relative mt-[-10px] z-10 w-full max-w-6xl h-full  bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
             >
                 <div
                     v-show="activeTab === 'general'"
@@ -96,16 +96,16 @@
                     <div class="col-span-3 pr-10 flex flex-col gap-6">
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Title</label>
-                            <Input v-model="form.title" />
+                            <Input v-model="form.title"/>
                         </div>
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Subtitle</label>
-                            <Input v-model="form.sub_title" />
+                            <Input v-model="form.sub_title"/>
                         </div>
                         <div class="flex flex-row justify-between">
                             <div class="flex flex-col">
                                 <label class="text-xs text-g mb-2"
-                                    >Event starts</label
+                                >Event starts</label
                                 >
                                 <div class="flex flex-row gap-5">
                                     <Input
@@ -120,7 +120,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <label class="text-xs text-g mb-2"
-                                    >Event ends</label
+                                >Event ends</label
                                 >
                                 <div class="flex flex-row gap-5">
                                     <Input
@@ -137,7 +137,7 @@
                         <div class="flex flex-col">
                             <div>
                                 <label class="text-xs text-g mb-2"
-                                    >Upload image</label
+                                >Upload image</label
                                 >
                                 <div class="flex flex-row text-gray-600 gap-2">
                                     <svg
@@ -182,7 +182,7 @@
                     <div v-click-away="closeSearch" class="col-span-2 h-fit">
                         <div class="flex flex-col mb-7 relative">
                             <label class="text-xs text-g mb-2"
-                                >Add artists</label
+                            >Add artists</label
                             >
                             <Search
                                 v-model="artistFilter"
@@ -218,7 +218,7 @@
                         </div>
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2"
-                                >Added artists</label
+                            >Added artists</label
                             >
                             <div
                                 class="max-h-[19.2rem] overflow-y-auto flex flex-col"
@@ -319,15 +319,15 @@
                                 class="col-span-3"
                                 type="datetime-local"
                             />
-                            <Input v-model="date.duration" class="col-span-3" />
+                            <Input v-model="date.duration" class="col-span-3"/>
                             <Select
                                 v-model="date.status"
                                 :options="dateStatus"
                                 class="col-span-3"
                             />
 
-                            <Input v-model="date.label" class="col-span-3" />
-                            <Input v-model="date.note" class="col-span-3" />
+                            <Input v-model="date.label" class="col-span-3"/>
+                            <Input v-model="date.note" class="col-span-3"/>
                         </div>
                         <Btn
                             class="col-[20/-1]"
@@ -343,15 +343,20 @@
                 >
                     <div class="col-span-3 pr-10">
                         <div class="flex flex-col mb-7">
+                            <label class="text-xs text-g mb-2">Slug</label>
+                            <Input v-model="form.slug"/>
+                        </div>
+                        <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">SEO Title</label>
-                            <Input />
+                            <Input v-model="form.meta_title"/>
                         </div>
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2"
-                                >SEO Discription</label
+                            >SEO Discription</label
                             >
                             <TextArea
-                                class="h-72 resize-none"
+                                v-model="form.meta_description"
+                                class="resize-none"
                                 placeholder="Write a SEO description here..."
                             />
                         </div>
@@ -360,9 +365,9 @@
             </div>
 
             <div class="flex justify-between">
-                <LinkBtn :type="'back'" to="events.index" />
+                <LinkBtn :type="'back'" to="events.index"/>
 
-                <Btn :text="'save'" :type="'submit'" />
+                <Btn :text="'save'" :type="'submit'"/>
             </div>
             {{ form.dates }}
         </form>
@@ -370,18 +375,18 @@
 </template>
 
 <script>
-import { Link } from "@inertiajs/inertia-vue3";
+import {Link} from "@inertiajs/inertia-vue3";
 import DefaultLayout from "../../Layouts/DefaultLayout";
 import Btn from "../../Components/Partials/Btn";
 import Input from "../../Components/Partials/Input";
 import Select from "../../Components/Partials/Select";
-import { directive } from "vue3-click-away";
+import {directive} from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import Tab from "../../Components/Partials/Tab";
 import TextArea from "../../Components/Partials/TextArea";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 import Search from "../../Components/Partials/Search";
 import SearchResults from "../../Components/Partials/SearchResults";
 
@@ -422,6 +427,9 @@ export default {
                 sale_end_time: this.$time(this.event.sale_end),
                 artists: this.event.artists?.map((x) => x.id) || [],
                 dates: this.event.dates || [],
+                slug: this.event.slug?.slug || "",
+                meta_title: this.event.slug?.meta_title || "",
+                meta_description: this.event.slug?.meta_description || "",
             }),
             artistFilter: null,
             open: false,
@@ -451,7 +459,7 @@ export default {
         searchArtists() {
             axios
                 .get(
-                    this.$route("artists.search", { search: this.artistFilter })
+                    this.$route("artists.search", {search: this.artistFilter})
                 )
                 .then((res) => {
                     this.artistOptions = res.data;
@@ -462,7 +470,7 @@ export default {
                     // if this.artistoptions is empty, show 'no artists found' message
                     if (this.artistOptions.length === 0) {
                         this.artistOptions = [
-                            { id: 0, name: "No artists found" },
+                            {id: 0, name: "No artists found"},
                         ];
                     }
                     this.showSearch = true;
@@ -485,15 +493,16 @@ export default {
             this.showSearchVenues = date.id;
         },
         selectVenue(id, date) {
-
             this.form.dates = this.form.dates.map((x) => {
                 if (x.id === date.id) {
                     x.venue_id = id;
                 }
                 return x;
             });
-            this.showSearchVenues = '';
-            this.venueSearchInputs[date.id] = this.venueOptions.find(x => x.id === id).name;
+            this.showSearchVenues = "";
+            this.venueSearchInputs[date.id] = this.venueOptions.find(
+                (x) => x.id === id
+            ).name;
         },
 
         submit() {

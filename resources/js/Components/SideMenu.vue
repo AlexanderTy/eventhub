@@ -7,7 +7,7 @@
             <ToggleSidemenuBtn :close="closeSidemenu" @click="setSidemenu"/>
         </div>
         <nav class="flex flex-col space-y-16">
-            <div :class="closeSidemenu ? 'px-2' : ''" class="mx-auto">
+            <div :class="closeSidemenu ? 'hidden' : ''" class="mx-auto">
                 <svg
                     class="hover:text-primary text-white h-auto w-[98px]"
                     fill="currentColor"
@@ -140,9 +140,9 @@ export default {
     data() {
         return {
             active: false,
-            closeSidemenu: this.$page.props.settings?.closeSidemenu ?? false,
+            closeSidemenu: this.$page.props.profile.settings?.closeSidemenu ?? false,
             form: this.$inertia.form({
-                ...this.$page.props.settings,
+                ...this.$page.props.profile.settings,
                 closeSidemenu: false,
             }),
         };
@@ -150,10 +150,11 @@ export default {
     //mounted function
     mounted() {
         this.form.closeSidemenu = this.closeSidemenu;
+        console.log(this.$page.props.profile.settings)
     },
     methods: {
         setSidemenu() {
-            console.log("yo")
+
             this.closeSidemenu = !this.closeSidemenu;
             this.form.closeSidemenu = this.closeSidemenu;
             this.$emit('clickSidemenu', this.closeSidemenu);

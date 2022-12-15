@@ -113,6 +113,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateUserRequest $request
+     * @param User $user
      * @return \Inertia\Response|RedirectResponse
      */
     public function update(UpdateUserRequest $request, User $user): \Inertia\Response |RedirectResponse
@@ -138,11 +139,8 @@ class UserController extends Controller
     }
     public function saveSettings( UpdateUserSettingsRequest $request): RedirectResponse
     {
-      // only update user field 'settings' to request
-        //get logged in user
         $user = Auth::user();
-
-        $user->settings = json_encode($request->validated());
+        $user->settings = $request->validated();
         $user->save();
         return redirect()->back();
     }

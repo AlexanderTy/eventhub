@@ -44,7 +44,6 @@ class HandleInertiaRequests extends Middleware
             'locale' => app()->getLocale(),
             //variable called profile which is Auth::user except auth::user->settings
             'profile' => Auth::user(),
-            'settings' => json_decode(Auth::user()->settings),
             'flash' => [
                 'success' => fn () => ucfirst($request->session()->get('success')),
             ],

@@ -58,6 +58,9 @@ class EventController extends Controller
     {
 
         $event = Event::create($request->validated());
+
+        $event->updateOrCreateSlug($event->title);
+
         return redirect()->route('events.edit', [
             'event' => $event
         ]);
@@ -96,6 +99,7 @@ class EventController extends Controller
         $event->load([
             'dates' => fn($query) => $query->with('venue'),
             'artists',
+            'slug',
         ]);
         $venueOptions = Venue::all();
         return Inertia::render(
@@ -118,16 +122,14 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event): \Inertia\Response|RedirectResponse
     {
-        /*        $event->update($request->safe()->merge([
-                    'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
-                    'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
-                ]));*/ //->toArray()
         $event->update([
             'title'      => $request->title,
             'sub_title'  => $request->sub_title,
             'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
             'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
         ]);
+
+        $event->updateOrCreateSlug($request->slug ?? $request->title, $request->meta_title, $request->meta_description);
 
         //save events->artists
         $event->artists()->sync($request->artists);
@@ -150,7 +152,6 @@ class EventController extends Controller
             }
 
             $date->fill([
-                'event_id' => $item->event_id,
                 'venue_id' => $item->venue_id,
                 'status'   => $item->status,
                 'label'    => $item->label,
@@ -160,10 +161,7 @@ class EventController extends Controller
 
             $date->updateTimestamps();
             $items[] = $date;
-
-
         }
-
         $event->dates()->saveMany($items);
 
         $event->dates()->where('updated_at', '<', $now)->delete();

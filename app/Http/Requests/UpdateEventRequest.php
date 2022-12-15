@@ -25,21 +25,20 @@ class UpdateEventRequest extends FormRequest
     {
         return [
             'title'           => ['required', 'min:3'],
-            'sale_start_date' => ['date_format:Y-m-d'],
-            'sale_start_time' => ['date_format:H:i'],
-            'sale_end_date'   => ['date_format:Y-m-d'],
-            'sale_end_time'   => ['date_format:H:i'],
-            'dates' => 'array',
-            'dates.*.id' => 'required',
-            'dates.*.event_id' => 'integer',
-            'dates.*.status' => 'required',
-            'dates.*.label' => '',
-            'dates.*.note' => '',
-            'dates.*.venue_id' => '',
-
-
-
-
+            'sale_start_date' => ['nullable','date_format:Y-m-d'],
+            'sale_start_time' => ['nullable','date_format:H:i'],
+            'sale_end_date'   => ['nullable','date_format:Y-m-d'],
+            'sale_end_time'   => ['nullable','date_format:H:i'],
+            'dates' => 'array|nullable',
+            'dates.*.id' => 'nullable',
+            'dates.*.event_id' => 'integer|nullable',
+            'dates.*.status' => 'nullable',
+            'dates.*.label' => 'nullable',
+            'dates.*.note' => 'nullable',
+            'dates.*.venue_id' => 'nullable',
+            'slug' => 'nullable|string',
+            'meta_title' => 'nullable|string',
+            'meta_description' => 'nullable|string',
         ];
     }
 }

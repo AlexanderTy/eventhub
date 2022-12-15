@@ -45,6 +45,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User whereFirstName($value)
  * @method static Builder|User whereImage($value)
  * @method static Builder|User whereLastName($value)
+ * @property array|null $settings
+ * @method static Builder|User whereSettings($value)
  */
 class User extends Authenticatable
 {
@@ -67,7 +69,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'role'     => UserRole::class,
-        'settings' => 'json'
+        'settings' => 'array'
     ];
 
 

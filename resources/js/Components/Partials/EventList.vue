@@ -4,9 +4,9 @@
         class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <div class="col-span-4 flex flex-col">
             <Link :href="$route('events.show', { event: event.id })" class="font-semibold text-base hover:underline">{{ event.title }}</Link>
-            <h3 v-for="artist in event.artists">
+            <h3>
                 by
-                <Link :href="$route('artists.show', { artist: artist.id })" class="text-primary font-semibold hover:underline"> {{ artist.name }}</Link>
+                <Link :href="$route('artists.show', { artist: artist.id })" v-for="artist in event.artists" class="text-primary font-semibold hover:underline"> {{ artist.name }}</Link>
             </h3>
         </div>
         <p class="col-span-3 text-center">32/32</p>

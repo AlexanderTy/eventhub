@@ -29,7 +29,7 @@
                                         <p class="text-xs">{{ date.venue.country }}</p>
                                     </div>
                                 </div>
-                                <div class="bg-success text-success-bg font-semibold px-6 py-1 w-28 rounded-full flex items-center justify-center">{{ date.status }}</div>
+                                <div class="bg-success text-success-bg font-semibold px-6 py-1 min-w-28 rounded-full flex items-center justify-center">{{ date.status }}</div>
                             </div>
                         </div>
                         <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">

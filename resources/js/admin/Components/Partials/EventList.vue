@@ -3,10 +3,20 @@
         :href="$route('admin::events.show', { event: event.id })"
         class="grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <div class="col-span-4 flex flex-col">
+
             <Link :href="$route('admin::events.show', { event: event.id })" class="font-semibold text-base hover:underline">{{ event.title }}</Link>
-            <h3>
+            <h3 class="text-sm" :class="event.artists.length >= 4 ? 'text-sm' : event.artists.length >= 2 ? 'text-xs' : 'text-sm'">
                 by
-                <Link :href="$route('admin::artists.show', { artist: artist.id })" v-for="artist in event.artists" class="text-primary font-semibold hover:underline"> {{ artist.name }}</Link>
+                <span v-for="(artist, index) in event.artists" v-show="event.artists.length < 4">
+                            <Link :href="$route('admin::artists.show', { artist: artist.id })"
+                                  class="text-primary font-bold hover:underline">
+                                {{ artist.name }}
+                            </Link>
+                            <span v-if="index + 1 < event.artists.length">, </span>
+                        </span>
+                <span v-show="event.artists.length >= 4" >
+                            <span class="text-primary font-bold">{{ event.artists.length }}</span> different artists
+                        </span>
             </h3>
         </div>
         <p class="col-span-3 text-center">32/32</p>

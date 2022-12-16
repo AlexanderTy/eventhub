@@ -99,6 +99,7 @@ class ArtistController extends Controller
      */
     public function update(UpdateArtistRequest $request, Artist $artist): \Inertia\Response|RedirectResponse
     {
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = str_replace(' ', '_', $artist->name) . '_' . time() . '.' . $image->getClientOriginalExtension();

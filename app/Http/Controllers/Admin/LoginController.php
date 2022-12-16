@@ -21,10 +21,11 @@ class LoginController extends Controller
     public function authenticate(AuthenticateLoginRequest $request): RedirectResponse
     {
 
+
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('admin::dashboard');
         }
 
         return back()->withErrors([

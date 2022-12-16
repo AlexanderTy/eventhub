@@ -46,7 +46,7 @@ export default {
     },
     methods: {
         submit() {
-            this.$inertia.post('/login', this.form)
+            this.$inertia.post('./login', this.form)
         }
     }
 }

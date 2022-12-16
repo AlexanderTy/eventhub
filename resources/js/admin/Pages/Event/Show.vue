@@ -71,7 +71,7 @@
                         <h3 class="text-sm">
                             by
                             <span v-for="(artist, index) in event.artists">
-                            <Link :href="$route('artists.show', { artist: artist.id })"
+                            <Link :href="$route('admin::artists.show', { artist: artist.id })"
                                   class="text-primary font-bold hover:underline">
                                 {{ artist.name }}
                             </Link>

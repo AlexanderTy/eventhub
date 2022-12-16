@@ -28,12 +28,9 @@
 
                                     <div  class="self-start flex flex-col gap-1">
                                         <p class="text-sm">{{ $date(date.date, 'dddd') }} {{ $time(date.date) }} - 15:00</p>
-<<<<<<< HEAD:resources/js/admin/Pages/Event/Show.vue
-                                        <p class="text-xs">{{ date.venue.country }}</p>
-=======
+
 <!--                                        <h3 class="font-semibold text-xl">{{ date.venue.name }} - {{ date.venue.city }}</h3>-->
 <!--                                        <p class="text-xs">{{ date.venue.country }}</p>-->
->>>>>>> d907fb83acada703c39ce4aa064c0e10af28ff49:resources/js/Pages/Event/Show.vue
                                     </div>
                                 </div>
                                 <div class="bg-success text-success-bg font-semibold px-6 py-1 min-w-28 rounded-full flex items-center justify-center">{{ date.status }}</div>
@@ -66,11 +63,6 @@
                         </div>
                     </div>
                     <div class="px-3">
-<<<<<<< HEAD:resources/js/admin/Pages/Event/Show.vue
-                        <p class="font-sm"> by
-                            <Link v-for="artist in event.artists" class="text-primary font-bold hover:underline" :href="$route('admin::artists.show', { artist: artist.id })">{{artist.name}}</Link>
-                        </p>
-=======
                         <h3 class="text-sm">
                             by
                             <span v-for="(artist, index) in event.artists">
@@ -81,7 +73,6 @@
                             <span v-if="index + 1 < event.artists.length">, </span>
                         </span>
                         </h3>
->>>>>>> d907fb83acada703c39ce4aa064c0e10af28ff49:resources/js/Pages/Event/Show.vue
                         <p class="text-sm xl:mb-5 2xl:mb-12">32 out of 32 events</p>
 
                             <div class="flex justify-between">

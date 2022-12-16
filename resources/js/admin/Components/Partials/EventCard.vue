@@ -1,12 +1,6 @@
 <template>
     <Link
-<<<<<<< HEAD:resources/js/admin/Components/Partials/EventCard.vue
         :href="$route('admin::events.show', { event: event.id })"
-        class="p-2.5 bg-white w-60 h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
-        <img alt="" class="rounded-xl h-32 w-full relative" src="/images/nikolaj_stokholm.jpg"/>
-        <div class="text-white rounded-xl m-2.5 h-32 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-3 absolute top-0 left-0 w-[220px]">
-=======
-        :href="$route('events.show', { event: event.id })"
         class="bg-white w-60 h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
         <div class="p-2.5">
             <img v-if="event.image" alt="" class="rounded-xl h-32 w-full relative" :src="'/images/artists/' + event.image"/>
@@ -22,7 +16,6 @@
             class="m-2.5 h-32  flex flex-col justify-end px-4 py-3 absolute top-0 left-0 w-[220px]"
             :class="event.image ? 'text-white rounded-xl bg-gradient-to-t from-secondary' : 'text-black'"
         >
->>>>>>> d907fb83acada703c39ce4aa064c0e10af28ff49:resources/js/Components/Partials/EventCard.vue
             <div class="absolute top-3 right-3 self-end">
                 <PublishedStatus :status="event.public" />
             </div>
@@ -47,16 +40,8 @@
                 </div>
                     <h3 class="text-sm" :class="event.artists.length >= 4 ? 'text-sm' : event.artists.length >= 2 ? 'text-xs' : 'text-sm'">
                         by
-<<<<<<< HEAD:resources/js/admin/Components/Partials/EventCard.vue
-                        <Link v-for="artist in event.artists"
-                              :href="$route('admin::artists.show', { artist: artist.id })"
-                              :class="event.artists.length >= 2 ? 'text-xs' : 'text-sm'"
-                              class="text-primary font-bold hover:underline">
-                            {{ artist.name }}
-                        </Link>
-=======
                         <span v-for="(artist, index) in event.artists" v-show="event.artists.length < 4">
-                            <Link :href="$route('artists.show', { artist: artist.id })"
+                            <Link :href="$route('admin::artists.show', { artist: artist.id })"
                                   class="text-primary font-bold hover:underline">
                                 {{ artist.name }}
                             </Link>
@@ -65,7 +50,6 @@
                         <span v-show="event.artists.length >= 4" >
                             <span class="text-primary font-bold">{{ event.artists.length }}</span> different artists
                         </span>
->>>>>>> d907fb83acada703c39ce4aa064c0e10af28ff49:resources/js/Components/Partials/EventCard.vue
                     </h3>
 
             </div>
@@ -75,13 +59,9 @@
                         <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                     </svg>
                 </button>
-<<<<<<< HEAD:resources/js/admin/Components/Partials/EventCard.vue
-                <div v-show="open" class="z-10 absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
-                    <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('admin::events.show', { event: event.id })">
-=======
+
                 <div v-show="open" class="z-20 absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
-                    <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('events.show', { event: event.id })">
->>>>>>> d907fb83acada703c39ce4aa064c0e10af28ff49:resources/js/Components/Partials/EventCard.vue
+                    <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('admin::events.showevents.show', { event: event.id })">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                             <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                             <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
@@ -104,7 +84,6 @@
             </div>
         </div>
     </Link>
-<<<<<<< HEAD:resources/js/admin/Components/Partials/EventCard.vue
 <!--    <div class="col-span-1 bg-white w-[15.8rem] h-80 rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)]">
         <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
         <div class="text-white h-40 bg-gradient-to-t from-secondary flex flex-col justify-end px-4 py-2.5 absolute top-0 left-0 w-full">
@@ -178,8 +157,7 @@
             </div>
         </div>
     </div>-->
-=======
->>>>>>> d907fb83acada703c39ce4aa064c0e10af28ff49:resources/js/Components/Partials/EventCard.vue
+
 </template>
 
 <script>

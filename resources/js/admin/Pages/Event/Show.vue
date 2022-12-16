@@ -147,9 +147,7 @@ export default {
     methods: {
         onClickAway(artist) {
             this.open = false;
-
         },
-
 
     },
     directives: {

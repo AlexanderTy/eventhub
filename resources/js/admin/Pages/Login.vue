@@ -34,15 +34,9 @@ export default {
     },
     // actions on init
     mounted() {
-
-        this.myFirstFunction();
     },
     // methods
     methods: {
-        myFirstFunction() {
-            console.log("works")
-
-        },
     },
 }
 </script>

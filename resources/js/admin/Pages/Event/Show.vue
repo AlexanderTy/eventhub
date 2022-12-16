@@ -14,7 +14,6 @@
                         <Tab type="dates" text="Dates & Venues" @tabClick="this.activeTab = 'dates'" :activeTab="activeTab" />
                         <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'" :activeTab="activeTab" />
                     </ul>
-                {{event.dates}}
                 <div v-if="event.dates.length" v-for="date in event.dates" class="relative mt-[-10px] 2xl:h-[550px] xl:h-[450px] overflow-scroll bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                         <div v-show="activeTab === 'dates'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-4">
                             <div v-for="date in event.dates" class="px-6 py-3 bg-white-secondary items-center justify-between flex h-[100px] w-full rounded-md">
@@ -109,6 +108,7 @@
                 </div>
 
             </div>
+            {{event.dates}}
         </div>
     </DefaultLayout>
 </template>

@@ -43,8 +43,8 @@
             </h2>
             <p class="text-sm text-gray-400">{{ user.email }}</p>
         </div>
-        <div class="text-xs h-7 w-28 bg-error-bg flex justify-center items-center rounded-full">
-            <p class="text-error font-bold capitalize">{{ user.role }}</p>
+        <div class="text-xs h-7 w-28 bg-error-secondary flex justify-center items-center rounded-full">
+            <p class="text-error-primary font-bold capitalize">{{ user.role }}</p>
         </div>
 
     </div>

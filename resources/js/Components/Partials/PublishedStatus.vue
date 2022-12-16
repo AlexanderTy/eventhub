@@ -1,9 +1,9 @@
 <template>
-    <div  v-show="status" class="text-xs h-7 w-28 bg-success-bg flex justify-center items-center rounded-full">
-        <p class="text-success font-bold">Published</p>
+    <div  v-show="status" class="text-xs h-7 w-28 bg-success-secondary flex justify-center items-center rounded-full">
+        <p class="text-success-primary font-bold">Published</p>
     </div>
-    <div v-show="!status" class="text-xs h-7 w-28 bg-error-bg flex justify-center items-center rounded-full">
-        <p class="text-error font-bold">Not published</p>
+    <div v-show="!status" class="text-xs h-7 w-28 bg-error-secondary flex justify-center items-center rounded-full">
+        <p class="text-error-primary font-bold">Not published</p>
     </div>
 </template>
 

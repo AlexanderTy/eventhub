@@ -1,12 +1,12 @@
 <template>
     <DefaultLayout currentRoute="events">
         <div class="flex flex-col min-w-[350px] h-full">
-            <div class="flex justify-between">
-                <div class="flex items-center mb-5">
+            <div class="flex justify-between mb-5">
                     <h2 class="font-bold text-2xl capitalize">
                         {{ event.title }}
                     </h2>
-                </div>
+                <LinkBtn :type="'edit'"
+                         :href="$route('admin::events.edit', {event:event.id})"/>
             </div>
             <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-3">
                 <div class="col-span-2">
@@ -126,9 +126,11 @@ import Tab from "../../Components/Partials/Tab";
 import {Link} from "@inertiajs/inertia-vue3";
 import PublishedStatus from "../../Components/Partials/PublishedStatus";
 import moment from "moment";
+import LinkBtn from "../../Components/Partials/LinkBtn";
 
 export default {
     components: {
+        LinkBtn,
         PublishedStatus,
         Tab,
         DefaultLayout,

@@ -3,8 +3,8 @@
 
         <SideMenu :currentRoute="currentRoute" @clickSidemenu="(n) => this.closeSidemenu = n " />
         <TopMenu />
-        <main class="transition-all duration-500 bg-white-secondary pt-24 pb-12 pr-16 min-h-screen w-full"
-              :class="closeSidemenu ? 'pl-32' : 'pl-[17rem]'">
+        <main class="transition-all duration-500 bg-white-secondary pt-24 pb-40 pr-16 min-h-screen w-full"
+              :class="$page.props.profile.settings?.closeSidemenu ? 'pl-32' : 'pl-[17rem]'">
             <slot />
             <div aria-live="assertive" class="fixed inset-0 flex items-end p-4 z-30 pointer-events-none sm:items-start">
                 <div class="w-full flex flex-col items-center space-y-4 sm:items-end">

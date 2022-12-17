@@ -14,7 +14,7 @@
                         <Tab type="dates" text="Dates & Venues" @tabClick="this.activeTab = 'dates'" :activeTab="activeTab" />
                         <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'" :activeTab="activeTab" />
                     </ul>
-                <div v-if="event.dates.length" v-for="date in event.dates" class="relative mt-[-10px] 2xl:h-[550px] xl:h-[450px] overflow-scroll bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                <div class="relative mt-[-10px] 2xl:h-[550px] h-[450px] overflow-scroll bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                         <div v-show="activeTab === 'dates'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-4">
                             <div v-for="date in event.dates" class="px-6 py-3 bg-white-secondary items-center justify-between flex h-[100px] w-full rounded-md">
                                 <div class="flex">
@@ -26,13 +26,17 @@
 
 
                                     <div  class="self-start flex flex-col gap-1">
-                                        <p class="text-sm">{{ $date(date.date, 'dddd') }} {{ $time(date.date) }} - 15:00</p>
+                                        <p class="text-sm">{{ $date(date.date, 'dddd') }} {{ $time(date.date) }} - 15:00 </p>
 
 <!--                                        <h3 class="font-semibold text-xl">{{ date.venue.name }} - {{ date.venue.city }}</h3>-->
 <!--                                        <p class="text-xs">{{ date.venue.country }}</p>-->
                                     </div>
                                 </div>
-                                <div class="bg-success-primary text-success-secondary font-semibold px-6 py-1 min-w-28 rounded-full flex items-center justify-center">{{ date.status }}</div>
+                                <div v-show="date.status"
+                                    class="capitalize font-medium px-6 py-2 w-[130px] rounded-full flex items-center justify-center"
+                                     :class="{'text-success-secondary bg-success-primary' : date.status === 'available', 'text-white-secondary bg-tertiary' : date.status === 'premier', 'text-preview-secondary bg-preview-primary' : date.status === 'preview', 'text-extra-secondary bg-extra-primary' : date.status === 'extra', 'text-warning-secondary bg-warning-primary' : date.status === 'few tickets', 'text-error-secondary bg-error-primary' : date.status === 'sold out'}"
+
+                                >{{ date.status }}</div>
                             </div>
                         </div>
                         <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">
@@ -47,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-span-1 relative overflow-scroll mt-[34px] 2xl:h-[550px] xl:h-[450px] p-5 bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                <div class="col-span-1 relative overflow-scroll mt-[34px] 2xl:h-[550px] h-[450px] p-5 bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                     <div class="relative">
                         <img v-if="event.image" alt="" class="rounded-lg h-48 w-full" :src="'/images/artists/' + event.image"/>
                         <div v-else class="rounded-lg h-48 w-full bg-tab-secondary text-white flex justify-center items-center">
@@ -66,39 +70,40 @@
                             <h3 class="text-gray-400 text-sm">{{ event.sub_title }}</h3>
                         </div>
                     </div>
-                    <div class="px-3 min-h-[155px]">
-                        <h3 class="text-sm">
-                            by
-                            <span v-for="(artist, index) in event.artists">
+                    <div class="px-3 min-h-[154px] 2xl:h-[254px] flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-sm">
+                                by
+                                <span v-for="(artist, index) in event.artists">
                             <Link :href="$route('admin::artists.show', { artist: artist.id })"
                                   class="text-primary font-bold hover:underline">
                                 {{ artist.name }}
                             </Link>
                             <span v-if="index + 1 < event.artists.length">, </span>
                         </span>
-                        </h3>
-                        <p class="text-sm xl:mb-5 2xl:mb-12">32 out of 32 events</p>
-
-                            <div class="flex justify-between">
-                                <div>
-                                    <label class="text-xs">Start Date</label>
-                                    <p>
-                                        {{ $date(event.sale_start) }}
-                                    </p>
-                                    <p class="text-sm">
-                                        {{ $time(event.sale_start) }}
-                                    </p>
-                                </div>
-                                <div class="self-center">-</div>
-                                <div>
-                                    <label class="text-xs">End Date</label>
-                                    <p>
-                                        {{ $date(event.sale_end) }}
-                                    </p>
-                                    <p class="text-sm">
-                                        {{ $time(event.sale_end) }}
-                                    </p>
-                                </div>
+                            </h3>
+                            <p class="text-sm 2xl:pt-2">32 out of 32 events</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <label class="text-xs">Start Date</label>
+                                <p>
+                                    {{ $date(event.sale_start) }}
+                                </p>
+                                <p class="text-sm">
+                                    {{ $time(event.sale_start) }}
+                                </p>
+                            </div>
+                            <div class="self-center">-</div>
+                            <div>
+                                <label class="text-xs">End Date</label>
+                                <p>
+                                    {{ $date(event.sale_end) }}
+                                </p>
+                                <p class="text-sm">
+                                    {{ $time(event.sale_end) }}
+                                </p>
+                            </div>
                         </div>
 
 
@@ -120,6 +125,7 @@ import { directive } from "vue3-click-away";
 import Tab from "../../Components/Partials/Tab";
 import {Link} from "@inertiajs/inertia-vue3";
 import PublishedStatus from "../../Components/Partials/PublishedStatus";
+import moment from "moment";
 
 export default {
     components: {
@@ -128,6 +134,7 @@ export default {
         DefaultLayout,
         Modal,
         Link,
+        moment,
     },
     props: {
         event: Object,
@@ -142,7 +149,6 @@ export default {
         }
     },
     mounted() {
-
     },
     methods: {
         onClickAway(artist) {

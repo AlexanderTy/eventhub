@@ -9,22 +9,22 @@ enum DateStatus: string
     use Listable;
 
     case AVAILABLE = 'available';
-    case PREMIER = 'premiere';
-    case PREVIEW = 'forpremiere';
-    case EXTRA = 'ekstra';
-    case FEW = 'Få pladser';
-    case SOLDOUT = 'udsolgt';
+    case PREMIER = 'premier';
+    case PREVIEW = 'preview';
+    case EXTRA = 'extra';
+    case FEW = 'few tickets';
+    case SOLDOUT = 'sold out';
 
 
     public function name()
     {
         return match ($this) {
             DateStatus::AVAILABLE => 'Available',
-            DateStatus::PREMIER => 'Premiere',
-            DateStatus::PREVIEW => 'Forpremiere',
-            DateStatus::EXTRA => 'Ekstra',
-            DateStatus::FEW => 'Få pladser',
-            DateStatus::SOLDOUT => 'Udsolgt',
+            DateStatus::PREMIER => 'Premier',
+            DateStatus::PREVIEW => 'Preview',
+            DateStatus::EXTRA => 'Extra',
+            DateStatus::FEW => 'Few tickets',
+            DateStatus::SOLDOUT => 'Sold out',
         };
     }
 

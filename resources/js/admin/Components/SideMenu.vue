@@ -1,15 +1,16 @@
 <template>
     <div
-        :class="closeSidemenu ? 'w-16' : 'w-52'"
+        :class="closeSidemenu ? 'w-20' : 'w-52'"
         class="transition-all duration-500 z-40 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
     >
         <div class="w-14 h-auto absolute top-12 right-0 -mr-7">
             <ToggleSidemenuBtn :close="closeSidemenu" @click="setSidemenu"/>
         </div>
         <nav class="flex flex-col space-y-16">
-            <div :class="closeSidemenu ? 'hidden' : ''" class="mx-auto">
+            <div>
                 <svg
-                    class="hover:text-primary text-white h-auto w-[98px]"
+                    class="hover:text-primary text-white h-auto mx-auto transition-all duration-500"
+                    :class="this.$page.props.profile.settings?.closeSidemenu ? 'w-[45px]' : 'w-[98px]'"
                     fill="currentColor"
                     viewBox="0 0 630.2 334.1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +151,7 @@ export default {
     //mounted function
     mounted() {
         this.form.closeSidemenu = this.closeSidemenu;
-        console.log(this.$page.props.profile.settings)
+        console.log(this.$page.props.profile.settings?.closeSidemenu)
     },
     methods: {
         setSidemenu() {

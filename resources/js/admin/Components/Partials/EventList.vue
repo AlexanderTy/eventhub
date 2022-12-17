@@ -19,6 +19,7 @@
                         </span>
             </h3>
         </div>
+        <DatesStatus :event="event" :length="'short'"/>
         <p class="col-span-3 text-center">32/32</p>
         <div class="col-span-3">
             <p class="text-center">{{ $date(event.sale_start) }}</p>
@@ -69,10 +70,12 @@ import DefaultLayout from "../../Layouts/DefaultLayout";
 import PublishedStatus from "./PublishedStatus";
 import {Link} from "@inertiajs/inertia-vue3";
 import {directive} from "vue3-click-away";
+import DatesStatus from "./DatesStatus";
 
 export default {
     // included child components
     components: {
+        DatesStatus,
         CreateModal,
         DefaultLayout,
         PublishedStatus,

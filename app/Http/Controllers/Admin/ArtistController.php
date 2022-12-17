@@ -64,8 +64,10 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist): Response
     {
-        $artist->load(['events']);
-
+        $artist->load([
+            'events' => fn($query) => $query->with('dates')->get(),
+        ]);
+       
         return Inertia::render(
             'Artist/Show',
             [

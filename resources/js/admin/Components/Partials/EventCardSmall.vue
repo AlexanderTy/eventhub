@@ -41,7 +41,8 @@
                     </div>
                 </div>
             </div>
-            <p class="text-xs">32 out of 32 events</p>
+            <DatesStatus :dates="event.dates" length="long" />
+<!--            <p class="text-xs">32 out of 32 events</p>-->
         </div>
     </Link>
 </template>
@@ -49,15 +50,19 @@
 <script>
 import {Link} from "@inertiajs/inertia-vue3";
 import {directive} from "vue3-click-away";
+import DatesStatus from "./DatesStatus";
 
 export default {
     // included child components
     components: {
+        DatesStatus,
         Link,
     },
     // passed from controller
     props: {
         event: Object,
+        remainingDates: Number,
+
     },
     // custom set
     data() {

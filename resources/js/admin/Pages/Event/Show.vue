@@ -83,11 +83,11 @@
                             <span v-if="index + 1 < event.artists.length">, </span>
                         </span>
                             </h3>
-                            <p class="text-sm 2xl:pt-2">32 out of 32 events</p>
+                            <DatesStatus :event="event" :length="'long'"/>
                         </div>
                         <div class="flex justify-between">
                             <div>
-                                <label class="text-xs">Start Date</label>
+                                <label class="text-xs">Sale Start</label>
                                 <p>
                                     {{ $date(event.sale_start) }}
                                 </p>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="self-center">-</div>
                             <div>
-                                <label class="text-xs">End Date</label>
+                                <label class="text-xs">Sale End</label>
                                 <p>
                                     {{ $date(event.sale_end) }}
                                 </p>
@@ -106,15 +106,9 @@
                                 </p>
                             </div>
                         </div>
-
-
                     </div>
-
-
                 </div>
-
             </div>
-            {{event.dates}}
         </div>
     </DefaultLayout>
 </template>
@@ -128,9 +122,11 @@ import {Link} from "@inertiajs/inertia-vue3";
 import PublishedStatus from "../../Components/Partials/PublishedStatus";
 import moment from "moment";
 import LinkBtn from "../../Components/Partials/LinkBtn";
+import DatesStatus from "../../Components/Partials/DatesStatus";
 
 export default {
     components: {
+        DatesStatus,
         LinkBtn,
         PublishedStatus,
         Tab,
@@ -150,17 +146,25 @@ export default {
             activeTabContent: false,
             endTime: '',
             testDuration: '',
+            datesLeft: 0,
         }
     },
     mounted() {
-        this.moment.locale('da');
-
+        this.calcDatesLeft();
     },
     methods: {
         onClickAway(artist) {
             this.open = false;
         },
+        calcDatesLeft() {
+            this.event.dates.forEach(date => {
+                //check if date is in the past then add to datesLeft
+                if (new Date(date.date) > new Date()) {
+                    this.datesLeft++;
+                }
 
+            })
+        },
     },
     directives: {
         ClickAway: directive,

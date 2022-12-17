@@ -1,62 +1,13 @@
 <template>
     <DefaultLayout currentRoute="artists">
         <div class="flex flex-col min-w-[350px] h-full">
-            <div class="flex justify-between">
-                <div class="flex items-center mb-5">
-                    <h2 class="font-bold text-2xl capitalize">
-                        {{ artist.name }}
-                    </h2>
-                </div>
-                <div v-click-away="onClickAway" class="relative">
-                    <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">
-                        <svg
-                            class="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </button>
-                    <div
-                        v-show="open"
-                        class="absolute right-0 border rounded p-1 whitespace-nowrap flex flex-col gap-2 text-left"
-                    >
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
-                            Option 1
-                        </button>
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
-                            Option 2
-                        </button>
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-red-700 text-sm"
-                            type="button"
-                            @click="openModal = true"
-                        >
-                            Delete
-                        </button>
-<!--                        <Teleport to="#app">
-
-                            <Modal
-                                v-show="openModal"
-                                :text="'Are you sure you want to delete'"
-                                :type="'event'"
-                                @close-modal="openModal = false"
-                                @action-modal="deleteEvent"
-                            />
-                        </Teleport>-->
-                    </div>
-                </div>
+            <div class="flex justify-between max-w-6xl mb-5">
+                <h2 class="font-bold text-2xl capitalize">
+                    {{ artist.name }}
+                </h2>
+                <LinkBtn class=""
+                         :type="'edit'"
+                         :href="$route('admin::artists.edit', {artist:artist.id})"/>
             </div>
             <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-3">
                 <div class="col-span-2">
@@ -132,10 +83,11 @@
                 </ul>
                 <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                     <div v-show="secondaryActiveTab === 'current'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
-                        <EventCardSmall :event="event" v-for="event in artist.events" />
+                        <EventCardSmall :event="event" v-for="event in artist.events" v-show="calcDatesLeft(event) > 0"/>
                     </div>
+                    <!-- event.dates.some(date => date > new Date())-->
                     <div v-show="secondaryActiveTab === 'previous'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
-                        <EventCardSmall :event="event" v-for="event in artist.events" />
+                        <EventCardSmall :event="event" v-for="event in artist.events" v-show="calcDatesLeft(event) === 0" />
                     </div>
 <!--                    <button class="flex flex-row items-center justify-center gap-2 absolute bottom-7 right-7 text-white bg-primary rounded-full py-2 px-6 font-semibold">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -187,6 +139,7 @@ export default {
             activeTab: 'general',
             secondaryActiveTab: 'current',
             activeTabContent: false,
+            remainingDates: 0,
         }
     },
     methods: {
@@ -197,6 +150,15 @@ export default {
             this.open = false;
 
         },
+        calcDatesLeft(e){
+            let datesLeft = 0;
+            e.dates.forEach(date =>{
+                if(new Date(date.date) > new Date()) {
+                    datesLeft++;
+                }
+            })
+            return datesLeft;
+        }
     },
     directives: {
         ClickAway: directive,

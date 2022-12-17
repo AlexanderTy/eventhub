@@ -1,7 +1,8 @@
 <template>
     <DefaultLayout currentRoute="events">
         <form
-            class="flex flex-col min-w-[350px] h-full"
+            class="flex flex-col min-w-[350px] h-full mx-auto"
+            :class="activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'"
             @submit.prevent="submit"
         >
             <div class="flex justify-between">

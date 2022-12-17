@@ -87,7 +87,8 @@
                 />
             </ul>
             <div
-                class="relative mt-[-10px] h-[450px] 2xl:h-[550px] z-10 w-full max-w-6xl h-full bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                class="relative mt-[-10px] h-[450px] 2xl:h-[550px] z-10 w-full  h-full bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                :class="activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'"
             >
                 <div
                     v-show="activeTab === 'general'"
@@ -270,17 +271,17 @@
                 </div>
                 <div
                     v-show="activeTab === 'dates'"
-                    class="absolute top-0 left-0 w-full h-full px-10 py-6 overflow-y-auto"
+                    class="absolute top-0 left-0 w-full h-full p-6 overflow-y-auto"
                 >
                     <div
                         class="text-xs grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4 mb-1"
                     >
                         <label class="col-span-1"></label>
                         <label class="col-span-3">Release Date</label>
-                        <label class="col-span-3">Venue</label>
+                        <label class="col-span-4">Venue</label>
                         <label class="col-span-3">Date & Time</label>
-                        <label class="col-span-3">Duration</label>
-                        <label class="col-span-3">Status</label>
+                        <label class="col-span-2">Duration</label>
+                        <label class="col-span-2">Status</label>
                         <label class="col-span-3">Label</label>
                         <label class="col-span-3">Note</label>
                     </div>
@@ -303,7 +304,7 @@
                                 class="col-span-3"
                                 type="datetime-local"
                             />
-                            <div class="col-span-3 relative">
+                            <div class="col-span-4 relative">
                                 <!--
                                 1. Wrapper/felt/div der viser navn baseret på venue_id (venueOptions) -> venue_id ? venueOptions[venue_id].name : ''
                                 2. Klik på wrapper -> åbner en dropdown med muligheder
@@ -333,15 +334,32 @@
                                 class="col-span-3"
                                 type="datetime-local"
                             />
-                            <Input v-model="date.duration" class="col-span-3"/>
+                            <Input v-model="date.duration" class="col-span-2"/>
                             <Select
                                 v-model="date.status"
                                 :options="dateStatus"
-                                class="col-span-3"
+                                class="col-span-2"
                             />
 
                             <Input v-model="date.label" class="col-span-3"/>
                             <Input v-model="date.note" class="col-span-3"/>
+                            <button
+                                type="button"
+                                @click="removeDate"
+                            >
+                                <svg
+                                    class="w-5 h-5 cursor-pointer text-tab-secondary"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        clip-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        fill-rule="evenodd"
+                                    />
+                                </svg>
+                            </button>
                         </div>
                         <Btn
                             class="col-[20/-1]"

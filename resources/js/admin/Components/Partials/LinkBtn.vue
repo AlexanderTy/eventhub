@@ -13,7 +13,7 @@
                 ? 'bg-primary hover:bg-red-700 flex flex-row items-center justify-center gap-2'
                 : 'bg-gray-600'
         "
-        class="rounded-full min-w-[6rem] px-6 py-2 text-white capitalize text-center font-semibold"
+        class="rounded-full min-w-[7.5rem] px-6 py-2 text-white capitalize text-center font-semibold"
         :type="type==='submit' ? 'submit' : 'button' "
     >
         <svg v-show="type === 'create'" class="shrink-0" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

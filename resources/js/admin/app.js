@@ -26,6 +26,7 @@ createInertiaApp({
                     date ? moment(date).format(format) : "",
                 $time: (time, format = 'HH:mm') =>
                     time ? moment(time).format(format) : '',
+                $calcEndTime: (start, duration) => duration ? moment(start).add(duration.split(':')[0], 'hours').add(duration.split(':')[1], 'minutes').format('HH:mm') : '',
             },
         });
 

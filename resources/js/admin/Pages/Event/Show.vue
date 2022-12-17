@@ -26,7 +26,7 @@
 
 
                                     <div  class="self-start flex flex-col gap-1">
-                                        <p class="text-sm">{{ $date(date.date, 'dddd') }} {{ $time(date.date) }} - 15:00 </p>
+                                        <p class="text-sm">{{ $date(date.date, 'dddd') }} {{ $time(date.date) }} - {{ $calcEndTime(date.date, date.duration) }}</p>
 
 <!--                                        <h3 class="font-semibold text-xl">{{ date.venue.name }} - {{ date.venue.city }}</h3>-->
 <!--                                        <p class="text-xs">{{ date.venue.country }}</p>-->
@@ -145,10 +145,13 @@ export default {
             openModal: false,
             activeTab: 'dates',
             activeTabContent: false,
-            endTime: ''
+            endTime: '',
+            testDuration: '',
         }
     },
     mounted() {
+        this.moment.locale('da');
+
     },
     methods: {
         onClickAway(artist) {

@@ -11,26 +11,43 @@
                         placeholder="Search for events, artists"
                         type="search"
                     />
+                    <div class="relative" v-click-away="closeSort">
+                        <Btn type="toggleDropdown"
+                             text="Sort by"
+                             @click="showSortBy = !showSortBy"
+                             :open="showSortBy"/>
+                        <CustomSelect
+                            v-show="showSortBy"
+                            :active="filter.sortOption"
+                            :options="sortOptions"
+                            :sortDirection="filter.order"
+                            @selectOption="sortEvents"
+                            :class="showSortBy ? 'rounded-b-md' : 'rounded-md'"
+                        />
+                    </div>
 
-                    <CustomSelect
-                        :active="filter.sortOption"
-                        :options="sortOptions"
-                        :sortDirection="filter.order"
-                        @selectOption="sortEvents"
-                    />
+                    <div class="relative" v-click-away="closeFilter">
+                        <Btn type="toggleDropdown"
+                             text="Filter"
+                             @click="showFilter = !showFilter"
+                             :open="showFilter"/>
+                        <select
+                            v-show="showFilter"
+                            multiple
+                            @change="updateFilter"
+                            class="absolute z-20 w-full h-[165px] px-2 py-1 cursor-pointer bg-white shadow-[5px_20px_17px_-2px_rgba(0,0,0,0.15)]"
+                            :class="showFilter ? 'rounded-b-md' : 'rounded-md'"
+                        >
+                            <option
+                                class="flex gap-1.5 items-center my-6"
+                                v-for="(value, key) in filterOptions"
+                                :key="key"
+                                :value="key"
+                                :class="filter.filterArray.includes(key) ? 'text-primary font-semibold' : ''"
+                            >{{ value }}</option>
+                        </select>
+                    </div>
 
-                    <select
-                        multiple
-                        @change="updateFilter"
-                        class="w-52"
-                    >
-                        <option
-                            v-for="(value, key) in filterOptions"
-                            :key="key"
-                            :value="key"
-                            :class="filter.filterArray.includes(key) ? 'text-primary font-semibold' : ''"
-                        >{{ value }}</option>
-                    </select>
 
                 </form>
             </div>
@@ -124,9 +141,11 @@ export default {
             open: "",
             currentRoute: "",
             openModal: false,
+            showSortBy: false,
+            showFilter: false,
             selectedButton: "cards",
             sortOptions: {
-                "": "Sort by",
+                "": "All",
                 title: "Title",
                 sale_start: "Sale start",
                 sale_end: "Sale end",
@@ -134,7 +153,6 @@ export default {
                 created_at: "Created",
             },
             filterOptions: {
-                "": "Filters",
                 public: "Public",
                 sale_start: "Sale started",
                 sale_end: "Sale ended",
@@ -150,6 +168,12 @@ export default {
     methods: {
         onClickAway(event) {
             this.open = "";
+        },
+        closeSort(event) {
+            this.showSortBy = false;
+        },
+        closeFilter(event) {
+            this.showFilter = false;
         },
         submit() {
             this.filter.get(this.$route("admin::events.index"));

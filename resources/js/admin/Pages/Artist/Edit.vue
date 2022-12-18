@@ -65,7 +65,12 @@
             <div class="relative mt-[-10px] z-10 w-full max-w-6xl min-h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                 <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-2 pr-10 flex flex-col gap-5">
-                        <ImageUpload @imageUploaded="setImage" :image="this.form.image" @imageRemoved="this.form.image = ''" />
+                        <ImageUpload
+                            @imageUploaded="setImage"
+                            :image="this.form.image"
+                            @imageRemoved="this.form.image = ''"
+                            type="artists"
+                         />
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Name</label>
                             <Input v-model="form.name" />

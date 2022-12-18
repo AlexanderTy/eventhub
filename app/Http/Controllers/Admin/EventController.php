@@ -6,12 +6,12 @@ use App\Enums\DateStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreEventRequest;
 use App\Http\Requests\Admin\UpdateEventRequest;
-use App\Models\Artist;
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\Venue;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -47,7 +47,7 @@ class EventController extends Controller
                 $query->where('sale_end', '<=', now());
 
             }
-            if (in_array('public', $request->filterArray)){
+            if (in_array('public', $request->filterArray)) {
                 $query->where('public', true);
 
             }
@@ -149,6 +149,14 @@ class EventController extends Controller
             'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
         ]);
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = str_replace(' ', '_', $event->title) . '_' . time() . '.' . $image->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('images/events/', $image, $imageName);
+            $event->update(['image' => $imageName]);
+        } else {
+            $event->update(['image' => $request->image]);
+        }
         $event->updateOrCreateSlug($request->slug ?? $request->title, $request->meta_title, $request->meta_description);
 
         //save events->artists
@@ -170,17 +178,21 @@ class EventController extends Controller
             if (!$date) {
                 $date = new Date;
             }
-
+            $date = new Date;
             $date->fill([
-                'venue_id' => $item->venue_id,
-                'status'   => $item->status,
-                'label'    => $item->label,
-                'note'    => $item->note,
+                'venue_id'     => $item->venue_id,
+                'status'       => $item->status,
+                'label'        => $item->label,
+                'note'         => $item->note,
+                'duration'     => $item->duration,
+                'date'         => $item->date,
+                'release_date' => $item->release_date,
 
             ]);
-
             $date->updateTimestamps();
+
             $items[] = $date;
+
         }
         $event->dates()->saveMany($items);
 

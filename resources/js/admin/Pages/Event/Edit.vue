@@ -138,46 +138,14 @@
                         </div>
                         <div class="flex flex-col">
                             <div>
-                                <label class="text-xs text-g mb-2"
-                                >Upload image</label
-                                >
-                                <div class="flex flex-row text-gray-600 gap-2">
-                                    <svg
-                                        class="self-center w-4 h-4"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            clip-rule="evenodd"
-                                            d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
-                                            fill-rule="evenodd"
-                                        />
-                                    </svg>
-                                    <p>nikolaj_stokholm_2022.jpg</p>
-                                </div>
-                                <div
-                                    class="flex flex-col justify-center items-center text-gray-600 bg-white-secondary h-24 rounded border border-dashed border-gray-400"
-                                >
-                                    <div class="flex flex-row gap-2">
-                                        <svg
-                                            class="w-6 h-6"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                clip-rule="evenodd"
-                                                d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z"
-                                                fill-rule="evenodd"
-                                            />
-                                        </svg>
-                                        <p>Add image</p>
-                                    </div>
-                                    <p class="text-sm">
-                                        Or simply just drop it here
-                                    </p>
-                                </div>
+                                <ImageUpload
+                                    :image="this.form.image"
+                                    @imageRemoved="this.form.image = ''"
+                                    @imageUploaded="setImage"
+                                    type="events"
+
+                                />
+
                             </div>
                         </div>
                     </div>
@@ -316,7 +284,8 @@
 -->
 
                                 <Search
-                                    v-model="venueSearchInputs[date.id]"
+
+                                    v-model="venueSearchInputs[date.id] "
                                     placeholder="Search for venues here..."
                                     @click="searchVenues(date)"
                                     @keyup="searchVenues(date)"
@@ -422,10 +391,12 @@ import axios from "axios";
 import {v4 as uuidv4} from "uuid";
 import Search from "../../Components/Partials/Search";
 import SearchResults from "../../Components/Partials/SearchResults";
+import ImageUpload from "../../Components/Partials/ImageUpload";
 
 export default {
     // included child components
     components: {
+        ImageUpload,
         SearchResults,
         Search,
         TextArea,
@@ -451,6 +422,7 @@ export default {
             form: this.$inertia.form({
                 title: this.event.title,
                 sub_title: this.event.sub_title,
+                image: this.event.image,
                 sale_start_date: this.$date(
                     this.event.sale_start,
                     "YYYY-MM-DD"
@@ -475,6 +447,7 @@ export default {
             venueFilter: null,
             showSearchVenues: "",
             filteredVenueOptions: [],
+
             venueSearchInputs: {},
         };
     },
@@ -483,6 +456,11 @@ export default {
         if (this.form.dates.length === 0) {
             this.addDate();
         }
+        // for each date in the form, add a key with the date id and value of the corresponding venue name to venueSearchInputs
+        this.form.dates.forEach((date) => {
+            this.venueSearchInputs[date.id] = date.venue?.name || "";
+        });
+
     },
     // methods
     methods: {
@@ -536,6 +514,7 @@ export default {
             this.venueSearchInputs[date.id] = this.venueOptions.find(
                 (x) => x.id === id
             ).name;
+            console.log(this.venueSearchInputs)
         },
 
         submit() {
@@ -549,6 +528,10 @@ export default {
                         event: this.event.id,
                     })
                 );
+        },
+        setImage(event) {
+            this.form.image = event;
+            this.theImage = event.name;
         },
 
         deleteEvent() {

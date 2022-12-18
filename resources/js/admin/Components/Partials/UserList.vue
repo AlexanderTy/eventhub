@@ -8,8 +8,8 @@
         </div>
         <h2 class="col-span-5 text-lg font-semibold">{{ user.first_name }} {{ user.last_name }}</h2>
         <p class="col-span-6 text-base">{{ user.email }}</p>
-        <div class="col-span-4 text-xs h-7 w-28 bg-error-bg flex justify-center items-center rounded-full">
-            <p class="text-error font-bold capitalize">{{ user.role }}</p>
+        <div class="col-span-4 text-xs h-7 w-28 bg-error-secondary flex justify-center items-center rounded-full">
+            <p class="text-error-primary font-bold capitalize">{{ user.role }}</p>
         </div>
         <div class="col-span-1 relative">
             <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >

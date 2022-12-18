@@ -36,5 +36,8 @@ export default {
         bg: String,
         open: Boolean,
     },
+    mounted(){
+        console.log(this.modelValue);
+    }
 };
 </script>

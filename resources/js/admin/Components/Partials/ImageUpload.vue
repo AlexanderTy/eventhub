@@ -36,7 +36,7 @@
         v-show="image">
             <div class="flex flex-row gap-3 items-center">
                 <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-tab-secondary">
-                    <img v-if="!imageSrc" :src="image ? '/images/artists/' + image : ''"  class="w-full h-full object-cover object-top" alt="Artist Profile Pitcure"/>
+                    <img v-if="!imageSrc" :src="image ? '/images/'+type + '/' + image : ''"  class="w-full h-full object-cover object-top" alt="Artist Profile Pitcure"/>
                     <img v-else :src="imageSrc" class="w-full h-full object-cover object-top" alt="Artist Profile Picture" />
                 </div>
                 <p v-if="!image">No image</p>
@@ -64,7 +64,8 @@
 <script>
 export default {
     props: {
-        image: String
+        image: String,
+        type: String
     },
     data() {
         return {

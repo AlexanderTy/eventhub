@@ -50,6 +50,7 @@ class Event extends Model
         'sale_start',
         'sale_end',
         'public',
+        'image',
     ];
 
     protected $casts = [

@@ -61,7 +61,10 @@ class Date extends Model
         'status',
         'label',
         'note',
+        'venue_id',
+
     ];
+
     protected $casts = [
         'status'=> DateStatus::class,
     ];

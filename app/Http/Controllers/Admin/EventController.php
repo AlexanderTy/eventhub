@@ -6,6 +6,7 @@ use App\Enums\DateStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreEventRequest;
 use App\Http\Requests\Admin\UpdateEventRequest;
+use App\Models\Artist;
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\Venue;
@@ -33,18 +34,36 @@ class EventController extends Controller
                         ->orWhere('sub_title', 'LIKE', '%' . $request->search . '%');
                 });
         }
+        //check if request->filter contains 'sale_start'
 
-        if (!empty($request->filter)) {
-            $query->where($request->filter, true);
+        if (!empty($request->filterArray)) {
+
+            //check if array contains 'sale_start'
+            if (in_array('sale_start', $request->filterArray)) {
+                $query->where('sale_start', '<=', now());
+
+            }
+            if (in_array('sale_end', $request->filterArray)) {
+                $query->where('sale_end', '<=', now());
+
+            }
+            if (in_array('public', $request->filterArray)){
+                $query->where('public', true);
+
+            }
+        }
+        if (!empty($request->sortOption)) {
+            $query->orderBy($request->sortOption, $request->order);
         }
 
-        $events = $query->with('artists')->get();
+        $events = $query->get();
+        $events->load(['artists', 'dates.venue']);
 
         return Inertia::render(
             'Event/Index',
             [
                 "events"  => $events,
-                'request' => $request,
+                "request" => $request,
             ]
         );
     }

@@ -3,50 +3,76 @@
         <div class="flex mb-8 w-full justify-between">
             <div class="flex gap-8">
                 <h1 class="font-bold text-3xl">Events</h1>
-                <form @submit.prevent="submit" class="flex flex-row gap-7">
-                    <Input type="search" placeholder="Search for events, artists" v-model="filter.search" bg="bg-white" :class="'shadow w-96 2xl:w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]' "/>
-                    <Select multiple
-                            class="shadow rounded w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]"
-                            :options="{'': 'All', 'public': 'Public'}"
-                            @update:modelValue="submit"
+                <form class="flex flex-row gap-7" @submit.prevent="submit">
+                    <Input
+                        v-model="filter.search"
+                        :class="'shrink-0 shadow w-96 2xl:w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]'"
+                        bg="bg-white"
+                        placeholder="Search for events, artists"
+                        type="search"
                     />
-                    <select class="shadow rounded w-36 2xl:w-44 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]"></select>
+
+                    <CustomSelect
+                        :active="filter.sortOption"
+                        :options="sortOptions"
+                        :sortDirection="filter.order"
+                        @selectOption="sortEvents"
+                    />
+
+                    <select
+                        multiple
+                        @change="updateFilter"
+                        class="w-52"
+                    >
+                        <option
+                            v-for="(value, key) in filterOptions"
+                            :key="key"
+                            :value="key"
+                            :class="filter.filterArray.includes(key) ? 'text-primary font-semibold' : ''"
+                        >{{ value }}</option>
+                    </select>
+
                 </form>
             </div>
-
-            <Btn type="create" @click="openModal = !openModal">
-                Create
-            </Btn>
+            <Btn type="create" @click="openModal = !openModal" />
             <Teleport to="#app">
-                <CreateModal v-show="openModal" @close-modal="openModal = false"/>
+                <CreateModal
+                    v-show="openModal"
+                    @close-modal="openModal = false"
+                />
             </Teleport>
         </div>
-
         <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
             <p>
                 We've found
-                <span class="text-primary font-semibold">{{ events.length }} </span> <span> {{ events.length === 1 ? "event" : "events" }}</span>
+                <span class="text-primary font-semibold">{{ events.length }}</span>
+                <span>{{ events.length === 1 ? " event" : " events" }}</span>
             </p>
 
-            <DisplayButtons @btnClick="setSelectedButton"/>
+            <DisplayButtons @btnClick="setSelectedButton" />
         </div>
-
-
-
-
         <div class="flex flex-wrap gap-3">
-            <EventCard :event="event" v-for="event in events" v-show="selectedButton === 'cards'"/>
-            <div v-show="selectedButton === 'list'" class="w-full px-12 grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] text-xs">
+            <EventCard
+                v-for="event in events"
+                v-show="selectedButton === 'cards'"
+                :event="event"
+            />
+            <div
+                v-show="selectedButton === 'list'"
+                class="w-full px-12 grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] text-xs"
+            >
                 <p class="col-span-4">Event</p>
-                <p class="col-span-3 text-center">Dates</p>
+                <p class="col-span-3 text-center">Upcoming dates</p>
                 <p class="col-span-3 text-center">Sale date (start)</p>
                 <p class="col-span-3 text-center">Sale date (end)</p>
                 <p class="col-span-3 text-center">Public</p>
             </div>
-            <EventList :event="event" v-for="event in events" v-show="selectedButton === 'list'" />
+            <EventList
+                v-for="event in events"
+                v-show="selectedButton === 'list'"
+                :event="event"
+            />
         </div>
-
-
     </DefaultLayout>
 </template>
 
@@ -55,17 +81,19 @@ import DefaultLayout from "../../Layouts/DefaultLayout";
 import PublishedStatus from "../../Components/Partials/PublishedStatus";
 import { Link } from "@inertiajs/inertia-vue3";
 import CreateModal from "../../Components/CreateModal";
-import {directive} from "vue3-click-away";
+import { directive } from "vue3-click-away";
 import EventCard from "../../Components/Partials/EventCard";
 import Input from "../../Components/Partials/Input";
 import EventList from "../../Components/Partials/EventList";
 import Btn from "../../Components/Partials/Btn";
 import DisplayButtons from "../../Components/Partials/DisplayButtons";
 import Select from "../../Components/Partials/Select";
+import CustomSelect from "../../Components/Partials/CustomSelect";
 
 export default {
     // included child components
     components: {
+        CustomSelect,
         Select,
         DisplayButtons,
         Btn,
@@ -83,34 +111,94 @@ export default {
         status: Boolean,
         request: Object,
         type: String,
-
-
     },
-     // custom set
-     data() {
+    // custom set
+    data() {
         return {
             filter: this.$inertia.form({
                 search: this.request.search,
-                filter: this.request.filter,
+                sortOption: this.request.sortOption ?? "",
+                order: this.request.order,
+                filterArray: this.request.filterArray ?? [],
             }),
             open: "",
             currentRoute: "",
             openModal: false,
-            selectedButton: 'cards',
+            selectedButton: "cards",
+            sortOptions: {
+                "": "Sort by",
+                title: "Title",
+                sale_start: "Sale start",
+                sale_end: "Sale end",
+                public: "Public",
+                created_at: "Created",
+            },
+            filterOptions: {
+                "": "Filters",
+                public: "Public",
+                sale_start: "Sale started",
+                sale_end: "Sale ended",
+            },
+            previousSort: '',
+
         };
+    },
+    mounted() {
+        console.log(this.events);
     },
     // methods
     methods: {
         onClickAway(event) {
             this.open = "";
         },
-        submit(event) {
-            this.filter.filter = event;
-            this.filter.get(this.$route('admin::events.index'));
+        submit() {
+            this.filter.get(this.$route("admin::events.index"));
         },
-        setSelectedButton(e){
+        setSelectedButton(e) {
             this.selectedButton = e;
         },
+        sortEvents(e) {
+            // check if clicked sort is the same as previous sort
+            // set previous sort to current sort
+            this.previousSort = this.filter.sortOption;
+            this.filter.sortOption = e;
+
+            // check if current sort is the same as the previous sort
+            if (this.filter.sortOption === this.previousSort) {
+                // check if previous sort direction was descending
+                if (this.filter.order === 'desc') {
+                    // set sort direction to ascending
+                    this.filter.order  = 'asc';
+                    console.log("yo")
+                } else {
+                    // toggle sort direction
+                    this.filter.order = this.filter.order === 'asc' ? 'desc' : 'asc';
+                }
+            } else {
+                // set sort direction to ascending (default)
+                this.filter.order = 'asc';
+            }
+            this.submit();
+        },
+        updateFilter(e){
+            // check if the selected option is already in the filterArray
+            if (this.filter.filterArray.includes(e.target.value)) {
+                // remove the option from the filterArray
+                this.filter.filterArray = this.filter.filterArray.filter((item) => item !== e.target.value);
+            } else {
+                // add the option to the filterArray
+                this.filter.filterArray.push(e.target.value);
+            }
+            console.log(this.filter);
+
+
+
+            this.submit();
+
+
+
+
+        }
     },
     // directives
     directives: {

@@ -83,7 +83,7 @@
                             <span v-if="index + 1 < event.artists.length">, </span>
                         </span>
                             </h3>
-                            <DatesStatus :event="event" :length="'long'"/>
+                           <DatesStatus :dates="event.dates" :length="'long'"/>
                         </div>
                         <div class="flex justify-between">
                             <div>
@@ -162,7 +162,6 @@ export default {
                 if (new Date(date.date) > new Date()) {
                     this.datesLeft++;
                 }
-
             })
         },
     },

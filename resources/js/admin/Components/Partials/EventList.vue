@@ -19,8 +19,7 @@
                         </span>
             </h3>
         </div>
-        <DatesStatus :event="event" :length="'short'"/>
-        <p class="col-span-3 text-center">32/32</p>
+        <DatesStatus :dates="event.dates" length="short" class="col-span-3 text-center"/>
         <div class="col-span-3">
             <p class="text-center">{{ $date(event.sale_start) }}</p>
             <p class="text-center">{{ $time(event.sale_start) }}</p>
@@ -94,8 +93,10 @@ export default {
             openModal: false,
         };
     },
+
     // methods
     methods: {
+
         onClickAway(event) {
 
             this.open = false;

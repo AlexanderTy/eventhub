@@ -1,6 +1,6 @@
 <template>
     <p v-if="length === 'long'" class="text-sm 2xl:pt-2">
-        {{ this.datesLeft }} out of {{ dates.length }} dates left
+        {{ this.datesLeft }} out of {{ dates.length }} upcoming dates left
     </p>
     <p v-else>
         {{ this.datesLeft }} out of {{ dates.length }}

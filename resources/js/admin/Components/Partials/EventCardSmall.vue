@@ -1,4 +1,5 @@
 <template>
+
     <Link
         :href="$route('admin::events.show', { event: event.id })"
         class="bg-white-secondary w-full h-24 rounded-md grid grid-cols-3">
@@ -42,7 +43,6 @@
                 </div>
             </div>
             <DatesStatus :dates="event.dates" length="long" />
-<!--            <p class="text-xs">32 out of 32 events</p>-->
         </div>
     </Link>
 </template>

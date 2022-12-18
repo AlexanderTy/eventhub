@@ -1,6 +1,6 @@
 <template>
     <DefaultLayout currentRoute="venues">
-        <div class="flex justify-between">
+        <div class="flex mb-8 w-full justify-between">
             <div class="flex gap-8">
                 <h1 class="font-bold text-3xl">Venues</h1>
                 <form class="flex flex-row gap-7" @submit.prevent="submit">
@@ -32,7 +32,7 @@
                 <CreateModal v-show="openModal" @close-modal="openModal = false"/>
             </Teleport>
         </div>
-        <p class="mb-8">
+        <p class="mb-4 text-gray-600">
             We've found
             <span class="text-primary font-semibold"> {{ venues.length }} </span> <span> {{ venues.length === 1 ? "venue" : "venues" }}</span>
         </p>

@@ -59,7 +59,7 @@
                 />
             </Teleport>
         </div>
-        <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
+        <div class="flex flex-row w-full justify-between mb-4 text-gray-600">
             <p>
                 We've found
                 <span class="text-primary font-semibold">{{ events.length }}</span>

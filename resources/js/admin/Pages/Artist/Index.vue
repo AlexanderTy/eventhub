@@ -1,6 +1,6 @@
 <template>
     <DefaultLayout currentRoute="artists">
-        <div class="flex justify-between">
+        <div class="flex mb-8 w-full justify-between">
             <div class="flex gap-8">
                 <h1 class="font-bold text-3xl">Artists</h1>
                 <form class="flex flex-row gap-7" @submit.prevent="submit">
@@ -33,7 +33,7 @@
             </Teleport>
         </div>
 
-        <div class="flex flex-row w-full justify-between mb-8 text-gray-600">
+        <div class="flex flex-row w-full justify-between mb-4 text-gray-600">
         <p class="">
             We've found
             <span class="text-primary font-semibold">{{ artists.length }} </span> <span> {{ artists.length === 1 ? "artist" : "artists" }}</span>

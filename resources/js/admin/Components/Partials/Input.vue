@@ -4,7 +4,6 @@
         @input="$emit('update:modelValue', $event.target.value)"
         class=" rounded px-2 py-1 text-gray-600 placeholder:text-placeholder"
         :class="bg ? bg : 'bg-white-secondary' "
-        type="search"
 
     />
 </template>

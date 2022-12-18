@@ -531,7 +531,6 @@ export default {
         },
         setImage(event) {
             this.form.image = event;
-            this.theImage = event.name;
         },
 
         deleteEvent() {

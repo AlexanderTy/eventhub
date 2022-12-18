@@ -142,6 +142,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event): \Inertia\Response|RedirectResponse
     {
+
         $event->update([
             'title'      => $request->title,
             'sub_title'  => $request->sub_title,
@@ -197,7 +198,6 @@ class EventController extends Controller
         $event->dates()->saveMany($items);
 
         $event->dates()->where('updated_at', '<', $now)->delete();
-
 
         return redirect()->back();
 

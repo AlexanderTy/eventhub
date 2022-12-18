@@ -27,36 +27,46 @@ class UserController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index(Request $request): \Inertia\Response
     {
-       /* $artist=Artist::first();
-        $event=Event::first();
+        $query = User::query();
+        if (!empty($request->search)) {
+            $query
+                ->where(function ($query) use ($request) {
+                    $query
+                        ->where('first_name', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+                });
+        }
+        if (!empty($request->sortOption)) {
+            $query->orderBy($request->sortOption, $request->order);
+        }
 
-        $artist->events()->attach($event);
-        $event->artists()->attach($artist);
-
-        $event->artists()->detach($artist);
-
-        $artist->events()->sync([$event->id]);
-        //$artist->events()->syncWithoutDetaching([$event1->id, $event2->id]);
-
-        $artist->events; // returns a collection
-        $artist->events()->get(); // ^the same
-        $artist->events()->where('...', '...'); // returns a query
-
-        dd($event,$artist);*/
-
+        $users = $query->get();
 
 
-        $users = User::latest()->get();
 
         return Inertia::render(
             'User/Index',
             [
-                "users"    => $users,
+                "users" => $users,
+                "request" => $request,
             ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(StoreUserRequest $request): RedirectResponse
+    {
+
+        User::create($request->validated());
+        return redirect()->route('admin::users.index');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -75,20 +85,6 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function store(StoreUserRequest $request): RedirectResponse
-    {
-
-        User::create($request->validated());
-        return redirect()->route('admin::users.index');
-    }
-
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param User $user
@@ -99,7 +95,7 @@ class UserController extends Controller
         return Inertia::render(
             'User/Edit',
             [
-                "user" => $user,
+                "user"  => $user,
                 "roles" => UserRole::list(),
             ]);
     }
@@ -111,7 +107,7 @@ class UserController extends Controller
      * @param User $user
      * @return \Inertia\Response|RedirectResponse
      */
-    public function update(UpdateUserRequest $request, User $user): \Inertia\Response |RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): \Inertia\Response|RedirectResponse
     {
         $user->update(
             $request->validated()
@@ -132,7 +128,8 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('admin::users.index');
     }
-    public function saveSettings( UpdateUserSettingsRequest $request): RedirectResponse
+
+    public function saveSettings(UpdateUserSettingsRequest $request): RedirectResponse
     {
         $user = Auth::user();
         $user->settings = $request->validated();

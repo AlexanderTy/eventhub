@@ -11,11 +11,6 @@
             We've found
             <span class="text-primary font-semibold"> {{ venues.length }} </span> <span> {{ venues.length === 1 ? "venue" : "venues" }}</span>
         </p>
-<!--        <form @submit.prevent="submit">
-            <Input  v-model="filter.search" />
-
-        </form>-->
-
 
         <div class="flex flex-wrap gap-3">
             <div class="grid gap-4 grid-cols-7 text-xs items-center px-12 w-full">
@@ -31,7 +26,7 @@
                     <p>{{ venue.zipcode }} {{ venue.city }}</p>
                 </div>
                 <p class="col-span-2 capitalize">{{venue.country}}</p>
-               <Link class="col-span-1" :href="$route('admin::venues.edit', { venue: venue.id, })" >
+               <Link class="col-span-1 justify-self-center" :href="$route('admin::venues.edit', { venue: venue.id, })" >
                    Edit
                </Link>
             </div>

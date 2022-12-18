@@ -96,8 +96,14 @@
                         Create
                     </button>-->
 
-                    <LinkBtn :type="'create'" to="admin::events.create" class="absolute bottom-7 right-7" />
-
+<!--                    <LinkBtn :type="'create'" to="admin::events.create" class="absolute bottom-7 right-7" />-->
+                    <Btn type="create" @click="openModal = !openModal" class="absolute bottom-7 right-7" />
+                    <Teleport to="#app">
+                        <CreateModal
+                            v-show="openModal"
+                            @close-modal="openModal = false"
+                        />
+                    </Teleport>
 
                 </div>
                 </div>
@@ -117,9 +123,11 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Btn from "../../Components/Partials/Btn";
 import EventCardSmall from "../../Components/Partials/EventCardSmall";
 import LinkBtn from "../../Components/Partials/LinkBtn";
+import CreateModal from "../../Components/CreateModal";
 
 export default {
     components: {
+        CreateModal,
         LinkBtn,
         EventCardSmall,
         Btn,

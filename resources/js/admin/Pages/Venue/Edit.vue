@@ -4,7 +4,7 @@
             class="flex flex-col min-w-[350px] h-full"
             @submit.prevent="submit"
         >
-            <div class="flex justify-between">
+            <div class="flex justify-between mx-auto w-[700px]">
                 <div class="flex items-center 2xl:mb-12 xl:mb-5">
                     <h2 class="font-bold text-2xl capitalize">{{ venue.name }} - {{ venue.city }}</h2>
                 </div>
@@ -64,12 +64,12 @@
             </div>
 
             <div
-                class="relative z-10 w-full max-w-6xl xl:h-[450px] 2XL:h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                class="relative z-10 mx-auto w-[700px] max-w-6xl xl:h-[450px] 2xl:h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
             >
                 <div
-                    class="absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col xl:px-10 xl:py-6"
+                    class="absolute top-0 left-0 h-full w-full grid grid-cols-3 gap-12 flex-col xl:px-10 xl:py-6"
                 >
-                    <div class="col-span-3 pr-10 flex flex-col xl:gap-6 2xl:gap-7">
+                    <div class="col-span-3 flex flex-col xl:gap-6 2xl:gap-7">
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Name</label>
                             <Input v-model="form.name" />

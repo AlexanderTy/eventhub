@@ -91,7 +91,8 @@ export default {
             selectedButton: 'cards',
             showSortBy: false,
             sortOptions: {
-                "name": "Name",
+                "first_name": "First Name",
+                "last_name": "Last Name",
                 "email": "Email",
                 "created_at": "Created at",
                 "role": "Role",

@@ -56,10 +56,11 @@ class ArtistController extends Controller
      */
     public function store(StoreArtistRequest $request): RedirectResponse
     {
-        $artist = Artist::create($request->validate());
+        $artist = Artist::create($request->validated());
         return redirect()->route('admin::artists.edit', [
             'artist' => $artist,
         ]);
+
     }
 
     /**

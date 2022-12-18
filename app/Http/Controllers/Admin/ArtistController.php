@@ -132,12 +132,13 @@ class ArtistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return void
+     * @param Artist $artist
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Artist $artist): RedirectResponse
     {
-        //
+        $artist->delete();
+        return redirect()->route('admin::artists.index');
     }
 
     /**

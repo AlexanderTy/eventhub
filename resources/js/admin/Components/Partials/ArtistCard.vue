@@ -2,10 +2,10 @@
     <Link
         :href="$route('admin::artists.show', { artist: artist.id, })"
         class="bg-white p-2.5 pt-5 w-[12.8rem] h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
-        <div class="absolute top-4 right-3.5 z-10 self-end">
+        <div class="absolute top-4 right-1 z-10 self-end">
             <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open"
                     v-click-away="onClickAway">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
                     <path fill-rule="evenodd"
                           d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
                           clip-rule="evenodd"/>
@@ -31,7 +31,10 @@
                     </svg>
                     Edit
                 </Link>
-                <button class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary">
+                <button class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary"
+                        type="button"
+                        @click.prevent="openModal = true"
+                >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                         <path fill-rule="evenodd"
                               d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
@@ -39,6 +42,15 @@
                     </svg>
                     Delete
                 </button>
+                <Teleport to="#app">
+                    <Modal
+                        v-show="openModal"
+                        :type="'artist'"
+                        :deleteItem="artist.name"
+                        @close-modal="openModal = false"
+                        @action-modal="deleteArtist"
+                    />
+                </Teleport>
             </div>
         </div>
         <div class="text-tab-secondary w-32 h-32 rounded-full shrink-0 overflow-hidden">
@@ -61,11 +73,13 @@ import DefaultLayout from "../../Layouts/DefaultLayout";
 import PublishedStatus from "./PublishedStatus";
 import {Link} from "@inertiajs/inertia-vue3";
 import {directive} from "vue3-click-away";
+import Modal from "../../Components/Modal";
 
 export default {
     // included child components
     components: {
         CreateModal,
+        Modal,
         DefaultLayout,
         PublishedStatus,
         Link,
@@ -85,8 +99,14 @@ export default {
     },
     // methods
     methods: {
+        deleteArtist() {
+            this.$inertia.delete(
+                this.$route("admin::artists.destroy", {
+                    artist: this.artist.id,
+                })
+            );
+        },
         onClickAway(event) {
-
             this.open = false;
         },
     },

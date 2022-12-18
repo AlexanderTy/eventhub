@@ -194,11 +194,15 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Event $event
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Event $event): RedirectResponse
     {
-        //
+        $event->delete();
+
+        return redirect()->route('admin::events.index');
     }
+
+
 }

@@ -9,13 +9,13 @@
                 <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
             </svg>
         </div>
-        <div class="col-span-2 p-3 flex flex-col justify-between">
+        <div class="col-span-2 py-3 pl-3 flex flex-col justify-between">
             <div class="flex flex-row justify-between">
                 <Link :href="$route('admin::events.show', { event: event.id })"
                       class="font-semibold cursor-pointer hover:underline">{{ event.title }}</Link>
                 <div class="relative z-10">
                     <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
                             <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -33,16 +33,30 @@
                             </svg>
                             Edit
                         </Link>
-                        <button class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary">
+                        <button class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary"
+                                type="button"
+                                @click.prevent="openModal = true"
+                        >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                                <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                      d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                      clip-rule="evenodd"/>
                             </svg>
                             Delete
                         </button>
+                        <Teleport to="#app">
+                            <Modal
+                                v-show="openModal"
+                                :type="'event'"
+                                :deleteItem="event.title"
+                                @close-modal="openModal = false"
+                                @action-modal="deleteEvent"
+                            />
+                        </Teleport>
                     </div>
                 </div>
             </div>
-            <DatesStatus :dates="event.dates" length="long" />
+            <DatesStatus :dates="event.dates" length="long" class="pr-3" />
         </div>
     </Link>
 </template>
@@ -51,10 +65,12 @@
 import {Link} from "@inertiajs/inertia-vue3";
 import {directive} from "vue3-click-away";
 import DatesStatus from "./DatesStatus";
+import Modal from "../Modal";
 
 export default {
     // included child components
     components: {
+        Modal,
         DatesStatus,
         Link,
     },
@@ -74,8 +90,14 @@ export default {
     },
     // methods
     methods: {
+        deleteEvent() {
+            this.$inertia.delete(
+                this.$route("admin::events.destroy", {
+                    event: this.event.id,
+                })
+            );
+        },
         onClickAway(event) {
-
             this.open = false;
         },
     },

@@ -1,11 +1,11 @@
 <template>
     <DefaultLayout currentRoute="artists">
         <div class="flex flex-col min-w-[350px] h-full">
-            <div class="flex justify-between max-w-6xl mb-5">
+            <div class="grid grid-cols-3 justify-between max-w-6xl mb-5">
                 <h2 class="font-bold text-2xl capitalize">
                     {{ artist.name }}
                 </h2>
-                <LinkBtn class=""
+                <LinkBtn class="ml-auto"
                          :type="'edit'"
                          :href="$route('admin::artists.edit', {artist:artist.id})"/>
             </div>
@@ -83,14 +83,7 @@
                 </ul>
                 <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                     <div v-show="secondaryActiveTab === 'current'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
-
-                        <p v-if="calcDatesLeft(event) > 0">Penis</p>
-                        <div>
-
-                        </div>
-                        <EventCardSmall :event="event" v-for="(event, index) in artist.events" v-show="calcDatesLeft(event) > 0">
-
-                        </EventCardSmall>
+                        <EventCardSmall :event="event" v-for="event in artist.events" v-show="calcDatesLeft(event) > 0" />
                     </div>
                     <!-- event.dates.some(date => date > new Date())-->
                     <div v-show="secondaryActiveTab === 'previous'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
@@ -158,6 +151,7 @@ export default {
         }
     },
     methods: {
+
         thing(){
             console.log("click");
         },

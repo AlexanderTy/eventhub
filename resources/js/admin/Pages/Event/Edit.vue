@@ -554,7 +554,7 @@ export default {
         deleteEvent() {
             this.$inertia.delete(
                 this.$route("admin::events.destroy", {
-                    user: this.user.id,
+                    event: this.event.id,
                 })
             );
         },

@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\Country;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreEventRequest;
 use App\Http\Requests\Admin\UpdateVenueRequest;
+use App\Http\Requests\StoreVenueRequest;
 use App\Models\Artist;
+use App\Models\Event;
 use App\Models\Venue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Session\Store;
 use Inertia\Inertia;
 
 class VenueController extends Controller
@@ -61,11 +65,16 @@ class VenueController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreVenueRequest $request): RedirectResponse
     {
-        //
+        $venue = Venue::create($request->validated());
+
+
+        return redirect()->route('admin::venues.edit', [
+            'venue' => $venue
+        ]);
     }
 
     /**

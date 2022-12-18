@@ -29,7 +29,7 @@
             </div>
             <Btn type="create" @click="openModal = !openModal" />
             <Teleport to="#app">
-                <CreateModal v-show="openModal" @close-modal="openModal = false"/>
+                <CreateModal v-if="openModal" @close-modal="openModal = false" type="venue" label="Create new venue" />
             </Teleport>
         </div>
         <p class="mb-4 text-gray-600">
@@ -147,6 +147,7 @@ export default {
                 "country": "Country",
 
             },
+            previousSort: '',
         }
     },
     // methods
@@ -168,8 +169,27 @@ export default {
             this.showSortBy = false;
         },
         sortVenues(option) {
+            // check if clicked sort is the same as previous sort
+            // set previous sort to current sort
+            this.previousSort = this.filter.sortOption;
             this.filter.sortOption = option;
-            this.filter.order = this.filter.order === "asc" ? "desc" : "asc";
+
+            // check if current sort is the same as the previous sort
+            if (this.filter.sortOption === this.previousSort) {
+                // check if previous sort direction was descending
+                if (this.filter.order === 'desc') {
+                    // set sort direction to ascending
+                    this.filter.order  = 'asc';
+                    console.log("yo")
+                } else {
+                    // toggle sort direction
+                    this.filter.order = this.filter.order === 'asc' ? 'desc' : 'asc';
+                }
+            } else {
+                // set sort direction to ascending (default)
+                this.filter.order = 'asc';
+            }
+
             this.submit();
         },
     },

@@ -56,6 +56,7 @@
                 <CreateModal
                     v-show="openModal"
                     @close-modal="openModal = false"
+                    type="event" label="Create new event"
                 />
             </Teleport>
         </div>

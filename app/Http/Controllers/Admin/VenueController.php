@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateVenueRequest;
+use App\Models\Artist;
 use App\Models\Venue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -19,13 +20,29 @@ class VenueController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index(Request $request): \Inertia\Response
     {
-        $venues = Venue::latest()->orderBy('id', 'DESC')->get();
+
+        $query = Venue::query();
+        if (!empty($request->search)) {
+            $query
+                ->where(function ($query) use ($request) {
+                    $query
+                        ->where('name', 'LIKE', '%' . $request->search . '%');
+                });
+        }
+        if (!empty($request->sortOption)) {
+            $query->orderBy($request->sortOption, $request->order);
+        }
+
+        $venues = $query->get();
+
+/*        $venues = Venue::latest()->orderBy('id', 'DESC')->get();*/
         return Inertia::render(
             'Venue/Index',
             [
                 'venues' => $venues,
+                'request' => $request,
             ]
         );
     }

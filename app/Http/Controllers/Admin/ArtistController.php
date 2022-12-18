@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreArtistRequest;
 use App\Http\Requests\Admin\UpdateArtistRequest;
 use App\Models\Artist;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -23,11 +24,26 @@ class ArtistController extends Controller
      */
     public function index(Request $request): Response
     {
-        $artists = Artist::latest()->get();
+        $query = Artist::query();
+        if (!empty($request->search)) {
+            $query
+                ->where(function ($query) use ($request) {
+                    $query
+                        ->where('name', 'LIKE', '%' . $request->search . '%');
+                });
+        }
+        if (!empty($request->sortOption)) {
+            $query->orderBy($request->sortOption, $request->order);
+        }
+
+        $artists = $query->get();
+/*        $artists->load(['artists', 'dates.venue']);*/
+
         return Inertia::render(
             'Artist/Index',
             [
                 "artists" => $artists,
+                "request" => $request,
             ]
         );
     }
@@ -67,7 +83,7 @@ class ArtistController extends Controller
         $artist->load([
             'events' => fn($query) => $query->with('dates')->get(),
         ]);
-       
+
         return Inertia::render(
             'Artist/Show',
             [

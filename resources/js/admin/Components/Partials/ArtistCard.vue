@@ -53,7 +53,6 @@
                 </Teleport>
             </div>
         </div>
-        {{artist.image}}
 
         <div class="text-tab-secondary w-32 h-32 rounded-full shrink-0 overflow-hidden">
             <img v-if="artist.image" alt="" class="w-full h-full object-cover object-top" :src="'/images/artists/' + artist.image"/>

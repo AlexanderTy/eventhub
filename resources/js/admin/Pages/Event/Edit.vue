@@ -346,7 +346,7 @@
                             <Input v-model="date.note" class="col-span-3"/>
                             <button
                                 type="button"
-                                @click="removeDate"
+                                @click="removeDate(date)"
                             >
                                 <svg
                                     class="w-5 h-5 cursor-pointer text-tab-secondary"
@@ -568,12 +568,16 @@ export default {
         },
 
         removeArtist(artist) {
+
             this.form.artists = this.form.artists.filter(
                 (x) => x !== artist.id
             );
             this.selectedArtists = this.selectedArtists.filter(
                 (x) => x.id !== artist.id
             );
+        },
+        removeDate(date) {
+            this.form.dates = this.form.dates.filter((x) => x.id !== date.id);
         },
 
         addDate() {

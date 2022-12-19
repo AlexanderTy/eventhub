@@ -59,7 +59,7 @@ class ArtistController extends Controller
         $artist = Artist::create($request->validated());
         return redirect()->route('admin::artists.edit', [
             'artist' => $artist,
-        ]);
+        ])->with('success', "Artist $artist->name created successfully");
 
     }
 
@@ -127,7 +127,7 @@ class ArtistController extends Controller
         } else {
             $artist->update($request->validated());
         }
-        return redirect()->back();
+        return redirect()->back()->with('success', "Artist $artist->name updated successfully");
     }
 
     /**

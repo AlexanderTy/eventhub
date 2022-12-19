@@ -1,7 +1,7 @@
 <template>
     <Link
         :href="$route('admin::artists.show', { artist: artist.id, })"
-        class="bg-white p-2.5 pt-5 w-[12.8rem] h-[13rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
+        class="bg-white p-2.5 pt-5 w-[12.3rem] h-[13.5rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
         <div class="absolute top-4 right-1 z-10 self-end">
             <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open"
                     v-click-away="onClickAway">
@@ -62,7 +62,7 @@
         </div>
         <Link
             :href="$route('admin::artists.show', { artist: artist.id, })"
-            class="text-lg font-medium text-center hover:underline">
+            class="text-lg font-medium text-center hover:underline leading-5">
             {{ artist.name }}
         </Link>
     </Link>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center px-2 py-2 text-gray-600 placeholder:text-placeholder bg-white-secondary w-full"
+    <div class="flex items-center px-2 py-1 text-gray-600 placeholder:text-placeholder bg-white-secondary w-full"
          :class="open ? 'rounded-t-md' : 'rounded-md' ">
             <svg
                 class="w-5 h-5 shrink-0"

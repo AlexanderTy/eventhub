@@ -99,6 +99,7 @@ export default {
         roles: Object,
         type: String,
         label: String,
+        artist: Object,
     },
     // custom set
     data() {
@@ -124,7 +125,7 @@ export default {
             if (this.type === 'event') {
                 this.titleForm.title = this.name;
                 this.titleForm.post(this.$route('admin::events.store'));
-            } else if (this.type === 'artist') {
+            } else if (this.type === 'artist' ) {
                 this.nameForm.name = this.name;
                 this.nameForm.post(this.$route('admin::artists.store'));
             } else if (this.type === 'venue') {

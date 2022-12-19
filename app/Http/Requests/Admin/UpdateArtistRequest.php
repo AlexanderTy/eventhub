@@ -26,6 +26,15 @@ class UpdateArtistRequest extends FormRequest
         return [
             'name' => ['required', 'min:3'],
             'image'=> 'nullable',
+            'description_short' => 'nullable|string',
+            'description_long' => 'nullable|string',
+            'link_facebook' => 'nullable|string',
+            'link_instagram' => 'nullable|string',
+            'link_youtube' => 'nullable|string',
+            'link_spotify' => 'nullable|string',
+            'link_website' => 'nullable|string',
+            'link_press' => 'nullable|string',
+
         ];
     }
 }

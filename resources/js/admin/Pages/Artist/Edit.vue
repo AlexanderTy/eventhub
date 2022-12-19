@@ -1,6 +1,6 @@
 <template>
     <DefaultLayout currentRoute="artists">
-        <form class="flex flex-col min-w-[350px] h-full" @submit.prevent="submit">
+        <form class="flex flex-col min-w-[350px]  max-w-6xl h-full mx-auto" @submit.prevent="submit">
             <div class="flex justify-between">
                 <div class="flex items-center mb-5">
                     <h2 class="font-bold text-2xl capitalize">
@@ -62,7 +62,7 @@
                 <Tab type="social media" text="Social Media" @tabClick="this.activeTab = 'social media'"  :activeTab="activeTab"/>
                 <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'"  :activeTab="activeTab"/>
             </ul>
-            <div class="relative mt-[-10px] z-10 w-full max-w-6xl min-h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+            <div class="relative mt-[-10px] z-10 w-full  min-h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                 <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-2 pr-10 flex flex-col gap-5">
                         <ImageUpload

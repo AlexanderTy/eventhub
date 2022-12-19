@@ -1,8 +1,8 @@
 <template>
     <div class="bg-white p-2.5 pt-5 w-[12.8rem] h-[17rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
-        <div class="absolute top-4 right-3.5 z-10 self-end">
+        <div class="absolute top-4 right-1 z-10 self-end">
             <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
                     <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                 </svg>
             </button>

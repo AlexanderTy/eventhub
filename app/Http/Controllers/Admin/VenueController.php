@@ -120,12 +120,14 @@ class VenueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Venue $venue
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Venue $venue): RedirectResponse
     {
-        //
+        $venue->delete();
+        return back()->with('success', "Successfully deleted venue $venue->name");
+
     }
 
     public function search(Request $request): Collection|array

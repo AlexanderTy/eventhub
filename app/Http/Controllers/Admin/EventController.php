@@ -81,9 +81,10 @@ class EventController extends Controller
 
         $event->updateOrCreateSlug($event->title);
 
+
         return redirect()->route('admin::events.edit', [
             'event' => $event
-        ]);
+        ])->with('success', "Successfully created event $event->title");
     }
 
     /**
@@ -199,7 +200,8 @@ class EventController extends Controller
 
         $event->dates()->where('updated_at', '<', $now)->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', "Successfully updated event $event->title");
+
 
     }
 
@@ -213,7 +215,7 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('admin::events.index');
+        return redirect()->route('admin::events.index')->with('success', "Successfully deleted event $event->title");
     }
 
 

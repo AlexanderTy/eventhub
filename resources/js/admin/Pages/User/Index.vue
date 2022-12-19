@@ -36,12 +36,11 @@
                 We've found
                 <span class="text-primary font-semibold">{{ users.length }} </span> <span> {{ users.length === 1 ? "artist" : "artists" }}</span>
             </p>
-            <DisplayButtons @btnClick="setSelectedButton"/>
+            <DisplayButtons />
         </div>
-
         <div class="flex flex-wrap gap-3">
-            <UserCard :user="user" v-for="user in users" v-show="selectedButton === 'cards'"/>
-            <UserList :user="user" v-for="user in users" v-show="selectedButton === 'list'"/>
+            <UserCard :user="user" v-for="user in users" v-show="$page.props.profile.settings?.displayBtns === 'cards'"/>
+            <UserList :user="user" v-for="user in users" v-show="$page.props.profile.settings?.displayBtns === 'list'"/>
         </div>
 
     </DefaultLayout>

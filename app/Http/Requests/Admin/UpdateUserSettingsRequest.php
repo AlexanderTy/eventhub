@@ -25,7 +25,8 @@ class UpdateUserSettingsRequest extends FormRequest
     {
         return [
             // closeSidemenu boolean
-            'closeSidemenu' => 'boolean',
+            'closeSidemenu' => 'boolean|nullable',
+            'displayBtns' => 'string|nullable',
 
         ];
     }

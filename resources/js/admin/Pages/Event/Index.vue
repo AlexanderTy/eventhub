@@ -67,7 +67,7 @@
                 <span>{{ events.length === 1 ? " event" : " events" }}</span>
             </p>
 
-            <DisplayButtons @btnClick="setSelectedButton" />
+            <DisplayButtons @btnClick="(n) => selectedButton = n"/>
         </div>
         <div class="flex flex-wrap gap-3">
             <EventCard
@@ -144,7 +144,7 @@ export default {
             openModal: false,
             showSortBy: false,
             showFilter: false,
-            selectedButton: "cards",
+            selectedButton: this.$page.props.profile.settings?.displayBtns ?? 'cards',
             sortOptions: {
                 "": "All",
                 title: "Title",

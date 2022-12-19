@@ -35,27 +35,29 @@
         </div>
 
         <div class="flex flex-row w-full justify-between mb-4 text-gray-600">
-        <p class="">
-            We've found
-            <span class="text-primary font-semibold">{{ artists.length }} </span> <span> {{ artists.length === 1 ? "artist" : "artists" }}</span>
-        </p>
-        <DisplayButtons @btnClick="setSelectedButton"/>
+            <p class="">
+                We've found
+                <span class="text-primary font-semibold">{{ artists.length }} </span> <span> {{ artists.length === 1 ? "artist" : "artists" }}</span>
+            </p>
+
+            <DisplayButtons @btnClick="(n) => selectedButton = n"/>
+
         </div>
 
         <div class="flex flex-wrap gap-3">
-            <ArtistCard :artist="artist" v-for="artist in artists" v-show="selectedButton === 'cards'" />
+            <ArtistCard :artist="artist" v-for="artist in artists" v-if="selectedButton ==='cards' " />
 
-            <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] w-full px-12 grid text-xs" v-show="selectedButton === 'list'">
+            <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] w-full px-12 grid text-xs" v-show="selectedButton === 'cards'">
                 <p class="col-span-2">Image</p>
                 <p class="col-span-5">Artist</p>
                 <p class="col-span-7">Short Description</p>
                 <p class="col-span-3 text-center">Events</p>
             </div>
 
-            <ArtistList :artist="artist" v-for="artist in artists" v-show="selectedButton === 'list'" />
+            <ArtistList :artist="artist" v-for="artist in artists" v-else />
 
         </div>
-
+    {{selectedButton}}
 
     </DefaultLayout>
 </template>
@@ -104,7 +106,7 @@ export default {
             open: "",
             currentRoute: "",
             openModal: false,
-            selectedButton: 'cards',
+            selectedButton: this.$page.props.profile.settings?.displayBtns ?? 'cards',
             sortOptions: {
                 "name": "Name",
                 "created_at": "Created",

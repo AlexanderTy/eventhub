@@ -151,15 +151,12 @@ export default {
     //mounted function
     mounted() {
         this.form.closeSidemenu = this.closeSidemenu;
-        console.log(this.$page.props.profile.settings?.closeSidemenu)
     },
     methods: {
         setSidemenu() {
             this.closeSidemenu = !this.closeSidemenu;
             this.form.closeSidemenu = this.closeSidemenu;
             this.$emit('clickSidemenu', this.closeSidemenu);
-            //post form to route user.settings
-            this.$inertia.post(this.$route('admin::user.saveSettings'), this.form)
             this.form
                 .transform((data) => ({
                     ...data,

@@ -128,12 +128,11 @@
 </template>
 
 <script>
-import Logout from "./Partials/Logout";
 import ToggleSidemenuBtn from "./Partials/ToggleSidemenuBtn";
 import {Link} from "@inertiajs/inertia-vue3";
 import SidemenuItem from "./Partials/SidemenuItem";
 export default {
-    components: {SidemenuItem, ToggleSidemenuBtn, Logout, Link},
+    components: {SidemenuItem, ToggleSidemenuBtn, Link},
     props: {
         currentRoute: String,
     },

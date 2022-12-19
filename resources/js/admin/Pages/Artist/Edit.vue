@@ -132,7 +132,7 @@
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
-            {{ form.errors }}
+
         </form>
     </DefaultLayout>
 </template>

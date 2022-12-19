@@ -54,7 +54,7 @@
                 <p class="col-span-3 text-center">Events</p>
             </div>
 
-            <ArtistList :artist="artist" v-for="artist in artists" v-else />
+            <ArtistList v-if="selectedButton === 'list' " :artist="artist" v-for="artist in artists"   />
 
         </div>
     {{selectedButton}}

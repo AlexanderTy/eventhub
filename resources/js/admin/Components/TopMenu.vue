@@ -7,12 +7,11 @@
 
 <script>
 import MenuNavList from "./Partials/MenuNavList.vue";
-import Logout from "./Partials/Logout";
 import MenuUser from "./Partials/MenuUser";
 import Search from "./Partials/Search";
 import Input from "./Partials/Input";
 export default {
-    components: {Input, Search, MenuUser, Logout, MenuNavList },
+    components: {Input, Search, MenuUser, MenuNavList },
     props: {
     },
 };

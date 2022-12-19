@@ -128,7 +128,6 @@
             <p v-show="form.errors">
                 {{ form.errors }}
             </p>
-            {{ roles }}
         </form>
     </DefaultLayout>
 </template>

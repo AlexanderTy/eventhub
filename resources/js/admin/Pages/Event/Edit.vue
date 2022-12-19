@@ -371,7 +371,6 @@
 
                 <Btn :text="'save'" :type="'submit'"/>
             </div>
-            {{ form.dates }}
         </form>
     </DefaultLayout>
 </template>

@@ -64,7 +64,7 @@
             </div>
 
             <div
-                class="relative z-10 w-[700px] max-w-6xl h-[450px] 2xl:h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
+                class="relative z-10 h-[450px] 2xl:h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
             >
                 <div
                     class="absolute top-0 left-0 h-full w-full grid grid-cols-3 gap-12 flex-col p-6"
@@ -101,10 +101,11 @@
 
             <div class="flex justify-between">
                 <LinkBtn :type="'back'" to="admin::venues.index" />
+                <Btn  :text="'cancel'" type="cancel" />
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
-            {{ form.errors }}
+
         </form>
     </DefaultLayout>
 </template>
@@ -149,6 +150,7 @@ export default {
                 city: this.venue.city,
                 country: this.venue.country,
             }),
+
             open: false,
             openModal: false,
         };
@@ -187,5 +189,7 @@ export default {
     directives: {
         ClickAway: directive,
     },
+
+
 };
 </script>

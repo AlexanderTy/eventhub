@@ -23,6 +23,7 @@ Route::group([
 
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('authenticate');
+    Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
     Route::group([
         'middleware' => [Authenticate::class],

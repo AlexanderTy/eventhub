@@ -34,8 +34,6 @@
 
                 <Btn :text="'save'" :type="'submit'"/>
             </div>
-            {{ form.errors }}
-            {{ roles }}
         </form>
     </DefaultLayout>
 </template>

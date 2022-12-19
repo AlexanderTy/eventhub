@@ -1,7 +1,7 @@
 <template>
     <Link
         :href="$route('admin::artists.show', { artist: artist.id, })"
-        class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]">
+        class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <div class="col-span-2 text-tab-secondary w-10 h-10 rounded-full shrink-0 overflow-hidden">
             <img v-if="artist.image" alt="" class="w-full h-full object-cover object-top" :src="'/images/artists/' + artist.image"/>
             <svg v-else class="w-full h-full" viewBox="0 0 167 167" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
         <p v-if="artist.events" class="col-span-3 self-center text-center">{{artist.events.length}}</p>
         <div class="col-span-1 relative">
             <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
                     <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
                 </svg>
             </button>

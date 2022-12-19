@@ -11,7 +11,19 @@
                         {{ event.title }}
                     </h2>
                 </div>
-                <div v-click-away="onClickAway" class="relative">
+
+                <div class="flex justify-between items-center gap-4">
+                    <h2 class="font-bold text-2xl capitalize">Public</h2>
+                    <div @click="form.public = !form.public"
+                         class="w-16 h-10 rounded-full flex-shrink-0 p-1 duration-300 ease-in-out"
+                         :class="form.public === true ? 'bg-primary': 'bg-gray-300'">
+                        <div class="bg-white w-8 h-8 rounded-full shadow-md transform duration-300 ease-in-out"
+                             :class="form.public === true ? 'translate-x-6': ''"
+                        ></div>
+                    </div>
+                </div>
+
+<!--                <div v-click-away="onClickAway" class="relative">
                     <button
                         class="hover:bg-gray-100 rounded py-1"
                         type="button"
@@ -64,7 +76,7 @@
                             />
                         </Teleport>
                     </div>
-                </div>
+                </div>-->
             </div>
 
             <ul class="flex flex-row gap-2.5 z-0">
@@ -423,6 +435,7 @@ export default {
                 title: this.event.title,
                 sub_title: this.event.sub_title,
                 image: this.event.image,
+                public: this.event.public,
                 sale_start_date: this.$date(
                     this.event.sale_start,
                     "YYYY-MM-DD"
@@ -439,6 +452,7 @@ export default {
             artistFilter: null,
             open: false,
             openModal: false,
+            toggleActive: false,
             activeTab: "general",
             activeTabContent: false,
             showSearch: false,
@@ -464,6 +478,7 @@ export default {
     },
     // methods
     methods: {
+
         updateActiveTab(e) {
             this.activeTab = e;
         },

@@ -149,6 +149,7 @@ class EventController extends Controller
             'sub_title'  => $request->sub_title,
             'sale_start' => $request->sale_start_date . ' ' . $request->sale_start_time,
             'sale_end'   => $request->sale_end_date . ' ' . $request->sale_end_time,
+            'public'     => $request->public,
         ]);
 
         if ($request->hasFile('image')) {

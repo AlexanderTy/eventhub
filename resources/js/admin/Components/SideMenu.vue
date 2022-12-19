@@ -155,7 +155,6 @@ export default {
     },
     methods: {
         setSidemenu() {
-
             this.closeSidemenu = !this.closeSidemenu;
             this.form.closeSidemenu = this.closeSidemenu;
             this.$emit('clickSidemenu', this.closeSidemenu);

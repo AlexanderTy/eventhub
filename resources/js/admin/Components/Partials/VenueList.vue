@@ -5,7 +5,7 @@
             <p class="capitalize">{{ venue.address }}</p>
             <p>{{ venue.zipcode }} {{ venue.city }}</p>
         </div>
-        <p class="col-span-2 capitalize text-base">{{venue.country}}</p>
+        <p class="col-span-2 capitalize text-base justify-self-center">{{venue.country}}</p>
         <div class="col-span-1 relative justify-self-center">
             <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">

@@ -330,7 +330,7 @@
                                 @click="removeDate(date)"
                             >
                                 <svg
-                                    class="w-5 h-5 cursor-pointer text-tab-secondary"
+                                    class="w-6 h-6 cursor-pointer text-tab-secondary"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg"

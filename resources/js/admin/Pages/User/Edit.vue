@@ -120,15 +120,13 @@
                 </div>
             </div>
 
-            <div class="flex justify-between">
-                <Btn :type="'back'" />
+
+            <div class="flex justify-end space-x-8 mt-8">
+                <LinkBtn :type="'back'" to="admin::users.index" />
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
-            <p v-show="form.errors">
-                {{ form.errors }}
-            </p>
-            {{ roles }}
+
         </form>
     </DefaultLayout>
 </template>
@@ -142,10 +140,12 @@ import Select from "../../Components/Partials/Select";
 import { directive } from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import Tab from "../../Components/Partials/Tab";
+import LinkBtn from "../../Components/Partials/LinkBtn";
 
 export default {
     // included child components
     components: {
+        LinkBtn,
         Tab,
         Modal,
         Select,

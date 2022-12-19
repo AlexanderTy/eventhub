@@ -320,7 +320,7 @@
                             <Select
                                 v-model="date.status"
                                 :options="dateStatus"
-                                class="col-span-2"
+                                class="col-span-2 h-full"
                             />
 
                             <Input v-model="date.label" class="col-span-3"/>
@@ -344,8 +344,8 @@
                             </button>
                         </div>
                         <Btn
-                            class="col-[20/-1]"
-                            text="Add row"
+                            class="col-[19/22]"
+                            text="Add"
                             type="create"
                             @click="addDate"
                         ></Btn>
@@ -378,12 +378,12 @@
                 </div>
             </div>
 
-            <div class="flex justify-between">
-                <LinkBtn :type="'back'" to="admin::events.index"/>
 
-                <Btn :text="'save'" :type="'submit'"/>
+            <div class="flex justify-end space-x-8 mt-8">
+                <LinkBtn :type="'back'" to="admin::events.index" />
+
+                <Btn :text="'save'" :type="'submit'" />
             </div>
-            {{ form.dates }}
         </form>
     </DefaultLayout>
 </template>

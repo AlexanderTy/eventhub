@@ -1,7 +1,7 @@
 <template>
 
     <Link
-        :href="0 ? $route(to) : ''"
+        :href="to ? $route(to) : ''"
         :class="
             type === 'back' || type === 'cancel'
                 ? 'bg-gray-600 hover:bg-gray-800'

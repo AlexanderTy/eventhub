@@ -127,12 +127,13 @@
                 </div>
             </div>
 
-            <div class="flex justify-between">
-                <LinkBtn :type="'back'" to="admin::artists.index"/>
+
+            <div class="flex justify-end space-x-8 mt-8">
+                <LinkBtn :type="'back'" to="admin::artists.index" />
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>
-            {{ form.errors }}
+
         </form>
     </DefaultLayout>
 </template>

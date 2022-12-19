@@ -25,7 +25,9 @@ class LoginController extends Controller
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            return redirect()->intended('admin::dashboard');
+            // redirect to admin dashboard
+            return redirect()->route('admin::events.index');
+
         }
 
         return back()->withErrors([

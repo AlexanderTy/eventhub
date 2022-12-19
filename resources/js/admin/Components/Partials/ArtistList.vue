@@ -1,7 +1,7 @@
 <template>
     <Link
         :href="$route('admin::artists.show', { artist: artist.id, })"
-        class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]">
+        class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <div class="col-span-2 text-tab-secondary w-10 h-10 rounded-full shrink-0 overflow-hidden">
             <img v-if="artist.image" alt="" class="w-full h-full object-cover object-top" :src="'/images/artists/' + artist.image"/>
             <svg v-else class="w-full h-full" viewBox="0 0 167 167" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

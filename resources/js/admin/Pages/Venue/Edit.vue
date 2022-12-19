@@ -91,6 +91,7 @@
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Country</label>
                             <Select
+                                class="w-2/12"
                                 v-model="form.country"
                                 :options="countries"
                             />
@@ -99,9 +100,8 @@
                 </div>
             </div>
 
-            <div class="flex justify-between">
+            <div class="flex justify-end space-x-8 mt-8">
                 <LinkBtn :type="'back'" to="admin::venues.index" />
-                <Btn  :text="'cancel'" type="cancel" />
 
                 <Btn :text="'save'" :type="'submit'" />
             </div>

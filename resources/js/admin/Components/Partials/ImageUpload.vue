@@ -52,9 +52,9 @@
                     <p v-else-if="!imageSrc" >{{image}}</p>
                     <p v-else >{{image.name }}</p>
                 </div>
-                <button type="button" @click="removeUploadedImage">
+                <button type="button" @click="removeUploadedImage" >
                     <svg
-                        class="w-5 h-5"
+                        class="w-5 h-5 text-tab-secondary"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"

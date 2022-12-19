@@ -1,5 +1,5 @@
 <template>
-    <div class="grid gap-4 grid-cols-7 text-sm items-center col-span-1 px-12 bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer transition duration-500 hover:scale-[1.01]">
+    <div class="grid gap-4 grid-cols-7 text-sm items-center col-span-1 px-12 bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
         <h2 class="col-span-2 font-semibold text-lg">{{ venue.name }}</h2>
         <div class="col-span-2 text-base">
             <p class="capitalize">{{ venue.address }}</p>

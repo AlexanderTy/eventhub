@@ -11,7 +11,7 @@
 
         <Link :href="$route('admin::artists.show', { artist: artist.id, })" class="col-span-5 text-lg font-semibold hover:underline">{{ artist.name }}</Link>
         <p class="col-span-7">{{ artist.description_short }}</p>
-        <p class="col-span-3 self-center text-center">32</p>
+        <p v-if="artist.events" class="col-span-3 self-center text-center">{{artist.events.length}}</p>
         <div class="col-span-1 relative">
             <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 24" fill="currentColor" class="w-7 h-7">

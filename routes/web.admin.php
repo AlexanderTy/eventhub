@@ -17,10 +17,6 @@ Route::group([
     'as' => 'admin::',
 ], function () {
 
-    Route::get('/', function () {
-        return redirect('login');
-    });
-
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'authenticate'])->name('authenticate');
     Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
@@ -33,7 +29,7 @@ Route::group([
 
         Route::resource('users', UserController::class)->except('show');
         Route::resource('events', EventController::class);
-        Route::resource('artists', ArtistController::class);
+        Route::resource('artists', ArtistController::class)->except(['create']);
         Route::resource('venues', VenueController::class);
 
         Route::get('artists-search', [ArtistController::class, 'search'])->name('artists.search');

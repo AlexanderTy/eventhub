@@ -20,24 +20,26 @@ class ArtistController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
     {
         $query = Artist::query();
-        if (!empty($request->search)) {
+
+        if (! empty($request->search)) {
             $query
                 ->where(function ($query) use ($request) {
                     $query
                         ->where('name', 'LIKE', '%' . $request->search . '%');
                 });
         }
-        if (!empty($request->sortOption)) {
+
+        if (! empty($request->sortOption)) {
             $query->orderBy($request->sortOption, $request->order);
         }
 
-        $artists = $query->get();
-        $artists->load(['events']);
+        $artists = $query->with('events')->get();
 
         return Inertia::render(
             'Artist/Index',
@@ -57,20 +59,10 @@ class ArtistController extends Controller
     public function store(StoreArtistRequest $request): RedirectResponse
     {
         $artist = Artist::create($request->validated());
+
         return redirect()->route('admin::artists.edit', [
             'artist' => $artist,
         ])->with('success', "Artist $artist->name created successfully");
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

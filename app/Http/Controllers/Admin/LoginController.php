@@ -13,21 +13,16 @@ class LoginController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('Login', [
-            "message" => "yo",
-        ]);
+        return Inertia::render('Login');
     }
 
     public function authenticate(AuthenticateLoginRequest $request): RedirectResponse
     {
-
-
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
             // redirect to admin dashboard
             return redirect()->route('admin::events.index');
-
         }
 
         return back()->withErrors([
@@ -40,5 +35,4 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('admin::login');
     }
-
 }

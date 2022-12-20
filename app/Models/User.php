@@ -12,7 +12,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
-
 /**
  * App\Models\User
  *
@@ -52,7 +51,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-
     protected $fillable = [
         'first_name',
         'last_name',
@@ -71,6 +69,4 @@ class User extends Authenticatable
         'role'     => UserRole::class,
         'settings' => 'array'
     ];
-
-
 }

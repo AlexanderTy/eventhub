@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
-
 /**
  * App\Models\Event
  *
@@ -63,9 +61,9 @@ class Event extends Model
     {
         return $this->belongsToMany(Artist::class, 'artist_event')->withTimestamps();
     }
+
     public function dates(): HasMany
     {
         return $this->hasMany(Date::class);
     }
-
 }

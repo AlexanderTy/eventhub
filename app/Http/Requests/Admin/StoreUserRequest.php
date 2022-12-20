@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class StoreUserRequest extends FormRequest
 {
@@ -23,12 +25,11 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
             'email'      => ['required', 'email'],
             'first_name' => ['required'],
             'last_name'  => ['required'],
-            'role'       => ['required'],
+            'role'       => ['required', 'string', new Enum(UserRole::class)],
             'password'   => ['required']
         ];
     }

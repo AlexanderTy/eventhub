@@ -11,6 +11,7 @@ trait Sluggable
     {
         return $this->morphOne(Slug::class, 'sluggable');
     }
+
     public function updateOrCreateSlug($slugName, $metaTitle = null, $metaDescription = null): void
     {
         $slug = $this->slug()->firstOrNew();

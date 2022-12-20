@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Enums;
+
 use App\Enums\Traits\Listable;
 
 enum UserRole: string
@@ -11,8 +12,7 @@ enum UserRole: string
     case EDITOR = 'editor';
     case ADMIN = 'admin';
 
-
-    public function name()
+    public function name(): string
     {
         return match ($this) {
             UserRole::USER => 'User',
@@ -20,7 +20,5 @@ enum UserRole: string
             UserRole::ADMIN => 'Admin',
         };
     }
-
-
 }
 

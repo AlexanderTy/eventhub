@@ -43,10 +43,11 @@
                  :class="type === 'artists' ? 'mt-4' : 'mb-2'"
                  v-show="image">
                 <div class="flex flex-row gap-3 items-center">
-                    <div class="rounded-full overflow-hidden shrink-0 bg-tab-secondary"
+                    <div class="relative text-tab-secondary bg-tab-secondary rounded-full shrink-0 overflow-hidden"
                         :class="type === 'events' ? 'w-5 h-5 2xl:w-10 2xl:h-10' : 'w-10 h-10'">
                         <img v-if="!imageSrc" :src="image ? '/images/'+type + '/' + image : ''"  class="w-full h-full object-cover object-top" alt="Artist Profile Pitcure"/>
                         <img v-else :src="imageSrc" class="w-full h-full object-cover object-top" alt="Artist Profile Picture" />
+                        <div class="absolute w-full h-full rounded-full top-0 left-0 shadow-[inset_0_0_18px_rgba(0,0,0,0.1)]"></div>
                     </div>
                     <p v-if="!image">No image</p>
                     <p v-else-if="!imageSrc" >{{image}}</p>

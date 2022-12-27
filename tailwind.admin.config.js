@@ -30,5 +30,7 @@ module.exports = {
             'custom': ['Urbanist', 'sans-serif']
         }
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/line-clamp'),
+    ],
 }

@@ -179,7 +179,7 @@
                                 :class="
                                     showSearch ? 'rounded-b-md' : 'rounded-md '
                                 "
-                                class="absolute top-full bg-white-secondary w-full px-4 max-h-72 overflow-y-auto"
+                                class="absolute top-full bg-white-secondary w-full px-4 max-h-72 overflow-y-auto z-10"
                             >
                                 <div class="border-t border-white mb-2"></div>
 
@@ -193,13 +193,7 @@
                                             @click="selectArtist(artist)"
                                             class="flex items-center gap-3.5"
                                         >
-
-                                                <span class="text-tab-secondary bg-white w-8 h-8 rounded-full shrink-0 overflow-hidden">
-                                                    <img v-show="artist.image" alt="" class="w-full h-full object-cover object-top" :src="'/images/artists/' + artist.image"/>
-                                                    <svg v-show="!artist.image" class="w-full h-full" viewBox="0 0 167 167" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M140.751 144.279C149.05 136.482 155.661 127.065 160.176 116.611C164.69 106.156 167.013 94.8873 167 83.5C167 37.3823 129.618 0 83.5 0C37.3823 0 5.57455e-05 37.3823 5.57455e-05 83.5C-0.0131202 94.8873 2.30951 106.156 6.82436 116.611C11.3392 127.065 17.9503 136.482 26.249 144.279C41.7238 158.897 62.2126 167.029 83.5 167C104.787 167.029 125.276 158.897 140.751 144.279ZM55.6807 115.512C46.9999 119.681 39.3699 125.752 33.3572 133.275C39.9171 139.901 47.7273 145.158 56.3349 148.742C64.9425 152.326 74.176 154.166 83.5 154.154C92.824 154.166 102.058 152.326 110.665 148.742C119.273 145.158 127.083 139.901 133.643 133.275C127.63 125.752 120 119.681 111.319 115.512C102.639 111.343 93.1301 109.183 83.5 109.192C73.87 109.183 64.3615 111.343 55.6807 115.512ZM106.209 80.5167C112.232 74.4939 115.615 66.3252 115.615 57.8077C115.615 49.2901 112.232 41.1215 106.209 35.0987C100.186 29.0759 92.0175 25.6923 83.5 25.6923C74.9825 25.6923 66.8138 29.0759 60.791 35.0987C54.7682 41.1215 51.3846 49.2901 51.3846 57.8077C51.3846 66.3252 54.7682 74.4939 60.791 80.5167C66.8138 86.5395 74.9825 89.923 83.5 89.923C92.0175 89.923 100.186 86.5395 106.209 80.5167Z"/>
-                                                    </svg>
-                                                </span>
+                                            <ArtistImage :artist="artist" size="small"/>
                                             {{ artist.name }}
                                         </button>
                                     </li>
@@ -219,12 +213,7 @@
                                         class="flex flex-row items-center justify-between my-4 mt-0"
                                     >
                                         <div class="flex items-center gap-3.5">
-                                            <div class="text-tab-secondary w-8 h-8 rounded-full shrink-0 overflow-hidden">
-                                                <img v-show="artist.image" alt="" class="w-full h-full object-cover object-top" :src="'/images/artists/' + artist.image"/>
-                                                <svg v-show="!artist.image" class="w-full h-full" viewBox="0 0 167 167" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M140.751 144.279C149.05 136.482 155.661 127.065 160.176 116.611C164.69 106.156 167.013 94.8873 167 83.5C167 37.3823 129.618 0 83.5 0C37.3823 0 5.57455e-05 37.3823 5.57455e-05 83.5C-0.0131202 94.8873 2.30951 106.156 6.82436 116.611C11.3392 127.065 17.9503 136.482 26.249 144.279C41.7238 158.897 62.2126 167.029 83.5 167C104.787 167.029 125.276 158.897 140.751 144.279ZM55.6807 115.512C46.9999 119.681 39.3699 125.752 33.3572 133.275C39.9171 139.901 47.7273 145.158 56.3349 148.742C64.9425 152.326 74.176 154.166 83.5 154.154C92.824 154.166 102.058 152.326 110.665 148.742C119.273 145.158 127.083 139.901 133.643 133.275C127.63 125.752 120 119.681 111.319 115.512C102.639 111.343 93.1301 109.183 83.5 109.192C73.87 109.183 64.3615 111.343 55.6807 115.512ZM106.209 80.5167C112.232 74.4939 115.615 66.3252 115.615 57.8077C115.615 49.2901 112.232 41.1215 106.209 35.0987C100.186 29.0759 92.0175 25.6923 83.5 25.6923C74.9825 25.6923 66.8138 29.0759 60.791 35.0987C54.7682 41.1215 51.3846 49.2901 51.3846 57.8077C51.3846 66.3252 54.7682 74.4939 60.791 80.5167C66.8138 86.5395 74.9825 89.923 83.5 89.923C92.0175 89.923 100.186 86.5395 106.209 80.5167Z"/>
-                                                </svg>
-                                            </div>
+                                            <ArtistImage :artist="artist" size="small" />
                                             <p>{{ artist.name }}</p>
                                         </div>
                                         <button
@@ -404,10 +393,12 @@ import {v4 as uuidv4} from "uuid";
 import Search from "../../Components/Partials/Search";
 import SearchResults from "../../Components/Partials/SearchResults";
 import ImageUpload from "../../Components/Partials/ImageUpload";
+import ArtistImage from "../../Components/Partials/ArtistImage";
 
 export default {
     // included child components
     components: {
+        ArtistImage,
         ImageUpload,
         SearchResults,
         Search,

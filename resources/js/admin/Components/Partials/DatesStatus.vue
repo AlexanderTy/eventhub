@@ -3,7 +3,7 @@
         {{ this.datesLeft }} out of {{ dates.length }} upcoming dates left
     </p>
     <p v-else class="text-sm 2xl:pt-2">
-        {{ this.datesLeft }} out of {{ dates.length }} upcoming dates
+        {{ this.datesLeft }} out of {{ dates.length }}
     </p>
 </template>
 

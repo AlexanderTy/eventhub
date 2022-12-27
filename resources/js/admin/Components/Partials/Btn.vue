@@ -7,7 +7,7 @@
             'bg-primary hover:brightness-75 rounded-full': type === 'submit',
             'bg-red-600 hover:bg-red-700 rounded-full': type === 'delete',
             'bg-primary hover:bg-red-700 flex flex-row items-center justify-center gap-2 rounded-full': type === 'create',
-            'bg-white text-black font-normal flex flex-row items-center justify-between px-3 shadow w-44 2xl:w-52 h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]': type === 'toggleDropdown',
+            'bg-white text-black font-normal flex flex-row items-center justify-between px-3 w-44 2xl:w-52 h-9': type === 'toggleDropdown',
             'rounded-t-md': open === true,
              'rounded-md': open === false
         }"

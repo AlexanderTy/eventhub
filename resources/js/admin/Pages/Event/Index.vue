@@ -6,7 +6,7 @@
                 <form class="flex flex-row gap-7" @submit.prevent="submit">
                     <Input
                         v-model="filter.search"
-                        :class="'shrink-0 shadow w-96 2xl:w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]'"
+                        class="shrink-0 w-96 2xl:w-[484px] h-9"
                         bg="bg-white"
                         placeholder="Search for events, artists"
                         type="search"
@@ -69,13 +69,13 @@
 
             <DisplayButtons @btnClick="(n) => selectedButton = n"/>
         </div>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-4">
             <EventCard
                 v-for="event in events"
                 v-show="selectedButton === 'cards'"
                 :event="event"
             />
-            <div
+<!--            <div
                 v-show="selectedButton === 'list'"
                 class="w-full px-12 grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] text-xs"
             >
@@ -89,7 +89,35 @@
                 v-for="event in events"
                 v-show="selectedButton === 'list'"
                 :event="event"
-            />
+            />-->
+        </div>
+        <div v-show="selectedButton === 'list'" class="flex flex-col">
+            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden md:rounded-lg">
+                        <table class="min-w-full divide-y divide-white-secondary">
+                            <thead class="bg-white bg-opacity-50">
+                            <tr>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Title</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Upcoming dates</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Sale start</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Public</th>
+                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                    <span class="sr-only">Settings</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white-secondary bg-white">
+                            <EventList
+                                v-for="event in events"
+                                v-show="selectedButton === 'list'"
+                                :event="event"
+                            />
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </DefaultLayout>
 </template>

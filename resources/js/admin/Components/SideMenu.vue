@@ -1,7 +1,7 @@
 <template>
     <div
         :class="closeSidemenu ? 'w-20' : 'w-52'"
-        class="transition-all duration-500 z-40 text-white h-full fixed bg-secondary shadow-[7px_13px_13px_rgba(0,0,0,0.25)] justify-between flex flex-col pb-12 pt-6"
+        class="transition-all duration-500 z-40 text-white h-full fixed bg-secondary justify-between flex flex-col pb-12 pt-6"
     >
         <div
             class="absolute top-12 right-0 transition-all duration-500"

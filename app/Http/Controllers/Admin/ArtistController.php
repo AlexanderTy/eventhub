@@ -37,7 +37,7 @@ class ArtistController extends Controller
         }
 
         $artists = $query->get();
-/*        $artists->load(['artists', 'dates.venue']);*/
+        $artists->load(['events']);
 
         return Inertia::render(
             'Artist/Index',

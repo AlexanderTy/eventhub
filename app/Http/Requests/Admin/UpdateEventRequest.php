@@ -29,7 +29,7 @@ class UpdateEventRequest extends FormRequest
             'sale_start_time' => ['nullable','date_format:H:i'],
             'sale_end_date'   => ['nullable','date_format:Y-m-d'],
             'sale_end_time'   => ['nullable','date_format:H:i'],
-            'public'          => ['boolean'],
+            'public'          => ['boolean', 'nullable'],
             'image'           => ['nullable'],
             'dates' => 'array|nullable',
             'dates.*.id' => 'nullable',

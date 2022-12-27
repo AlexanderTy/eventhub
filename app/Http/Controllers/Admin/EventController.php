@@ -137,13 +137,12 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateEventRequest $request
+     * @param Event $event
+     * @return Response|RedirectResponse
      */
-    public function update(UpdateEventRequest $request, Event $event): \Inertia\Response|RedirectResponse
+    public function update(UpdateEventRequest $request, Event $event): Response|RedirectResponse
     {
-
         $event->update([
             'title'      => $request->title,
             'sub_title'  => $request->sub_title,

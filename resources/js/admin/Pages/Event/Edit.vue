@@ -524,6 +524,7 @@ export default {
         },
 
         submit() {
+            console.log("yooo")
             this.form
                 .transform((data) => ({
                     ...data,

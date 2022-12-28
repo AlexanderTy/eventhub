@@ -15,8 +15,7 @@ enum DateStatus: string
     case FEW = 'few tickets';
     case SOLDOUT = 'sold out';
 
-
-    public function name()
+    public function name(): string
     {
         return match ($this) {
             DateStatus::AVAILABLE => 'Available',
@@ -27,7 +26,5 @@ enum DateStatus: string
             DateStatus::SOLDOUT => 'Sold out',
         };
     }
-
-
 }
 

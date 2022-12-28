@@ -1,8 +1,8 @@
 <template>
     <DefaultLayout currentRoute="events">
         <form
-            class="flex flex-col min-w-[350px] h-full mx-auto"
             :class="activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'"
+            class="flex flex-col min-w-[350px] h-full mx-auto"
             @submit.prevent="submit"
         >
             <div class="flex justify-between">
@@ -13,70 +13,21 @@
                 </div>
 
                 <div class="flex justify-between items-center gap-4">
-                    <h2 class="font-bold text-2xl capitalize">Public</h2>
-                    <div @click="form.public = !form.public"
-                         class="w-16 h-10 rounded-full flex-shrink-0 p-1 duration-300 ease-in-out"
-                         :class="form.public === true ? 'bg-primary': 'bg-gray-300'">
-                        <div class="bg-white w-8 h-8 rounded-full shadow-md transform duration-300 ease-in-out"
-                             :class="form.public === true ? 'translate-x-6': ''"
+                    <h2 class="font-bold text-xl capitalize">Public</h2>
+                    <div
+                        :class="
+                            form.public === true ? 'bg-primary' : 'bg-gray-300'
+                        "
+                        class="cursor-pointer w-14 h-8 rounded-full flex-shrink-0 p-1 duration-300 ease-in-out"
+                        @click="form.public = !form.public"
+                    >
+                        <div
+                            :class="form.public === true ? 'translate-x-6' : ''"
+                            class="bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out"
                         ></div>
                     </div>
                 </div>
 
-<!--                <div v-click-away="onClickAway" class="relative">
-                    <button
-                        class="hover:bg-gray-100 rounded py-1"
-                        type="button"
-                        @click="open = !open"
-                    >
-                        <svg
-                            class="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                        </svg>
-                    </button>
-                    <div
-                        v-show="open"
-                        class="absolute right-0 border rounded p-1 whitespace-nowrap flex flex-col gap-2 text-left z-50"
-                    >
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
-                            Option 1
-                        </button>
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
-                            Option 2
-                        </button>
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-red-700 text-sm"
-                            type="button"
-                            @click="openModal = true"
-                        >
-                            Delete
-                        </button>
-                        <Teleport to="#app">
-                            <Modal
-                                v-show="openModal"
-                                :text="'Are you sure you want to delete'"
-                                :type="'event'"
-                                @close-modal="openModal = false"
-                                @action-modal="deleteEvent"
-                                @keyup.escape="openModal = false"
-                            />
-                        </Teleport>
-                    </div>
-                </div>-->
             </div>
 
             <ul class="flex flex-row gap-2.5 z-0">
@@ -100,8 +51,10 @@
                 />
             </ul>
             <div
-                class="relative mt-[-10px] h-[450px] 2xl:h-[550px] z-10 w-full  h-full bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
-                :class="activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'"
+                :class="
+                    activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'
+                "
+                class="relative mt-[-10px] h-[450px] 2xl:h-[550px] z-10 w-full h-full bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
             >
                 <div
                     v-show="activeTab === 'general'"
@@ -110,16 +63,22 @@
                     <div class="col-span-3 pr-10 flex flex-col gap-6">
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Title</label>
-                            <Input v-model="form.title"/>
+                            <Input
+                                v-model="form.title"
+                                placeholder="Title for the event..."
+                            />
                         </div>
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Subtitle</label>
-                            <Input v-model="form.sub_title"/>
+                            <Input
+                                v-model="form.sub_title"
+                                placeholder="Subtitle for the event..."
+                            />
                         </div>
                         <div class="flex flex-row justify-between">
                             <div class="flex flex-col">
                                 <label class="text-xs text-g mb-2"
-                                >Event starts</label
+                                    >Event starts</label
                                 >
                                 <div class="flex flex-row gap-5">
                                     <Input
@@ -134,7 +93,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <label class="text-xs text-g mb-2"
-                                >Event ends</label
+                                    >Event ends</label
                                 >
                                 <div class="flex flex-row gap-5">
                                     <Input
@@ -152,19 +111,17 @@
                             <div>
                                 <ImageUpload
                                     :image="this.form.image"
+                                    type="events"
                                     @imageRemoved="this.form.image = ''"
                                     @imageUploaded="setImage"
-                                    type="events"
-
                                 />
-
                             </div>
                         </div>
                     </div>
                     <div v-click-away="closeSearch" class="col-span-2 h-fit">
                         <div class="flex flex-col mb-7 relative">
                             <label class="text-xs text-g mb-2"
-                            >Add artists</label
+                                >Add artists</label
                             >
                             <Search
                                 v-model="artistFilter"
@@ -173,36 +130,41 @@
                                 @click="searchArtists"
                                 @keyup="searchArtists"
                             />
-
                             <div
                                 v-show="showSearch"
                                 :class="
                                     showSearch ? 'rounded-b-md' : 'rounded-md '
                                 "
-                                class="absolute top-full bg-white-secondary w-full px-4 max-h-72 overflow-y-auto z-10"
+                                class="absolute top-full bg-white-secondary w-full  max-h-72 overflow-y-auto z-10"
                             >
                                 <div class="border-t border-white mb-2"></div>
 
                                 <ul class="pb-2">
                                     <li
                                         v-for="(artist, index) in artistOptions"
-                                        class="my-2"
+                                        class=""
                                     >
                                         <button
+                                            class="flex items-center w-full gap-3.5 py-3 hover:bg-gray-50 px-4 "
                                             type="button"
                                             @click="selectArtist(artist)"
-                                            class="flex items-center gap-3.5"
                                         >
-                                            <ArtistImage :artist="artist" size="small"/>
+                                            <ArtistImage
+                                                :artist="artist"
+                                                size="small"
+                                            />
                                             {{ artist.name }}
                                         </button>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="flex flex-col">
+                        <div
+                            v-if="form.artists.length > 0"
+                            class="flex flex-col"
+                        >
                             <label class="text-xs text-g mb-2"
-                            >Added artists</label
+                                >Added artists</label
                             >
                             <div
                                 class="max-h-[19.2rem] overflow-y-auto flex flex-col"
@@ -213,10 +175,14 @@
                                         class="flex flex-row items-center justify-between my-4 mt-0"
                                     >
                                         <div class="flex items-center gap-3.5">
-                                            <ArtistImage :artist="artist" size="small" />
+                                            <ArtistImage
+                                                :artist="artist"
+                                                size="small"
+                                            />
                                             <p>{{ artist.name }}</p>
                                         </div>
                                         <button
+                                            class="hover:brightness-75"
                                             type="button"
                                             @click="removeArtist(artist)"
                                         >
@@ -285,19 +251,22 @@
 -->
 
                                 <Search
-
-                                    v-model="venueSearchInputs[date.id] "
+                                    v-model="venueSearchInputs[date.id]"
+                                    :open="this.showSearchVenues === date.id"
                                     placeholder="Search for venues here..."
                                     @click="searchVenues(date)"
                                     @keyup="searchVenues(date)"
-                                    :open="this.showSearchVenues === date.id"
+                                    type="venue"
                                 />
                                 <SearchResults
                                     v-show="this.showSearchVenues === date.id"
+                                    :class="
+                                        this.showSearchVenues === date.id
+                                            ? 'rounded-b-md'
+                                            : 'rounded-md'
+                                    "
                                     :options="this.filteredVenueOptions"
                                     @selectOption="selectVenue($event, date)"
-                                    :class="this.showSearchVenues === date.id ? 'rounded-b-md' : 'rounded-md'"
-
                                 />
                             </div>
                             <Input
@@ -305,19 +274,16 @@
                                 class="col-span-3"
                                 type="datetime-local"
                             />
-                            <Input v-model="date.duration" class="col-span-2"/>
+                            <Input v-model="date.duration" class="col-span-2" placeholder="Eg. 02:45:00" type="time" />
                             <Select
                                 v-model="date.status"
                                 :options="dateStatus"
                                 class="col-span-2 h-full"
                             />
 
-                            <Input v-model="date.label" class="col-span-3"/>
-                            <Input v-model="date.note" class="col-span-3"/>
-                            <button
-                                type="button"
-                                @click="removeDate(date)"
-                            >
+                            <Input v-model="date.label" class="col-span-3" placeholder="Write a label here..." />
+                            <Input v-model="date.note" class="col-span-3" placeholder="Write a note here..." />
+                            <button type="button" @click="removeDate(date)" class="hover:brightness-75">
                                 <svg
                                     class="w-6 h-6 cursor-pointer text-tab-secondary"
                                     fill="currentColor"
@@ -347,15 +313,15 @@
                     <div class="col-span-3 pr-10">
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">Slug</label>
-                            <Input v-model="form.slug"/>
+                            <Input v-model="form.slug" />
                         </div>
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">SEO Title</label>
-                            <Input v-model="form.meta_title"/>
+                            <Input v-model="form.meta_title" placeholder="Write a SEO title here..."/>
                         </div>
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2"
-                            >SEO Discription</label
+                                >SEO Discription</label
                             >
                             <TextArea
                                 v-model="form.meta_description"
@@ -367,7 +333,6 @@
                 </div>
             </div>
 
-
             <div class="flex justify-end space-x-8 mt-8">
                 <LinkBtn :type="'back'" to="admin::events.index" />
 
@@ -378,18 +343,18 @@
 </template>
 
 <script>
-import {Link} from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/inertia-vue3";
 import DefaultLayout from "../../Layouts/DefaultLayout";
 import Btn from "../../Components/Partials/Btn";
 import Input from "../../Components/Partials/Input";
 import Select from "../../Components/Partials/Select";
-import {directive} from "vue3-click-away";
+import { directive } from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import Tab from "../../Components/Partials/Tab";
 import TextArea from "../../Components/Partials/TextArea";
 import axios from "axios";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import Search from "../../Components/Partials/Search";
 import SearchResults from "../../Components/Partials/SearchResults";
 import ImageUpload from "../../Components/Partials/ImageUpload";
@@ -465,18 +430,18 @@ export default {
         this.form.dates.forEach((date) => {
             this.venueSearchInputs[date.id] = date.venue?.name || "";
         });
-
     },
     // methods
     methods: {
-
         updateActiveTab(e) {
             this.activeTab = e;
         },
         searchArtists() {
             axios
                 .get(
-                    this.$route("admin::artists.search", {search: this.artistFilter})
+                    this.$route("admin::artists.search", {
+                        search: this.artistFilter,
+                    })
                 )
                 .then((res) => {
                     this.artistOptions = res.data;
@@ -487,7 +452,7 @@ export default {
                     // if this.artistoptions is empty, show 'no artists found' message
                     if (this.artistOptions.length === 0) {
                         this.artistOptions = [
-                            {id: 0, name: "No artists found"},
+                            { id: 0, name: "No artists found" },
                         ];
                     }
                     this.showSearch = true;
@@ -520,11 +485,11 @@ export default {
             this.venueSearchInputs[date.id] = this.venueOptions.find(
                 (x) => x.id === id
             ).name;
-            console.log(this.venueSearchInputs)
+            console.log(this.venueSearchInputs);
         },
 
         submit() {
-            console.log("yooo")
+            console.log("yooo");
             this.form
                 .transform((data) => ({
                     ...data,
@@ -557,7 +522,6 @@ export default {
         },
 
         removeArtist(artist) {
-
             this.form.artists = this.form.artists.filter(
                 (x) => x !== artist.id
             );

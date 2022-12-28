@@ -36,6 +36,7 @@
                         v-show="openModal"
                         :type="'venue'"
                         :deleteItem="venue.name"
+
                         @close-modal="openModal = false"
                         @action-modal="deleteVenue"
                     />

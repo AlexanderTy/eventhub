@@ -73,16 +73,16 @@
                          />
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Name</label>
-                            <Input v-model="form.name" />
+                            <Input v-model="form.name" placeholder="Write artist name here..." />
                         </div>
                         <div class="flex flex-col">
                                 <label class="text-xs text-g mb-2">Press link</label>
-                                <Input v-model="form.link_press"/>
+                                <Input v-model="form.link_press" placeholder="Write press link here..."/>
                         </div>
                     </div>
                     <div class="col-span-3 flex flex-col gap-5">
                         <div class="flex flex-col">
-                            <label class="text-xs text-g mb-2">Short description</label>
+                            <label class="text-xs text-g mb-2" >Short description</label>
                             <TextArea v-model="form.description_short" class="h-20 resize-none" placeholder="Write a short description here..." />
                         </div>
                         <div class="flex flex-col">
@@ -94,33 +94,33 @@
                 <div v-show="activeTab === 'social media'" class="absolute top-0 left-0 w-full h-full px-10 py-6 overflow-y-auto flex flex-col gap-7">
                     <div class="flex flex-col">
                         <label class="text-xs mb-1">Website url</label>
-                        <Input v-model="form.link_website" />
+                        <Input v-model="form.link_website"  placeholder="Write the artist website link here..." />
                     </div>
                     <div class="flex flex-col">
                         <label class="text-xs mb-1">Facebook link</label>
-                        <Input v-model="form.link_facebook" />
+                        <Input v-model="form.link_facebook"  placeholder="Write the artist Facebook link here..." />
                     </div>
                     <div class="flex flex-col">
                         <label class="text-xs mb-1">Instagram link</label>
-                        <Input v-model="form.link_instagram" />
+                        <Input v-model="form.link_instagram"  placeholder="Write the artist Instagram link here..." />
                     </div>
                     <div class="flex flex-col">
                         <label class="text-xs mb-1">YouTube link</label>
-                        <Input v-model="form.link_youtube" />
+                        <Input v-model="form.link_youtube" placeholder="Write the artist Youtube link here..." />
                     </div>
                     <div class="flex flex-col">
                         <label class="text-xs mb-1">Spotify link</label>
-                        <Input v-model="form.link_spotify" />
+                        <Input v-model="form.link_spotify"  placeholder="Write the artist Spotify link here..." />
                     </div>
                 </div>
                 <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-3 pr-10">
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">SEO Title</label>
-                            <Input v-model="form.seo_title" />
+                            <Input v-model="form.seo_title" placeholder="Write a SEO title here..."/>
                         </div>
                         <div class="flex flex-col mb-7">
-                            <label class="text-xs text-g mb-2 ">SEO Discription</label>
+                            <label class="text-xs text-g mb-2 ">SEO Description</label>
                             <TextArea v-model="form.seo_description" class="h-72 resize-none" placeholder="Write a SEO description here..." />
                         </div>
                     </div>
@@ -130,7 +130,6 @@
 
             <div class="flex justify-end space-x-8 mt-8">
                 <LinkBtn :type="'back'" to="admin::artists.index" />
-
                 <Btn :text="'save'" :type="'submit'" />
             </div>
 

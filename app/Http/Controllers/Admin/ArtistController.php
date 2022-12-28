@@ -20,11 +20,13 @@ class ArtistController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
     {
         $query = Artist::query();
+
         if (!empty($request->search)) {
             $query
                 ->where(function ($query) use ($request) {
@@ -32,12 +34,12 @@ class ArtistController extends Controller
                         ->where('name', 'LIKE', '%' . $request->search . '%');
                 });
         }
+
         if (!empty($request->sortOption)) {
             $query->orderBy($request->sortOption, $request->order);
         }
 
-        $artists = $query->get();
-        $artists->load(['events']);
+        $artists = $query->with('events')->get();
 
         return Inertia::render(
             'Artist/Index',
@@ -57,20 +59,10 @@ class ArtistController extends Controller
     public function store(StoreArtistRequest $request): RedirectResponse
     {
         $artist = Artist::create($request->validated());
+
         return redirect()->route('admin::artists.edit', [
             'artist' => $artist,
         ])->with('success', "Artist $artist->name created successfully");
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -112,13 +104,12 @@ class ArtistController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateArtistRequest $request
+     * @param Artist $artist
+     * @return Response|RedirectResponse
      */
-    public function update(UpdateArtistRequest $request, Artist $artist): \Inertia\Response|RedirectResponse
+    public function update(UpdateArtistRequest $request, Artist $artist): Response|RedirectResponse
     {
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = str_replace(' ', '_', $artist->name) . '_' . time() . '.' . $image->getClientOriginalExtension();
@@ -127,6 +118,7 @@ class ArtistController extends Controller
         } else {
             $artist->update($request->validated());
         }
+
         return redirect()->back()->with('success', "Artist $artist->name updated successfully");
     }
 

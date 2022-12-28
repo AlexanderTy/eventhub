@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Enums;
+
 use App\Enums\Traits\Listable;
 
 enum Country: string
@@ -11,8 +12,7 @@ enum Country: string
     case SWEDEN = 'SE';
     case NORWAY = 'NO';
 
-
-    public function name()
+    public function name(): string
     {
         return match ($this) {
             Country::DENMARK => 'Denmark',
@@ -20,7 +20,5 @@ enum Country: string
             Country::NORWAY => 'Norway',
         };
     }
-
-
 }
 

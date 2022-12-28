@@ -4,17 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\Country;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreEventRequest;
+use App\Http\Requests\Admin\StoreVenueRequest;
 use App\Http\Requests\Admin\UpdateVenueRequest;
-use App\Http\Requests\StoreVenueRequest;
-use App\Models\Artist;
-use App\Models\Event;
 use App\Models\Venue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Session\Store;
 use Inertia\Inertia;
 
 class VenueController extends Controller
@@ -22,12 +18,13 @@ class VenueController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Inertia\Response
      */
     public function index(Request $request): \Inertia\Response
     {
-
         $query = Venue::query();
+
         if (!empty($request->search)) {
             $query
                 ->where(function ($query) use ($request) {
@@ -35,13 +32,13 @@ class VenueController extends Controller
                         ->where('name', 'LIKE', '%' . $request->search . '%');
                 });
         }
+
         if (!empty($request->sortOption)) {
             $query->orderBy($request->sortOption, $request->order);
         }
 
         $venues = $query->get();
 
-/*        $venues = Venue::latest()->orderBy('id', 'DESC')->get();*/
         return Inertia::render(
             'Venue/Index',
             [
@@ -52,19 +49,9 @@ class VenueController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreVenueRequest $request
      * @return RedirectResponse
      */
     public function store(StoreVenueRequest $request): RedirectResponse
@@ -75,17 +62,6 @@ class VenueController extends Controller
         return redirect()->route('admin::venues.edit', [
             'venue' => $venue
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

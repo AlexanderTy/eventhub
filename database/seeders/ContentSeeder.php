@@ -28,8 +28,6 @@ class ContentSeeder extends Seeder
                 'link_instagram'    => fake()->url(),
                 'link_website'      => fake()->url(),
                 'link_press'        => fake()->url(),
-                'seo_title'         => fake()->text(10),
-                'seo_description'   => fake()->text(69),
             ]);
             Venue::create([
                 'name'      => fake()->text(20),
@@ -45,11 +43,8 @@ class ContentSeeder extends Seeder
                 'sale_start'      => fake()->dateTime(),
                 'sale_end'        => fake()->dateTime(),
                 'public'          => fake()->boolean(),
-                'seo_title'       => fake()->text(20),
-                'seo_description' => fake()->realText(),
             ]);
             $event->artists()->syncWithoutDetaching($artist);
-
         }
     }
 }

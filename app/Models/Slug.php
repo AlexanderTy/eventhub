@@ -32,6 +32,7 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder|Slug whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+
 class Slug extends Model
 {
     use HasFactory;

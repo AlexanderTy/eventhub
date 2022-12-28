@@ -11,23 +11,22 @@ use Inertia\Response;
 
 class LoginController extends Controller
 {
-    public function index(): Response
+    public function index(): RedirectResponse|Response
     {
-        return Inertia::render('Login', [
-            "message" => "yo",
-        ]);
+        if (Auth::check()) {
+            return redirect()->route('admin::dashboard');
+        }
+
+        return Inertia::render('Login');
     }
 
     public function authenticate(AuthenticateLoginRequest $request): RedirectResponse
     {
-
-
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
             // redirect to admin dashboard
             return redirect()->route('admin::events.index');
-
         }
 
         return back()->withErrors([

@@ -1,22 +1,32 @@
 <template>
     <div>
         <label class="text-xs text-g">Upload image</label>
-        <div class="flex mt-2"
-        :class="type === 'events' ? 'flex-col-reverse ' : 'flex-col' ">
+        <div
+            :class="type === 'events' ? 'flex-col-reverse ' : 'flex-col'"
+            class="flex mt-2"
+        >
             <div class="flex flex-col">
-
                 <div
-                    class="pb-2 flex flex-col justify-center items-center text-gray-600 bg-white-secondary h-24  2xl:h-36 rounded border border-dashed border-gray-400"
+                    :class="isDragging ? 'border-red-600 border-2 brightness-75' : ''"
+                    class="pb-2 flex flex-col justify-center items-center text-gray-600 bg-white-secondary h-24 2xl:h-36 rounded border border-dashed border-gray-400"
+                    @dragleave="onDragLeave"
                     @dragover="onDragOver"
                     @drop="onDrop"
-                    @dragleave="onDragLeave"
-                    :class="isDragging ? 'border-red-600' : ''"
                 >
-                    <div class="flex items-center"
-                        :class="type === 'events' || 'artists' ? 'flex-row 2xl:flex-col gap-1 2xl:gap-0' : 'flex-col'">
+                    <div
+                        :class="
+                            type === 'events' || 'artists'
+                                ? 'flex-row 2xl:flex-col gap-1 2xl:gap-0'
+                                : 'flex-col'
+                        "
+                        class="flex items-center"
+                    >
                         <svg
-                            class="text-tab-secondary"
-                            :class="type === 'events' || 'artists' ? 'h-8 w-8 2xl:w-16 2xl:h-16' : 'w-16 h-16'"
+                            :class="
+                                type === 'events' || 'artists'
+                                    ? 'h-8 w-8 2xl:w-16 2xl:h-16'
+                                    : 'w-16 h-16'
+                            "
                             fill="currentColor"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -31,29 +41,57 @@
                     </div>
                     <label>
                         Or
-                        <span class="text-primary font-bold hover:underline hover:cursor-pointer">upload an image</span>
+                        <span
+                            class="text-primary font-bold hover:underline hover:cursor-pointer"
+                            >upload an image</span
+                        >
                         from the computer
 
-                        <input class="hidden" type="file" @change="onFileSelected" ref="input" accept="image/*" />                </label>
-
-
+                        <input
+                            ref="input"
+                            accept="image/*"
+                            class="hidden"
+                            type="file"
+                            @change="onFileSelected"
+                        />
+                    </label>
                 </div>
             </div>
-            <div class="px-3 flex flex-row items-center justify-between text-gray-600"
-                 :class="type === 'artists' ? 'mt-4' : 'mb-2'"
-                 v-show="image">
+            <div
+                v-show="image"
+                :class="type === 'artists' ? 'mt-4' : 'mb-2'"
+                class="px-3 flex flex-row items-center justify-between text-gray-600"
+            >
                 <div class="flex flex-row gap-3 items-center">
-                    <div class="relative text-tab-secondary bg-tab-secondary rounded-full shrink-0 overflow-hidden"
-                        :class="type === 'events' ? 'w-5 h-5 2xl:w-10 2xl:h-10' : 'w-10 h-10'">
-                        <img v-if="!imageSrc" :src="image ? '/images/'+type + '/' + image : ''"  class="w-full h-full object-cover object-top" alt="Artist Profile Pitcure"/>
-                        <img v-else :src="imageSrc" class="w-full h-full object-cover object-top" alt="Artist Profile Picture" />
-                        <div class="absolute w-full h-full rounded-full top-0 left-0 shadow-[inset_0_0_18px_rgba(0,0,0,0.1)]"></div>
+                    <div
+                        :class="
+                            type === 'events'
+                                ? 'w-5 h-5 2xl:w-10 2xl:h-10'
+                                : 'w-10 h-10'
+                        "
+                        class="relative text-tab-secondary bg-tab-secondary rounded-full shrink-0 overflow-hidden"
+                    >
+                        <img
+                            v-if="!imageSrc"
+                            :src="image ? '/images/' + type + '/' + image : ''"
+                            alt="Artist Profile Pitcure"
+                            class="w-full h-full object-cover object-top"
+                        />
+                        <img
+                            v-else
+                            :src="imageSrc"
+                            alt="Artist Profile Picture"
+                            class="w-full h-full object-cover object-top"
+                        />
+                        <div
+                            class="absolute w-full h-full rounded-full top-0 left-0 shadow-[inset_0_0_18px_rgba(0,0,0,0.1)]"
+                        ></div>
                     </div>
                     <p v-if="!image">No image</p>
-                    <p v-else-if="!imageSrc" >{{image}}</p>
-                    <p v-else >{{image.name }}</p>
+                    <p v-else-if="!imageSrc">{{ image }}</p>
+                    <p v-else>{{ image.name }}</p>
                 </div>
-                <button type="button" @click="removeUploadedImage" >
+                <button type="button" @click="removeUploadedImage">
                     <svg
                         class="w-5 h-5 text-tab-secondary"
                         fill="currentColor"
@@ -76,7 +114,7 @@
 export default {
     props: {
         image: String,
-        type: String
+        type: String,
     },
     data() {
         return {
@@ -85,14 +123,13 @@ export default {
         };
     },
     mounted() {
-       console.log(this.imageSrc);
+        console.log(this.imageSrc);
     },
-    methods:{
+    methods: {
         onDragOver(e) {
             e.preventDefault();
-            console.log(e)
+            console.log(e);
             this.isDragging = true;
-
         },
         onDragLeave(e) {
             e.preventDefault();
@@ -106,32 +143,30 @@ export default {
 
             const file = e.dataTransfer.files[0];
 
-            if (!file.type.startsWith('image/')) return;
+            if (!file.type.startsWith("image/")) return;
 
             const reader = new FileReader();
             reader.onload = (e) => {
                 this.imageSrc = e.target.result;
             };
-            reader.readAsDataURL(file)
-            this.$emit('imageUploaded', file);
-
+            reader.readAsDataURL(file);
+            this.$emit("imageUploaded", file);
         },
         onFileSelected(e) {
             const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
                 this.imageSrc = e.target.result;
-
             };
 
-            reader.readAsDataURL(file)
-            this.$emit('imageUploaded', file);
+            reader.readAsDataURL(file);
+            this.$emit("imageUploaded", file);
         },
         removeUploadedImage() {
             this.imageSrc = null;
             this.$refs.input.value = null;
-            this.$emit('imageRemoved');
-        }
-    }
+            this.$emit("imageRemoved");
+        },
+    },
 };
 </script>

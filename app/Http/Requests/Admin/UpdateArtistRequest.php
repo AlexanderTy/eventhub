@@ -34,7 +34,6 @@ class UpdateArtistRequest extends FormRequest
             'link_spotify' => 'nullable|string',
             'link_website' => 'nullable|string',
             'link_press' => 'nullable|string',
-
         ];
     }
 }

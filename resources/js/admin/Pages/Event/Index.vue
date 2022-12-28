@@ -6,68 +6,83 @@
                 <form class="flex flex-row gap-7" @submit.prevent="submit">
                     <Input
                         v-model="filter.search"
-                        class="shrink-0 w-96 2xl:w-[484px] h-9"
                         bg="bg-white"
+                        class="shrink-0 w-96 2xl:w-[484px] h-9"
                         placeholder="Search for events, artists"
                         type="search"
                     />
-                    <div class="relative" v-click-away="closeSort">
-                        <Btn type="toggleDropdown"
-                             text="Sort by"
-                             @click="showSortBy = !showSortBy"
-                             :open="showSortBy"/>
+                    <div v-click-away="closeSort" class="relative">
+                        <Btn
+                            :open="showSortBy"
+                            text="Sort by"
+                            type="toggleDropdown"
+                            @click="showSortBy = !showSortBy"
+                            :class="filter.sortOption !==  '' ? 'border border-primary' : ''"
+
+                        />
                         <CustomSelect
                             v-show="showSortBy"
                             :active="filter.sortOption"
+                            :class="showSortBy ? 'rounded-b-md' : 'rounded-md'"
                             :options="sortOptions"
                             :sortDirection="filter.order"
                             @selectOption="sortEvents"
-                            :class="showSortBy ? 'rounded-b-md' : 'rounded-md'"
                         />
                     </div>
 
-                    <div class="relative" v-click-away="closeFilter">
-                        <Btn type="toggleDropdown"
-                             text="Filter"
-                             @click="showFilter = !showFilter"
-                             :open="showFilter"/>
+                    <div v-click-away="closeFilter" class="relative">
+                        <Btn
+                            :count="filter.filterArray.length"
+                            :open="showFilter"
+                            text="Filter"
+                            type="toggleDropdown"
+                            @click="showFilter = !showFilter"
+                            :class="filter.filterArray.length > 0 ? 'border border-primary' : ''"
+                        />
                         <select
                             v-show="showFilter"
+                            :class="showFilter ? 'rounded-b-md' : 'rounded-md'"
+                            class="absolute z-20 w-full h-[165px] px-2 py-1 cursor-pointer bg-white shadow-[5px_20px_17px_-2px_rgba(0,0,0,0.15)]"
                             multiple
                             @change="updateFilter"
-                            class="absolute z-20 w-full h-[165px] px-2 py-1 cursor-pointer bg-white shadow-[5px_20px_17px_-2px_rgba(0,0,0,0.15)]"
-                            :class="showFilter ? 'rounded-b-md' : 'rounded-md'"
                         >
                             <option
-                                class="flex gap-1.5 items-center my-6"
                                 v-for="(value, key) in filterOptions"
                                 :key="key"
+                                :class="
+                                    filter.filterArray.includes(key)
+                                        ? 'text-primary font-semibold'
+                                        : ''
+                                "
                                 :value="key"
-                                :class="filter.filterArray.includes(key) ? 'text-primary font-semibold' : ''"
-                            >{{ value }}</option>
+                                class="flex gap-1.5 items-center my-6"
+                            >
+                                {{ value }}
+                            </option>
                         </select>
                     </div>
-
-
                 </form>
             </div>
             <Btn type="create" @click="openModal = !openModal" />
             <Teleport to="#app">
                 <CreateModal
                     v-show="openModal"
+                    label="Create new event"
+                    type="event"
                     @close-modal="openModal = false"
-                    type="event" label="Create new event"
                 />
             </Teleport>
         </div>
         <div class="flex flex-row w-full justify-between mb-4 text-gray-600">
             <p>
                 We've found
-                <span class="text-primary font-semibold">{{ events.length }}</span>
+                <span class="text-primary font-semibold">{{
+                    events.length
+                }}</span>
                 <span>{{ events.length === 1 ? " event" : " events" }}</span>
             </p>
 
-            <DisplayButtons @btnClick="(n) => selectedButton = n"/>
+            <DisplayButtons @btnClick="(n) => (selectedButton = n)" />
         </div>
         <div class="flex flex-wrap gap-4">
             <EventCard
@@ -75,44 +90,58 @@
                 v-show="selectedButton === 'cards'"
                 :event="event"
             />
-<!--            <div
-                v-show="selectedButton === 'list'"
-                class="w-full px-12 grid gap-4 grid-cols-[repeat(17,_minmax(0,_1fr))] text-xs"
-            >
-                <p class="col-span-4">Event</p>
-                <p class="col-span-3 text-center">Upcoming dates</p>
-                <p class="col-span-3 text-center">Sale date (start)</p>
-                <p class="col-span-3 text-center">Sale date (end)</p>
-                <p class="col-span-3 text-center">Public</p>
-            </div>
-            <EventList
-                v-for="event in events"
-                v-show="selectedButton === 'list'"
-                :event="event"
-            />-->
         </div>
         <div v-show="selectedButton === 'list'" class="flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div
+                    class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
+                >
                     <div class="overflow-hidden md:rounded-lg">
-                        <table class="min-w-full divide-y divide-white-secondary">
+                        <table
+                            class="min-w-full divide-y divide-white-secondary"
+                        >
                             <thead class="bg-white bg-opacity-50">
-                            <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Title</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Upcoming dates</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Sale start</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Public</th>
-                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Settings</span>
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th
+                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                        scope="col"
+                                    >
+                                        Title
+                                    </th>
+                                    <th
+                                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        scope="col"
+                                    >
+                                        Upcoming dates
+                                    </th>
+                                    <th
+                                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        scope="col"
+                                    >
+                                        Sale start
+                                    </th>
+                                    <th
+                                        class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                        scope="col"
+                                    >
+                                        Public
+                                    </th>
+                                    <th
+                                        class="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                                        scope="col"
+                                    >
+                                        <span class="sr-only">Settings</span>
+                                    </th>
+                                </tr>
                             </thead>
-                            <tbody class="divide-y divide-white-secondary bg-white">
-                            <EventList
-                                v-for="event in events"
-                                v-show="selectedButton === 'list'"
-                                :event="event"
-                            />
+                            <tbody
+                                class="divide-y divide-white-secondary bg-white"
+                            >
+                                <EventList
+                                    v-for="event in events"
+                                    v-show="selectedButton === 'list'"
+                                    :event="event"
+                                />
                             </tbody>
                         </table>
                     </div>
@@ -172,7 +201,8 @@ export default {
             openModal: false,
             showSortBy: false,
             showFilter: false,
-            selectedButton: this.$page.props.profile.settings?.displayBtns ?? 'cards',
+            selectedButton:
+                this.$page.props.profile.settings?.displayBtns ?? "cards",
             sortOptions: {
                 "": "All",
                 title: "Title",
@@ -186,22 +216,17 @@ export default {
                 sale_start: "Sale started",
                 sale_end: "Sale ended",
             },
-            previousSort: '',
-
+            previousSort: "",
         };
     },
-    mounted() {
-        console.log(this.events);
-    },
-    // methods
     methods: {
-        onClickAway(event) {
+        onClickAway() {
             this.open = "";
         },
-        closeSort(event) {
+        closeSort() {
             this.showSortBy = false;
         },
-        closeFilter(event) {
+        closeFilter() {
             this.showFilter = false;
         },
         submit() {
@@ -219,39 +244,38 @@ export default {
             // check if current sort is the same as the previous sort
             if (this.filter.sortOption === this.previousSort) {
                 // check if previous sort direction was descending
-                if (this.filter.order === 'desc') {
+                if (this.filter.order === "desc") {
                     // set sort direction to ascending
-                    this.filter.order  = 'asc';
-                    console.log("yo")
+                    this.filter.order = "asc";
                 } else {
                     // toggle sort direction
-                    this.filter.order = this.filter.order === 'asc' ? 'desc' : 'asc';
+                    this.filter.order =
+                        this.filter.order === "asc" ? "desc" : "asc";
                 }
             } else {
                 // set sort direction to ascending (default)
-                this.filter.order = 'asc';
+                this.filter.order = "asc";
             }
             this.submit();
         },
-        updateFilter(e){
+        updateFilter(e) {
             // check if the selected option is already in the filterArray
             if (this.filter.filterArray.includes(e.target.value)) {
                 // remove the option from the filterArray
-                this.filter.filterArray = this.filter.filterArray.filter((item) => item !== e.target.value);
+                this.filter.filterArray = this.filter.filterArray.filter(
+                    (item) => item !== e.target.value
+                );
             } else {
                 // add the option to the filterArray
                 this.filter.filterArray.push(e.target.value);
             }
-            console.log(this.filter);
-
-
-
             this.submit();
-
-
-
-
-        }
+        },
+        resetSort() {
+            this.filter.sortOption = "";
+            this.filter.order = "";
+            this.submit();
+        },
     },
     // directives
     directives: {

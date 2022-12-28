@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
@@ -32,7 +31,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,9 +52,7 @@ class UserPolicy
      */
     public function update(): bool
     {
-
         return in_array(Auth::user()->role, array(UserRole::EDITOR, UserRole::ADMIN));
-
     }
 
     /**
@@ -68,7 +65,6 @@ class UserPolicy
     public function delete(User $user, User $model): bool
     {
         return Auth::user()->role == UserRole::ADMIN;
-
     }
 
     /**
@@ -78,9 +74,9 @@ class UserPolicy
      * @param User $model
      * @return bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, User $model): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -90,8 +86,7 @@ class UserPolicy
      * @param User $model
      * @return bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, User $model): bool
     {
-        //
-    }
+        return true;    }
 }

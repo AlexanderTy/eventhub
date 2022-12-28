@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
-
 /**
  * App\Models\Event
  *
@@ -38,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $image
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereImage($value)
  */
 
 class Event extends Model
@@ -63,9 +63,9 @@ class Event extends Model
     {
         return $this->belongsToMany(Artist::class, 'artist_event')->withTimestamps();
     }
+
     public function dates(): HasMany
     {
         return $this->hasMany(Date::class);
     }
-
 }

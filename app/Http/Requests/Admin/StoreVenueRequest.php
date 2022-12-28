@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArtistRequest extends FormRequest
+class StoreVenueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreArtistRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'min:3'],
+            'name' => 'string|required',
         ];
     }
 }

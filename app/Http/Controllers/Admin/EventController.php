@@ -21,11 +21,13 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
     {
         $query = Event::query();
+
         if (!empty($request->search)) {
             $query
                 ->where(function ($query) use ($request) {
@@ -34,7 +36,6 @@ class EventController extends Controller
                         ->orWhere('sub_title', 'LIKE', '%' . $request->search . '%');
                 });
         }
-        //check if request->filter contains 'sale_start'
 
         if (!empty($request->filterArray)) {
 
@@ -81,7 +82,6 @@ class EventController extends Controller
 
         $event->updateOrCreateSlug($event->title);
 
-
         return redirect()->route('admin::events.edit', [
             'event' => $event
         ])->with('success', "Successfully created event $event->title");
@@ -113,6 +113,7 @@ class EventController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Event $event
+     * @param Request $request
      * @return Response
      */
     public function edit(Event $event, Request $request): Response
@@ -122,7 +123,9 @@ class EventController extends Controller
             'artists',
             'slug',
         ]);
+
         $venueOptions = Venue::all();
+
         return Inertia::render(
             'Event/Edit',
             [
@@ -159,9 +162,9 @@ class EventController extends Controller
         } else {
             $event->update(['image' => $request->image]);
         }
+
         $event->updateOrCreateSlug($request->slug ?? $request->title, $request->meta_title, $request->meta_description);
 
-        //save events->artists
         $event->artists()->sync($request->artists);
 
         $dates = $event->dates;
@@ -194,15 +197,12 @@ class EventController extends Controller
             $date->updateTimestamps();
 
             $items[] = $date;
-
         }
         $event->dates()->saveMany($items);
 
         $event->dates()->where('updated_at', '<', $now)->delete();
 
         return redirect()->back()->with('success', "Successfully updated event $event->title");
-
-
     }
 
     /**
@@ -214,8 +214,8 @@ class EventController extends Controller
     public function destroy(Event $event): RedirectResponse
     {
         $event->delete();
-
-        return redirect()->route('admin::events.index')->with('success', "Successfully deleted event $event->title");
+        //return refresh page with success message
+        return redirect()->back()->with('success', "Successfully deleted event $event->title");
     }
 
 

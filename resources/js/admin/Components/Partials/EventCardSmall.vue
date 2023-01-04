@@ -46,7 +46,7 @@
                         </button>
                         <Teleport to="#app">
                             <Modal
-                                v-show="openModal"
+                                v-if="openModal"
                                 :type="'event'"
                                 :deleteItem="event.title"
                                 @close-modal="openModal = false"

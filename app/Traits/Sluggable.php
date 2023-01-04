@@ -11,13 +11,14 @@ trait Sluggable
     {
         return $this->morphOne(Slug::class, 'sluggable');
     }
-    
-    public function updateOrCreateSlug($slugName, $metaTitle = null, $metaDescription = null): void
+
+    public function updateOrCreateSlug($slugName, $metaTitle = null, $metaDescription = null, $index = true): void
     {
         $slug = $this->slug()->firstOrNew();
         $slug->slug = Slug::generateUniqueSlug($slugName, $slug->slug);
         $slug->meta_title = $metaTitle;
         $slug->meta_description = $metaDescription;
+        $slug->index = $index;
         $slug->save();
     }
 }

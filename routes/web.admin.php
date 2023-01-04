@@ -24,6 +24,7 @@ Route::group([
         'middleware' => [Authenticate::class],
     ], function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('dashboard/chart-data', [DashboardController::class, 'getChartData'])->name('dashboard.get-chart-data');
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::resource('users', UserController::class)->except('show');

@@ -43,6 +43,7 @@ class UpdateEventRequest extends FormRequest
             'slug' => 'nullable|string',
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
+            'index' => 'nullable|boolean',
         ];
     }
 }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreArtistRequest;
 use App\Http\Requests\Admin\UpdateArtistRequest;
 use App\Models\Artist;
-use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -131,7 +130,8 @@ class ArtistController extends Controller
     public function destroy(Artist $artist): RedirectResponse
     {
         $artist->delete();
-        return redirect()->route('admin::artists.index');
+
+        return redirect()->back()->with('success', "Artist $artist->name deleted successfully");
     }
 
     /**

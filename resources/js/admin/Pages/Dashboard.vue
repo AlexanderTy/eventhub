@@ -1,33 +1,51 @@
 <template>
     <DefaultLayout>
-        HIIIII
+        <div v-if="chartLoading">Loader...</div>
+        <LineChart
+            :chartData="chartData"
+            v-else
+        />
     </DefaultLayout>
 </template>
 
 <script>
 import DefaultLayout from "../Layouts/DefaultLayout";
+import moment from 'moment'
+import { Line } from 'vue-chartjs'
+import LineChart from "../Components/LineChart";
+import axios from "axios";
 
 export default {
     // included child components
     components: {
+        LineChart,
         DefaultLayout,
+
     },
     // passed from controller
     props: {
+        dates: Object,
     },
-    // custom set
     data() {
-        return {};
+        return {
+            chartLoading: true,
+            chartData: null,
+        };
     },
-    // actions on init
     mounted() {
-
-        this.myFirstFunction();
+        this.loadChartData();
     },
-    // methods
     methods: {
-        myFirstFunction() {
-            console.log("works");
+        loadChartData() {
+            axios
+                .get(this.$route('admin::dashboard.get-chart-data'))
+                .then(response => {
+                    this.chartData = response.data;
+                    this.chartLoading = false;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         },
     },
 };

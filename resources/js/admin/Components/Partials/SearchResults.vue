@@ -5,18 +5,26 @@
         <div class="border-t border-white mb-2"></div>
 
         <ul class="pb-2">
-            <li v-for="(option, index) in options" class=" hover:bg-gray-50 flex items-center">
+            <li
+                v-if="type === 'venues'"
+                v-for="(option, index) in options"
+                class="hover:bg-gray-50 flex items-center"
+
+            >
                 <button
                     class="py-2 px-4 w-full flex flex-col"
                     type="button"
                     @click="$emit('selectOption', option.id)"
                 >
                     <span class="text-left font-bold">{{ option.name }}</span>
-                    <span class="text-sm text-right text-gray-400"
-                        >{{ option.zipcode }} {{ option.city }}</span
+                    <span class="text-sm text-left text-gray-400"
+                    >{{ option.zipcode }} {{ option.city }}</span
                     >
                 </button>
-                <Link :href="$route('admin::venues.edit', { venue: option.id })" :class="'hover:text-primary w-6 h-6 p-1'">
+                <Link
+                    :class="'hover:text-primary w-6 h-6 p-1'"
+                    :href="$route('admin::venues.edit', { venue: option.id })"
+                >
                     <svg
                         class="h-full w-full"
                         fill="currentColor"
@@ -28,18 +36,41 @@
                         ></path>
                     </svg>
                 </Link>
+
             </li>
-        </ul>
+                <li
+                    v-if="type==='artists'"
+                    v-for="(option, index) in options"
+                    class=""
+                >
+                    <button
+                        class="flex items-center w-full gap-3.5 py-3 hover:bg-gray-50 px-4"
+                        type="button"
+                        @click="$emit('selectOption', option)"
+
+                    >
+                        <ArtistImage
+                            :artist="option"
+                            size="small"
+                        />
+                        {{ option.name }}
+                    </button>
+                </li>
+            </ul>
     </div>
 </template>
 
 <script>
-import { Link } from "@inertiajs/inertia-vue3";
+import {Link} from "@inertiajs/inertia-vue3";
+import ArtistImage from "./ArtistImage";
+
 export default {
     components: {
+        ArtistImage,
         Link,
     },
     props: {
+        type: String,
         options: Object,
     },
 };

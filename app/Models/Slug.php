@@ -41,6 +41,11 @@ class Slug extends Model
         'slug',
         'meta_title',
         'meta_description',
+        'index',
+    ];
+
+    protected $casts = [
+        'index' => 'boolean'
     ];
 
     public function sluggable(): MorphTo

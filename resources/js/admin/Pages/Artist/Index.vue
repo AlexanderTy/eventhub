@@ -29,8 +29,7 @@
             </div>
             <Btn type="create" @click="openModal = !openModal" />
             <Teleport to="#app">
-                <CreateModal v-show="openModal" @close-modal="openModal = false" type="artist" label="Create new artist" />
-
+                <CreateModal v-if="openModal" @close-modal="openModal = false" type="artist" label="Create new artist" />
             </Teleport>
         </div>
 
@@ -39,7 +38,6 @@
                 We've found
                 <span class="text-primary font-semibold">{{ artists.length }} </span> <span> {{ artists.length === 1 ? "artist" : "artists" }}</span>
             </p>
-
             <DisplayButtons @btnClick="(n) => selectedButton = n"/>
 
         </div>

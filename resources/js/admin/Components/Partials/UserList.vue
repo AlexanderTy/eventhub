@@ -44,7 +44,7 @@
                 </button>
                 <Teleport to="#app">
                     <Modal
-                        v-show="openModal"
+                        v-if="openModal"
                         :type="'user'"
                         :deleteItem="user.first_name + ' ' + user.last_name"
                         @close-modal="openModal = false"

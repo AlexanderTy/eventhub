@@ -39,7 +39,7 @@
                 </button>
                 <Teleport to="#app">
                     <Modal
-                        v-show="openModal"
+                        v-if="openModal"
                         :type="'artist'"
                         :deleteItem="artist.name"
                         @close-modal="openModal = false"
@@ -89,7 +89,13 @@ export default {
             this.$inertia.delete(
                 this.$route("admin::artists.destroy", {
                     artist: this.artist.id,
-                })
+                }),
+                {
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.openModal = false;
+                    },
+                }
             );
         },
         onClickAway(event) {

@@ -52,7 +52,7 @@
                         </button>
                         <Teleport to="#app">
                             <Modal
-                                v-show="openModal"
+                                v-if="openModal"
                                 :deleteItem="
                                     form.first_name + ' ' + form.last_name
                                 "
@@ -60,6 +60,7 @@
                                 :type="'user'"
                                 @close-modal="openModal = false"
                                 @action-modal="deleteUser"
+                                @keyup.esc="openModal = false"
                             />
                         </Teleport>
                     </div>

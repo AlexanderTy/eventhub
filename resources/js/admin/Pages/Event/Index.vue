@@ -66,10 +66,11 @@
             <Btn type="create" @click="openModal = !openModal" />
             <Teleport to="#app">
                 <CreateModal
-                    v-show="openModal"
+                    v-if="openModal"
                     label="Create new event"
                     type="event"
                     @close-modal="openModal = false"
+                    placeholder="Venue name"
                 />
             </Teleport>
         </div>

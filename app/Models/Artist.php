@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Artist
@@ -68,5 +69,17 @@ class Artist extends Model
     public function events(): BelongsToMany
     {
         return $this->belongsToMany(Event::class, 'artist_event')->withTimestamps();
+    }
+
+
+    protected static function booted()
+    {
+        static::deleting(function (Artist $artist) {
+            $image = 'images/artists/' . $artist->image;
+            if (Storage::disk('public')->exists($image)) {
+                Storage::disk('public')->delete($image);
+            }
+            $artist->events()->detach();
+        });
     }
 }

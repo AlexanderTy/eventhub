@@ -47,7 +47,7 @@
                         </button>
                         <Teleport to="#app">
                             <Modal
-                                v-show="openModal"
+                                v-if="openModal"
                                 :text="'Are you sure you want to delete'"
                                 :type="'event'"
                                 @close-modal="openModal = false"

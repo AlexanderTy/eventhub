@@ -86,7 +86,7 @@
                     <Btn type="create" @click="openModal = !openModal" class="absolute bottom-7 right-7" />
                     <Teleport to="#app">
                         <CreateModal
-                            v-show="openModal"
+                            v-if="openModal"
                             @close-modal="openModal = false"
                         />
                     </Teleport>

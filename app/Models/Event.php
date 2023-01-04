@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Event
@@ -67,5 +68,17 @@ class Event extends Model
     public function dates(): HasMany
     {
         return $this->hasMany(Date::class);
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function (Event $event) {
+            $image = 'images/events/' . $event->image;
+            if (Storage::disk('public')->exists($image)) {
+                Storage::disk('public')->delete($image);
+            }
+            $event->artists()->detach();
+            $event->dates()->delete();
+        });
     }
 }

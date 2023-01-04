@@ -163,7 +163,7 @@ class EventController extends Controller
             $event->update(['image' => $request->image]);
         }
 
-        $event->updateOrCreateSlug($request->slug ?? $request->title, $request->meta_title, $request->meta_description);
+        $event->updateOrCreateSlug($request->slug ?? $request->title, $request->meta_title, $request->meta_description, $request->index);
 
         $event->artists()->sync($request->artists);
 
@@ -192,7 +192,6 @@ class EventController extends Controller
                 'duration'     => $item->duration,
                 'date'         => $item->date,
                 'release_date' => $item->release_date,
-
             ]);
             $date->updateTimestamps();
 
@@ -217,6 +216,4 @@ class EventController extends Controller
         //return refresh page with success message
         return redirect()->back()->with('success', "Successfully deleted event $event->title");
     }
-
-
 }

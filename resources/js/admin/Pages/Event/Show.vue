@@ -1,14 +1,12 @@
 <template>
     <DefaultLayout currentRoute="events">
-        <div class="flex flex-col min-w-[350px] h-full">
-            <div class="flex justify-between max-w-6xl">
-                    <h2 class="font-bold text-2xl capitalize">
-                        {{ event.title }}
-                    </h2>
-                <LinkBtn class="mt-5"
-                         :type="'edit'"
-                         :href="$route('admin::events.edit', {event:event.id})"/>
-            </div>
+        <div class="flex flex-col min-w-[350px] h-full max-w-6xl">
+            <PageTitle :title="event.title">
+                    <LinkBtn class="mt-5"
+                             :type="'edit'"
+                             :href="$route('admin::events.edit', {event:event.id})"/>
+
+            </PageTitle>
             <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-3">
                 <div class="col-span-2">
                     <ul class="flex flex-row gap-2.5 z-0">
@@ -83,7 +81,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-span-1 relative overflow-scroll mt-[34px] p-5 bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                     <div class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-4">
@@ -127,9 +124,11 @@ import PublishedStatus from "../../Components/Partials/PublishedStatus";
 import moment from "moment";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import DatesStatus from "../../Components/Partials/DatesStatus";
+import PageTitle from "../../Components/Partials/PageTitle";
 
 export default {
     components: {
+        PageTitle,
         DatesStatus,
         LinkBtn,
         PublishedStatus,

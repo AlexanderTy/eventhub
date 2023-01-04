@@ -3,6 +3,7 @@ import { createInertiaApp } from "@inertiajs/inertia-vue3";
 import { InertiaProgress } from "@inertiajs/progress";
 import route from "ziggy-js";
 import moment from "moment";
+import { FocusTrap } from 'focus-trap-vue'
 
 InertiaProgress.init();
 
@@ -29,6 +30,8 @@ createInertiaApp({
                 $calcEndTime: (start, duration) => duration ? moment(start).add(duration.split(':')[0], 'hours').add(duration.split(':')[1], 'minutes').format('HH:mm') : '',
             },
         });
+
+        vueApp.component('FocusTrap', FocusTrap);
 
         vueApp.use(plugin).mount(el);
     },

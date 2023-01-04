@@ -1,197 +1,77 @@
 <template>
-    <DefaultLayout currentRoute="events">
-        <form
-            :class="activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'"
-            class="flex flex-col min-w-[350px] h-full mx-auto"
-            @submit.prevent="submit"
-        >
-            <div class="flex justify-between">
-                <div class="flex items-center mb-5">
-                    <h2 class="font-bold text-2xl capitalize">
-                        {{ event.title }}
-                    </h2>
-                </div>
-
+    <DefaultLayout currentRoute="events" type="tabpage">
+        <form class="flex flex-col min-w-[350px] max-h-full mx-auto max-w-6xl" @submit.prevent="submit">
+            <PageTitle :title="event.title">
                 <div class="flex justify-between items-center gap-4">
                     <h2 class="font-bold text-xl capitalize">Public</h2>
-                    <div
-                        :class="
-                            form.public === true ? 'bg-primary' : 'bg-gray-300'
-                        "
+                    <div :class="form.public === true ? 'bg-primary' : 'bg-gray-300'"
                         class="cursor-pointer w-14 h-8 rounded-full flex-shrink-0 p-1 duration-300 ease-in-out"
-                        @click="form.public = !form.public"
-                    >
-                        <div
-                            :class="form.public === true ? 'translate-x-6' : ''"
-                            class="bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out"
-                        ></div>
+                        @click="form.public = !form.public">
+                        <div :class="form.public === true ? 'translate-x-6' : ''"
+                             class="bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ease-in-out"></div>
                     </div>
                 </div>
-
-            </div>
+            </PageTitle>
 
             <ul class="flex flex-row gap-2.5 z-0">
-                <Tab
-                    :activeTab="activeTab"
-                    text="General"
-                    type="general"
-                    @tabClick="this.activeTab = 'general'"
-                />
-                <Tab
-                    :activeTab="activeTab"
-                    text="Dates & Venues"
-                    type="dates"
-                    @tabClick="this.activeTab = 'dates'"
-                />
-                <Tab
-                    :activeTab="activeTab"
-                    text="SEO"
-                    type="seo"
-                    @tabClick="this.activeTab = 'seo'"
-                />
+                <Tab :activeTab="activeTab" text="General" type="general" @tabClick="this.activeTab = 'general'" />
+                <Tab :activeTab="activeTab" text="Dates & Venues" type="dates" @tabClick="this.activeTab = 'dates'" />
+                <Tab :activeTab="activeTab" text="SEO" type="seo" @tabClick="this.activeTab = 'seo'" />
             </ul>
-            <div
-                :class="
-                    activeTab === 'dates' ? 'max-w-screen-2xl' : 'max-w-6xl'
-                "
-                class="relative mt-[-10px] h-[450px] 2xl:h-[550px] z-10 w-full h-full bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
-            >
-                <div
-                    v-show="activeTab === 'general'"
-                    class="absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6"
-                >
+
+            <TabPageLayout>
+                <div v-show="activeTab === 'general'" class=" h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-3 pr-10 flex flex-col gap-6">
-                        <div class="flex flex-col">
-                            <label class="text-xs text-g mb-2">Title</label>
-                            <Input
-                                v-model="form.title"
-                                placeholder="Title for the event..."
-                            />
-                        </div>
-                        <div class="flex flex-col">
-                            <label class="text-xs text-g mb-2">Subtitle</label>
-                            <Input
-                                v-model="form.sub_title"
-                                placeholder="Subtitle for the event..."
-                            />
-                        </div>
+                        <InputGroup :error="form.errors.title" label="Title">
+                            <Input v-model="form.title" :error="form.errors.title"
+                                   placeholder="Title for the event..."/>
+                        </InputGroup>
+                        <InputGroup :error="form.errors.sub_title" label="Subtitle">
+                            <Input v-model="form.sub_title" :error="form.errors.sub_title"
+                                   placeholder="Subtitle for the event..."/>
+                        </InputGroup>
                         <div class="flex flex-row justify-between">
-                            <div class="flex flex-col">
-                                <label class="text-xs text-g mb-2"
-                                    >Event starts</label
-                                >
-                                <div class="flex flex-row gap-5">
-                                    <Input
-                                        v-model="form.sale_start_date"
-                                        type="date"
-                                    />
-                                    <Input
-                                        v-model="form.sale_start_time"
-                                        type="time"
-                                    />
-                                </div>
+                            <div class="flex flex-row gap-5 items-end">
+                                <InputGroup :error="form.errors.sale_start_date" label="Event starts">
+                                    <Input v-model="form.sale_start_date" type="date"/>
+                                </InputGroup>
+                                <InputGroup :error="form.errors.sale_start_time">
+                                    <Input v-model="form.sale_start_time" type="time"/>
+                                </InputGroup>
                             </div>
-                            <div class="flex flex-col">
-                                <label class="text-xs text-g mb-2"
-                                    >Event ends</label
-                                >
-                                <div class="flex flex-row gap-5">
-                                    <Input
-                                        v-model="form.sale_end_date"
-                                        type="date"
-                                    />
-                                    <Input
-                                        v-model="form.sale_end_time"
-                                        type="time"
-                                    />
-                                </div>
+                            <div class="flex flex-row gap-5 items-end">
+                                <InputGroup :error="form.errors.sale_end_date" label="Event starts">
+                                    <Input v-model="form.sale_end_date" type="date"/>
+                                </InputGroup>
+                                <InputGroup :error="form.errors.sale_end_time">
+                                    <Input v-model="form.sale_end_time" type="time"/>
+                                </InputGroup>
                             </div>
                         </div>
-                        <div class="flex flex-col">
-                            <div>
-                                <ImageUpload
-                                    :image="this.form.image"
-                                    type="events"
-                                    @imageRemoved="this.form.image = ''"
-                                    @imageUploaded="setImage"
-                                />
-                            </div>
-                        </div>
+                        <ImageUpload :image="this.form.image" type="events" @imageRemoved="this.form.image = ''"
+                                     @imageUploaded="setImage"/>
                     </div>
                     <div v-click-away="closeSearch" class="col-span-2 h-fit">
                         <div class="flex flex-col mb-7 relative">
-                            <label class="text-xs text-g mb-2"
-                                >Add artists</label
-                            >
-                            <Search
-                                v-model="artistFilter"
-                                :open="showSearch"
-                                placeholder="Search for artists here..."
-                                @click="searchArtists"
-                                @keyup="searchArtists"
-                            />
-                            <div
-                                v-show="showSearch"
-                                :class="
-                                    showSearch ? 'rounded-b-md' : 'rounded-md '
-                                "
-                                class="absolute top-full bg-white-secondary w-full  max-h-72 overflow-y-auto z-10"
-                            >
-                                <div class="border-t border-white mb-2"></div>
-
-                                <ul class="pb-2">
-                                    <li
-                                        v-for="(artist, index) in artistOptions"
-                                        class=""
-                                    >
-                                        <button
-                                            class="flex items-center w-full gap-3.5 py-3 hover:bg-gray-50 px-4 "
-                                            type="button"
-                                            @click="selectArtist(artist)"
-                                        >
-                                            <ArtistImage
-                                                :artist="artist"
-                                                size="small"
-                                            />
-                                            {{ artist.name }}
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
+                            <label class="text-xs text-g mb-2">Add artists</label>
+                            <Search v-model="artistFilter" :open="showSearch" placeholder="Search for artists here..."
+                                    @click="searchArtists" @keyup="searchArtists"/>
+                            <SearchResults v-show="showSearch" :class="showSearch ? 'rounded-b-md' : 'rounded-md '"
+                                           :options="this.artistOptions" type="artists" @selectOption="selectArtist"/>
                         </div>
-                        <div
-                            v-if="form.artists.length > 0"
-                            class="flex flex-col"
-                        >
-                            <label class="text-xs text-g mb-2"
-                                >Added artists</label
-                            >
-                            <div
-                                class="max-h-[19.2rem] overflow-y-auto flex flex-col"
-                            >
+                        <div v-if="form.artists.length > 0" class="flex flex-col">
+                            <label class="text-xs text-g mb-2">Added artists</label>
+                            <div class="max-h-[19.2rem] overflow-y-auto flex flex-col">
                                 <ul class="">
-                                    <li
-                                        v-for="artist in selectedArtists"
-                                        class="flex flex-row items-center justify-between my-4 mt-0"
-                                    >
+                                    <li v-for="artist in selectedArtists"
+                                        class="flex flex-row items-center justify-between my-4 mt-0">
                                         <div class="flex items-center gap-3.5">
-                                            <ArtistImage
-                                                :artist="artist"
-                                                size="small"
-                                            />
+                                            <ArtistImage :artist="artist" size="small"/>
                                             <p>{{ artist.name }}</p>
                                         </div>
-                                        <button
-                                            class="hover:brightness-75"
-                                            type="button"
-                                            @click="removeArtist(artist)"
-                                        >
-                                            <svg
-                                                class="w-5 h-5 cursor-pointer text-tab-secondary"
-                                                fill="currentColor"
-                                                viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
+                                        <button class="hover:brightness-75" type="button" @click="removeArtist(artist)">
+                                            <svg class="w-5 h-5 cursor-pointer text-tab-secondary" fill="currentColor"
+                                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     clip-rule="evenodd"
                                                     d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
@@ -205,13 +85,8 @@
                         </div>
                     </div>
                 </div>
-                <div
-                    v-show="activeTab === 'dates'"
-                    class="absolute top-0 left-0 w-full h-full p-6 overflow-y-auto"
-                >
-                    <div
-                        class="text-xs grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4 mb-1"
-                    >
+                <div v-show="activeTab === 'dates'" class="w-full h-full p-6 overflow-y-auto">
+                    <div class="text-xs grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4 mb-1">
                         <label class="col-span-1"></label>
                         <label class="col-span-3">Release Date</label>
                         <label class="col-span-4">Venue</label>
@@ -221,148 +96,102 @@
                         <label class="col-span-3">Label</label>
                         <label class="col-span-3">Note</label>
                     </div>
-                    <div
-                        class="w-full grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4"
-                    >
-                        <div
-                            v-for="(date, index) in form.dates"
-                            :key="date.id"
-                            class="col-span-full grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4"
-                        >
-                            <!--                            <Input readonly class="col-span-1" :placeholder="index" />-->
+                    <div class="w-full grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4">
+                        <div v-for="(date, index) in form.dates" :key="date.id"
+                             class="col-span-full grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4">
                             <div
-                                class="col-span-1 flex justify-center items-center text-placeholder bg-white-secondary rounded text-gray-600"
-                            >
+                                class="col-span-1 flex justify-center items-center text-placeholder bg-white-secondary rounded text-gray-600">
                                 {{ index + 1 }}
                             </div>
-                            <Input
-                                v-model="date.release_date"
-                                class="col-span-3"
-                                type="datetime-local"
-                            />
+                            <Input v-model="date.release_date" class="col-span-3" type="datetime-local"/>
                             <div class="col-span-4 relative">
-                                <!--
-                                1. Wrapper/felt/div der viser navn baseret på venue_id (venueOptions) -> venue_id ? venueOptions[venue_id].name : ''
-                                2. Klik på wrapper -> åbner en dropdown med muligheder
-                                3. Klikker på mulighed -> sæt venue_id
-                                -->
-                                <!--
-                                <Input class="col-span-3" :modelValue="date.venue?.name" @update:modelValue="date.venue.name = $event" />
--->
-
-                                <Search
-                                    v-model="venueSearchInputs[date.id]"
-                                    :open="this.showSearchVenues === date.id"
-                                    placeholder="Search for venues here..."
-                                    @click="searchVenues(date)"
-                                    @keyup="searchVenues(date)"
-                                    type="venue"
-                                />
-                                <SearchResults
-                                    v-show="this.showSearchVenues === date.id"
-                                    :class="
-                                        this.showSearchVenues === date.id
-                                            ? 'rounded-b-md'
-                                            : 'rounded-md'
-                                    "
-                                    :options="this.filteredVenueOptions"
-                                    @selectOption="selectVenue($event, date)"
-                                />
+                                <Search v-model="venueSearchInputs[date.id]" :open="this.showSearchVenues === date.id"
+                                        placeholder="Search for venues here..." type="venue" @click="searchVenues(date)"
+                                        @keyup="searchVenues(date)"/>
+                                <SearchResults v-show="this.showSearchVenues === date.id"
+                                               :class="this.showSearchVenues === date.id? 'rounded-b-md': 'rounded-md'"
+                                               :options="this.filteredVenueOptions"
+                                               type="venues" @selectOption="selectVenue($event, date)"/>
                             </div>
-                            <Input
-                                v-model="date.date"
-                                class="col-span-3"
-                                type="datetime-local"
-                            />
-                            <Input v-model="date.duration" class="col-span-2" placeholder="Eg. 02:45:00" type="time" />
-                            <Select
-                                v-model="date.status"
-                                :options="dateStatus"
-                                class="col-span-2 h-full"
-                            />
-
-                            <Input v-model="date.label" class="col-span-3" placeholder="Write a label here..." />
-                            <Input v-model="date.note" class="col-span-3" placeholder="Write a note here..." />
-                            <button type="button" @click="removeDate(date)" class="hover:brightness-75">
-                                <svg
-                                    class="w-6 h-6 cursor-pointer text-tab-secondary"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        clip-rule="evenodd"
-                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-                                        fill-rule="evenodd"
-                                    />
+                            <Input v-model="date.date" class="col-span-3" type="datetime-local"/>
+                            <Input v-model="date.duration" class="col-span-2" placeholder="Eg. 02:45:00" type="time"/>
+                            <Select v-model="date.status" :options="dateStatus" class="col-span-2 h-full"/>
+                            <Input v-model="date.label" class="col-span-3" placeholder="Write a label here..."/>
+                            <Input v-model="date.note" class="col-span-3" placeholder="Write a note here..."/>
+                            <button class="hover:brightness-75" type="button" @click="removeDate(date)">
+                                <svg class="w-6 h-6 cursor-pointer text-tab-secondary" fill="currentColor"
+                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd"
+                                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                          fill-rule="evenodd"/>
                                 </svg>
                             </button>
                         </div>
-                        <Btn
-                            class="col-[19/22]"
-                            text="Add"
-                            type="create"
-                            @click="addDate"
-                        ></Btn>
+                        <Btn class="col-[19/22]" text="Add" type="create" @click="addDate"></Btn>
                     </div>
                 </div>
-                <div
-                    v-show="activeTab === 'seo'"
-                    class="absolute top-0 left-0 w-full grid grid-cols-5 gap-12 flex-col px-10 py-6"
-                >
+                <div v-show="activeTab === 'seo'" class=" w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-3 pr-10">
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">Slug</label>
-                            <Input v-model="form.slug" />
+                            <Input v-model="form.slug"/>
                         </div>
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">SEO Title</label>
                             <Input v-model="form.meta_title" placeholder="Write a SEO title here..."/>
                         </div>
                         <div class="flex flex-col mb-7">
-                            <label class="text-xs text-g mb-2"
-                                >SEO Discription</label
-                            >
-                            <TextArea
-                                v-model="form.meta_description"
-                                class="resize-none"
-                                placeholder="Write a SEO description here..."
-                            />
+                            <label class="text-xs text-g mb-2">SEO Discription</label>
+                            <TextArea v-model="form.meta_description" class="resize-none"
+                                      placeholder="Write a SEO description here..."/>
+                        </div>
+                        <div class="flex">
+                            <h3>Allow indexing?</h3>
+                            <div :class="form.index === true ? 'bg-primary' : 'bg-gray-300'"
+                                 class="ml-4 cursor-pointer w-12 h-6 rounded-full flex-shrink-0 p-1 duration-300 ease-in-out"
+                                 @click="form.index = !form.index">
+                                <div :class="form.index === true ? 'translate-x-6' : ''"
+                                     class="bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </TabPageLayout>
             <div class="flex justify-end space-x-8 mt-8">
-                <LinkBtn :type="'back'" to="admin::events.index" />
-
-                <Btn :text="'save'" :type="'submit'" />
+                <LinkBtn :type="'back'" to="admin::events.index"/>
+                <Btn :text="'save'" :type="'submit'"/>
             </div>
         </form>
     </DefaultLayout>
 </template>
 
 <script>
-import { Link } from "@inertiajs/inertia-vue3";
+import {Link} from "@inertiajs/inertia-vue3";
 import DefaultLayout from "../../Layouts/DefaultLayout";
 import Btn from "../../Components/Partials/Btn";
 import Input from "../../Components/Partials/Input";
 import Select from "../../Components/Partials/Select";
-import { directive } from "vue3-click-away";
+import {directive} from "vue3-click-away";
 import Modal from "../../Components/Modal";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import Tab from "../../Components/Partials/Tab";
 import TextArea from "../../Components/Partials/TextArea";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+import {v4 as uuidv4} from "uuid";
 import Search from "../../Components/Partials/Search";
 import SearchResults from "../../Components/Partials/SearchResults";
 import ImageUpload from "../../Components/Partials/ImageUpload";
 import ArtistImage from "../../Components/Partials/ArtistImage";
+import PageTitle from "../../Components/Partials/PageTitle";
+import InputGroup from "../../Components/Partials/InputGroup";
+import TabPageLayout from "../../Layouts/TabPageLayout";
 
 export default {
     // included child components
     components: {
+        TabPageLayout,
+        InputGroup,
+        PageTitle,
         ArtistImage,
         ImageUpload,
         SearchResults,
@@ -404,6 +233,7 @@ export default {
                 slug: this.event.slug?.slug || "",
                 meta_title: this.event.slug?.meta_title || "",
                 meta_description: this.event.slug?.meta_description || "",
+                index: this.event.slug?.index || true,
             }),
             artistFilter: null,
             open: false,
@@ -417,7 +247,6 @@ export default {
             venueFilter: null,
             showSearchVenues: "",
             filteredVenueOptions: [],
-
             venueSearchInputs: {},
         };
     },
@@ -452,7 +281,7 @@ export default {
                     // if this.artistoptions is empty, show 'no artists found' message
                     if (this.artistOptions.length === 0) {
                         this.artistOptions = [
-                            { id: 0, name: "No artists found" },
+                            {id: 0, name: "No artists found"},
                         ];
                     }
                     this.showSearch = true;

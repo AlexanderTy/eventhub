@@ -36,7 +36,7 @@ export default {
         open: Boolean,
         type: String,
         text: String,
-        count: String,
+        count: Number,
         tabindex: String
     },
 };

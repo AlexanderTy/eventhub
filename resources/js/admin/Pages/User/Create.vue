@@ -1,39 +1,38 @@
 <template>
-    <DefaultLayout>
-        <form
-            class="flex flex-col p-12 space-y-4 min-w-[350px] h-full gap-6"
-            @submit.prevent="submit"
-        >
-            <div class="flex gap-12">
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Email</label>
-                    <Input v-model="form.email"/>
-                </div>
-                <div class="flex flex-col w-full h-full">
-                    <label class="text-sm text-g mb-2">Password </label>
-                    <Input v-model="form.password"/>
-                </div>
-            </div>
+    <DefaultLayout currentRoute="users" type="tabpage">
+        <form class="flex flex-col min-w-[350px] max-h-full mx-auto max-w-6xl" @submit.prevent="submit">
 
-            <div class="flex gap-12">
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">First name</label>
-                    <Input v-model="form.first_name"/>
-                </div>
-                <div class="flex flex-col">
-                    <label class="text-sm text-g mb-2">Last name</label>
-                    <Input v-model="form.last_name"/>
-                </div>
-            </div>
-            <div class="flex flex-col w-full h-full">
-                <label class="text-sm text-g mb-2">Role </label>
-                <Select v-model="form.role" :options="roles"/>
-            </div>
-            <div class="flex justify-between">
-                <Btn :type="'back'"/>
+            <PageTitle class="mb-5" title="Create a new user"/>
+            <TabPageLayout>
+                <div class=" h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
+                    <div class="col-span-3 pr-10 flex flex-col gap-6">
+                        <InputGroup :error="form.errors.email" label="E-mail">
+                            <Input v-model="form.email" :error="form.errors.email" />
+                        </InputGroup>
+                        <InputGroup :error="form.errors.password" label="Password">
+                            <Input v-model="form.password" :error="form.errors.password"/>
+                        </InputGroup>
+                        <div class="flex flex-row justify-between">
+                            <InputGroup class="w-6/12" :error="form.errors.first_name" label="First name">
+                                <Input v-model="form.first_name" :error="form.errors.first_name"/>
+                            </InputGroup>
+                            <InputGroup  class="w-6/12 ml-4" :error="form.errors.last_name" label="Last name">
+                                <Input v-model="form.last_name" :error="form.errors.last_name"/>
+                            </InputGroup>
+                        </div>
 
+                        <div class="flex flex-col w-full h-full">
+                            <label class="text-sm text-g mb-2">Role </label>
+                            <Select v-model="form.role" :options="roles"/>
+                        </div>
+                    </div>
+                </div>
+            </TabPageLayout>
+            <div class="flex justify-end space-x-8 mt-8">
+                <LinkBtn :type="'back'" to="admin::users.index"/>
                 <Btn :text="'save'" :type="'submit'"/>
             </div>
+
         </form>
     </DefaultLayout>
 </template>
@@ -44,10 +43,18 @@ import DefaultLayout from "../../Layouts/DefaultLayout";
 import Btn from "../../Components/Partials/Btn";
 import Input from "../../Components/Partials/Input";
 import Select from "../../Components/Partials/Select";
+import PageTitle from "../../Components/Partials/PageTitle";
+import TabPageLayout from "../../Layouts/TabPageLayout";
+import LinkBtn from "../../Components/Partials/LinkBtn";
+import InputGroup from "../../Components/Partials/InputGroup";
 
 export default {
     // included child components
     components: {
+        InputGroup,
+        LinkBtn,
+        TabPageLayout,
+        PageTitle,
         Select,
         Input,
         Btn,

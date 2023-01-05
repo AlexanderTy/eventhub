@@ -24,13 +24,8 @@
                             />
                         </svg>
                     </button>
-                    <div
-                        v-show="open"
-                        class="absolute right-0 border rounded p-1 whitespace-nowrap flex flex-col gap-2 text-left"
-                    >
-                        <button
-                            class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm"
-                        >
+                    <div v-show="open" class="absolute right-0 border rounded p-1 whitespace-nowrap flex flex-col gap-2 text-left">
+                        <button class="text-left hover:bg-gray-100 w-full px-2 py-1 rounded text-sm">
                             Option 1
                         </button>
                         <button

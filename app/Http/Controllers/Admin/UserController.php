@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -106,9 +107,20 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user): Response|RedirectResponse
     {
-        $user->update(
-            $request->validated()
-        );
+        $user->update([
+            'email'      => $request->email,
+            'first_name'  => $request->first_name,
+            'last_name' => $request->last_name,
+            'role'   => $request->role,
+        ]);
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = str_replace(' ', '_', $user->first_name . '_' . $user->last_name) . '_' . time() . '.' . $image->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('images/users/', $image, $imageName);
+            $user->update(['image' => $imageName]);
+        } else {
+            $user->update(['image' => $request->image]);
+        }
 
         return redirect()->back();
     }

@@ -2,7 +2,7 @@
     <div>
         <label class="text-xs text-g">Upload image</label>
         <div
-            :class="type === 'events' ? 'flex-col-reverse ' : 'flex-col'"
+            :class="type === 'events' || type === 'users' ? 'flex-col-reverse ' : 'flex-col'"
             class="flex mt-2"
         >
             <div class="flex flex-col">
@@ -73,7 +73,7 @@
                     >
                         <img
                             v-if="!imageSrc"
-                            :src="image ? '/images/' + type + '/' + image : ''"
+                            :src="image ? '/storage/images/' + type + '/' + image : ''"
                             alt="Artist Profile Pitcure"
                             class="w-full h-full object-cover object-top"
                         />

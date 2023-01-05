@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="relative mr-2.5">
-            <img v-if="event.image" :src="'/images/events/' + event.image" alt=""
+            <img v-if="event.image" :src="'/storage/images/events/' + event.image" alt=""
                  class="rounded-xl h-40 w-full object-cover"/>
             <div v-else class="rounded-xl h-40 w-full bg-tab-secondary text-white flex justify-center items-center">
                 <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

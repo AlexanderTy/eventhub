@@ -3,31 +3,26 @@
         :href="$route('admin::artists.show', { artist: artist.id, })"
         class="bg-white p-2.5 pt-5 w-[12.3rem] h-[13.5rem] rounded-2xl relative flex flex-col gap-3 items-center">
         <div class="absolute top-4 right-1 z-10 self-end">
-            <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open"
-                    v-click-away="onClickAway">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                    <path fill-rule="evenodd"
+            <button v-click-away="onClickAway"
+                    class="text-black rounded-md self-end hover:bg-white-secondary hover:bg-opacity-60" type="button" @click.prevent="open = !open">
+                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
                           d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
-                          clip-rule="evenodd"/>
+                          fill-rule="evenodd"/>
                 </svg>
             </button>
             <div v-show="open"
-                 class="absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
-                <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary"
-                      :href="$route('admin::artists.show', { artist: artist.id, })">
+                 class="absolute z-10 p-3 right-0 top-6 flex flex-col justify-start text-left w-32 bg-white text-black rounded-md shadow-[7px_7px_25px_-2px_rgba(216,208,208,0.75)]">
+                <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('admin::artists.show', { artist: artist.id })">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
-                        <path fill-rule="evenodd"
-                              d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                              clip-rule="evenodd"/>
+                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                        <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
                     </svg>
                     View
                 </Link>
-                <Link class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary"
-                      :href="$route('admin::artists.edit', { artist: artist.id, })">
+                <Link class="text-left py-2.5 border-t flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('admin::artists.edit', { artist: artist.id, })" >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                        <path
-                            d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z"/>
+                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
                     </svg>
                     Edit
                 </Link>
@@ -53,8 +48,7 @@
                 </Teleport>
             </div>
         </div>
-
-        <ArtistImage :artist="artist" size="large"/>
+        <CircleImage :artist="artist" size="large"/>
         <Link
             :href="$route('admin::artists.show', { artist: artist.id, })"
             class="text-lg font-medium text-center hover:underline leading-5">
@@ -70,12 +64,12 @@ import PublishedStatus from "./PublishedStatus";
 import {Link} from "@inertiajs/inertia-vue3";
 import {directive} from "vue3-click-away";
 import Modal from "../../Components/Modal";
-import ArtistImage from "./ArtistImage";
+import CircleImage from "./CircleImage";
 
 export default {
     // included child components
     components: {
-        ArtistImage,
+        CircleImage,
         CreateModal,
         Modal,
         DefaultLayout,

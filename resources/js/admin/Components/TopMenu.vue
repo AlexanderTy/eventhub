@@ -1,7 +1,6 @@
 <template>
-    <div class="z-30 w-full text-white h-16 fixed bg-white shadow-[-3px_-3px_30px_rgba(216,208,208,0.75)] justify-between flex items-center transition-all duration-500"
+    <div class="z-30 w-full text-white h-16 fixed bg-white shadow-[-3px_-3px_30px_rgba(216,208,208,0.75)] justify-end flex items-center transition-all duration-500"
          :class="$page.props.profile.settings?.closeSidemenu ? 'pl-32' : 'pl-[17rem]'">
-        <Input type="search" placeholder="Search for events, artists, venues, users" class="w-[484px] h-9"/>
         <MenuUser />
     </div>
 </template>

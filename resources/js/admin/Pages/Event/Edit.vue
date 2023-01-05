@@ -66,7 +66,7 @@
                                     <li v-for="artist in selectedArtists"
                                         class="flex flex-row items-center justify-between my-4 mt-0">
                                         <div class="flex items-center gap-3.5">
-                                            <ArtistImage :artist="artist" size="small"/>
+                                            <CircleImage :artist="artist" size="small"/>
                                             <p>{{ artist.name }}</p>
                                         </div>
                                         <button class="hover:brightness-75" type="button" @click="removeArtist(artist)">
@@ -181,7 +181,7 @@ import {v4 as uuidv4} from "uuid";
 import Search from "../../Components/Partials/Search";
 import SearchResults from "../../Components/Partials/SearchResults";
 import ImageUpload from "../../Components/Partials/ImageUpload";
-import ArtistImage from "../../Components/Partials/ArtistImage";
+import CircleImage from "../../Components/Partials/CircleImage";
 import PageTitle from "../../Components/Partials/PageTitle";
 import InputGroup from "../../Components/Partials/InputGroup";
 import TabPageLayout from "../../Layouts/TabPageLayout";
@@ -192,7 +192,7 @@ export default {
         TabPageLayout,
         InputGroup,
         PageTitle,
-        ArtistImage,
+        CircleImage,
         ImageUpload,
         SearchResults,
         Search,

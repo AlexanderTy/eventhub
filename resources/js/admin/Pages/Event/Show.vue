@@ -1,20 +1,19 @@
 <template>
-    <DefaultLayout currentRoute="events">
-        <div class="flex flex-col min-w-[350px] h-full max-w-6xl">
+    <DefaultLayout currentRoute="events" type="tabpage" >
+        <div class="flex flex-col min-w-[350px] mx-auto h-full max-w-6xl overflow-hidden">
             <PageTitle :title="event.title">
-                    <LinkBtn class="mt-5"
+                    <LinkBtn
                              :type="'edit'"
                              :href="$route('admin::events.edit', {event:event.id})"/>
-
             </PageTitle>
-            <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-3">
-                <div class="col-span-2">
+            <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-5 h-full">
+                <div class="col-span-2 relative  rounded-md">
                     <ul class="flex flex-row gap-2.5 z-0">
                         <Tab type="event" text="Event" @tabClick="this.activeTab = 'event'" :activeTab="activeTab" />
                         <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'" :activeTab="activeTab" />
                     </ul>
-                    <div class="relative mt-[-10px] h-full overflow-scroll bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                        <div class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-4" v-show="activeTab === 'event'"  >
+                    <div class="relative mt-[-10px] h-auto overflow-scroll bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                        <div class="h-full w-full p-10 flex flex-col gap-4" v-show="activeTab === 'event'"  >
                             <div class="relative">
                                 <img v-if="event.image" alt="" class="rounded-md h-48 w-full object-cover" :src="'/images/events/' + event.image"/>
                                 <div v-else class="rounded-lg h-48 w-full bg-tab-secondary text-white flex justify-center items-center">
@@ -70,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-7">
+                        <div v-show="activeTab === 'seo'" class="h-auto w-full p-10 flex flex-col gap-7">
                             <div>
                                 <label class="text-xs text-g mb-2">SEO Title</label>
                                 <p>{{ event.seo_title }}</p>
@@ -82,8 +81,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-span-1 relative overflow-scroll mt-[34px] p-5 bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                    <div class="absolute top-0 left-0 h-full w-full p-10 flex flex-col gap-4">
+                <div class="col-span-3 relative overflow-scroll mt-[34px]  bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                    <div class=" h-full w-full p-10 flex flex-col gap-4">
                         <div v-for="date in event.dates" class="px-6 py-3 bg-white-secondary items-center justify-between flex h-[100px] w-full rounded-md">
                             <div class="flex">
                                 <div class="flex flex-col gap-0.5 mr-6 items-center">

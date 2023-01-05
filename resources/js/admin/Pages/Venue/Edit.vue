@@ -1,12 +1,10 @@
 <template>
     <DefaultLayout currentRoute="venues">
-        <form
-            class="flex flex-col min-w-[350px] h-full"
-            @submit.prevent="submit"
-        >
+        <form class="flex flex-col min-w-[350px]  max-w-6xl h-full mx-auto" @submit.prevent="submit">
             <div class="flex justify-between">
-                <div class="flex items-center 2xl:mb-12 mb-5">
-                    <h2 class="font-bold text-2xl capitalize">{{ venue.name }} - {{ venue.city }}</h2>
+                <div class="flex items-center 2xl:mb-12 mb-5 ">
+                    <h2 class="font-bold text-2xl capitalize">{{ venue.name }}</h2> <span>&nbsp-&nbsp </span>
+                    <h3 class="text-2xl capitalize">{{ venue.city }} </h3>
                 </div>
                 <div v-click-away="onClickAway" class="relative">
                     <button class="hover:bg-gray-100 rounded py-1" type="button" @click="open = !open">
@@ -38,12 +36,8 @@
                 </div>
             </div>
 
-            <div
-                class="relative z-10 h-[450px] 2xl:h-[525px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]"
-            >
-                <div
-                    class="absolute top-0 left-0 h-full w-full grid grid-cols-3 gap-12 flex-col p-6"
-                >
+            <div class="relative mt-[-10px] z-10 w-full  min-h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                <div class="h-full w-full grid grid-cols-3 gap-12 flex-col p-6">
                     <div class="col-span-3 flex flex-col gap-6 2xl:gap-7">
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Name</label>
@@ -65,10 +59,7 @@
                         </div>
                         <div class="flex flex-col">
                             <label class="text-xs text-g mb-2">Country</label>
-                            <Select
-                                v-model="form.country"
-                                :options="countries"
-                                class="w-2/12"
+                            <Select v-model="form.country" :options="countries" class="w-2/12"
                             />
                         </div>
                     </div>

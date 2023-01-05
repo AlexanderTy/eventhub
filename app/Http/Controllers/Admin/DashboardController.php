@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Date;
+use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -24,10 +25,23 @@ class DashboardController extends Controller
             return !$date ? null : date('m', strtotime($date));
         }, $dates);
 
+        // check the next 5 upcoming date.date in the dates model, and return the event with the date
+        $upcomingDates = Date::with('event')->where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->limit(5)->get();
+
+        // get the 5 recently created events
+        $recentlyCreatedEvents = Event::with('artists')->orderBy('created_at', 'desc')->limit(5)->get();
+
+        //get the 5 last updated events
+        $lastUpdatedEvents = Event::with('artists')->orderBy('updated_at', 'desc')->limit(5)->get();
+
+
 
 
         return Inertia::render('Dashboard', [
             "dates" => $months,
+            "upcomingDates" => $upcomingDates,
+            "recentlyCreatedEvents" => $recentlyCreatedEvents,
+            "lastUpdatedEvents" => $lastUpdatedEvents,
         ]);
     }
 
@@ -77,10 +91,10 @@ class DashboardController extends Controller
 
         $datasets = [
             [
-                'label' => 'My First dataset',
-                'backgroundColor' => 'red',
+                'label' => 'Events pr month',
+                'backgroundColor' => 'darkred',
                 'data' => $data,
-                'borderColor' => 'pink',
+                'borderColor' => 'red',
                 'fill'=> false,
                   'cubicInterpolationMode'=> 'monotone',
                   'tension'=> 0.4

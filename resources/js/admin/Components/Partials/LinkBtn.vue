@@ -10,7 +10,7 @@
                 : type === 'delete'
                 ? 'bg-red-600 hover:bg-red-700 '
                 : type === 'create' || type === 'edit'
-                ? 'bg-primary hover:bg-red-700 flex flex-row items-center justify-center gap-2'
+                ? 'bg-primary h-fit hover:bg-red-700 flex flex-row items-center justify-center gap-2'
                 : 'bg-gray-600'
         "
         class="rounded-full min-w-[7.5rem] px-6 py-2 text-white capitalize text-center font-semibold"

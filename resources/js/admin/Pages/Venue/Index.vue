@@ -15,7 +15,10 @@
                         <Btn type="toggleDropdown"
                              text="Sort by"
                              @click="showSortBy = !showSortBy"
-                             :open="showSortBy"/>
+                             :open="showSortBy"
+                             :class="filter.sortOption !==  '' ? 'border border-primary' : ''"
+
+                        />
                         <CustomSelect
                             v-show="showSortBy"
                             :active="filter.sortOption"

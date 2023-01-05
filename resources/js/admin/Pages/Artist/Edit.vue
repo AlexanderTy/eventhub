@@ -63,7 +63,7 @@
                 <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'"  :activeTab="activeTab"/>
             </ul>
             <div class="relative mt-[-10px] z-10 w-full  min-h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                <div v-show="activeTab === 'general'" class=" absolute top-0 left-0 h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
+                <div v-show="activeTab === 'general'" class=" h-full w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-2 pr-10 flex flex-col gap-5">
                         <ImageUpload
                             @imageUploaded="setImage"
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="activeTab === 'social media'" class="absolute top-0 left-0 w-full h-full px-10 py-6 overflow-y-auto flex flex-col gap-7">
+                <div v-show="activeTab === 'social media'" class=" w-full h-full px-10 py-6 overflow-y-auto flex flex-col gap-7">
                     <div class="flex flex-col">
                         <label class="text-xs mb-1">Website url</label>
                         <Input v-model="form.link_website"  placeholder="Write the artist website link here..." />
@@ -113,7 +113,7 @@
                         <Input v-model="form.link_spotify"  placeholder="Write the artist Spotify link here..." />
                     </div>
                 </div>
-                <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
+                <div v-show="activeTab === 'seo'" class=" w-full grid grid-cols-5 gap-12 flex-col px-10 py-6">
                     <div class="col-span-3 pr-10">
                         <div class="flex flex-col mb-7">
                             <label class="text-xs text-g mb-2">SEO Title</label>

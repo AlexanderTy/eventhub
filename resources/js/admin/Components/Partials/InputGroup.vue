@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col relative">
+    <div class="flex flex-col relative mb-2">
         <label v-if="label" class="text-xs text-g mb-2">{{ label }}</label>
         <slot />
         <InputError :message="error" />

@@ -1,23 +1,21 @@
 <template>
     <DefaultLayout currentRoute="artists">
-        <div class="flex flex-col min-w-[350px] h-full">
-            <div class="grid grid-cols-3 justify-between max-w-6xl mb-5">
-                <h2 class="font-bold text-2xl capitalize">
-                    {{ artist.name }}
-                </h2>
-                <LinkBtn class="ml-auto"
+        <div class="flex flex-col min-w-[350px] mx-auto h-full max-w-6xl overflow-hidden">
+            <PageTitle :title="artist.name">
+                <LinkBtn
                          :type="'edit'"
                          :href="$route('admin::artists.edit', {artist:artist.id})"/>
-            </div>
-            <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-3">
-                <div class="col-span-2">
+
+            </PageTitle>
+            <div class="w-full max-w-6xl z-10 flex flex-row gap-6 grid grid-cols-5 h-full">
+                <div class="col-span-3 relative  rounded-md">
                     <ul class="flex flex-row gap-2.5 z-0">
                         <Tab type="general" text="General" @tabClick="this.activeTab = 'general'"  :activeTab="activeTab"/>
                         <Tab type="social media" text="Social Media" @tabClick="this.activeTab = 'social media'"  :activeTab="activeTab"/>
                         <Tab type="seo" text="SEO" @tabClick="this.activeTab = 'seo'"  :activeTab="activeTab"/>
                     </ul>
-                    <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                        <div v-show="activeTab === 'general'" class="absolute overflow-scroll top-0 left-0 h-full w-full p-8 flex flex-col gap-4">
+                    <div class="relative mt-[-10px] h-auto overflow-scroll bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
+                        <div v-show="activeTab === 'general'" class="h-auto overflow-scroll top-0 left-0 h-full w-full p-8 flex flex-col gap-4">
                             <div class="flex flex-row gap-6">
                                 <CircleImage :artist="artist" size="large"/>
                                 <div>
@@ -35,7 +33,7 @@
                                 <p>{{artist.link_press}}</p>
                             </div>
                         </div>
-                        <div v-show="activeTab === 'social media'" class="absolute top-0 overflow-scroll left-0 h-full w-full p-8 flex flex-col gap-7">
+                        <div v-show="activeTab === 'social media'" class="h-auto overflow-scroll left-0 h-full w-full p-8 flex flex-col gap-7">
                             <div>
                                 <label class="text-xs text-g mb-2">Website url</label>
                                 <p>{{ artist.link_website }}</p>
@@ -57,7 +55,7 @@
                                 <p>{{ artist.link_spotify }}</p>
                             </div>
                         </div>
-                        <div v-show="activeTab === 'seo'" class="absolute top-0 left-0 overflow-scroll  h-full w-full p-8 flex flex-col gap-7">
+                        <div v-show="activeTab === 'seo'" class="h-auto overflow-scroll  h-full w-full p-8 flex flex-col gap-7">
                             <div>
                                 <label class="text-xs text-g mb-2">SEO Title</label>
                                 <p>{{ artist.seo_title }}</p>
@@ -70,17 +68,17 @@
                     </div>
                 </div>
 
-                <div class="col-span-1">
+                <div class="col-span-2">
                 <ul class="flex flex-row gap-2.5 z-0">
                     <Tab type="current" text="Current Events" @tabClick="this.secondaryActiveTab = 'current'"  :secondaryActiveTab="secondaryActiveTab"/>
                     <Tab type="previous" text="Previous Events" @tabClick="this.secondaryActiveTab = 'previous'"  :secondaryActiveTab="secondaryActiveTab"/>
                 </ul>
                 <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
-                    <div v-show="secondaryActiveTab === 'current'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
+                    <div v-show="secondaryActiveTab === 'current'" class="h-auto left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
                         <EventCardSmall :event="event" v-for="event in artist.events" v-show="calcDatesLeft(event) > 0" />
                     </div>
                     <!-- event.dates.some(date => date > new Date())-->
-                    <div v-show="secondaryActiveTab === 'previous'" class="absolute top-0 left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
+                    <div v-show="secondaryActiveTab === 'previous'" class="h-auto left-0 h-full w-full p-5 flex flex-col gap-4 overflow-scroll">
                         <EventCardSmall :event="event" v-for="event in artist.events" v-show="calcDatesLeft(event) === 0" />
                     </div>
                     <Btn type="create" @click="openModal = !openModal" class="absolute bottom-7 right-7" />
@@ -111,9 +109,11 @@ import EventCardSmall from "../../Components/Partials/EventCardSmall";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import CreateModal from "../../Components/CreateModal";
 import CircleImage from "../../Components/Partials/CircleImage";
+import PageTitle from "../../Components/Partials/PageTitle";
 
 export default {
     components: {
+        PageTitle,
         CircleImage,
         CreateModal,
         LinkBtn,

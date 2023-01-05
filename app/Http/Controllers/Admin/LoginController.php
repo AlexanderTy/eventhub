@@ -25,13 +25,12 @@ class LoginController extends Controller
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            // redirect to admin dashboard
             return redirect()->route('admin::events.index');
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+            'password' => 'The provided credentials do not match our records.',
+        ])->onlyInput('password');
     }
 
     public function destroy(): RedirectResponse

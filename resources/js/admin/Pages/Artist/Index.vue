@@ -6,7 +6,7 @@
                 <form class="flex flex-row gap-7" @submit.prevent="submit">
                     <Input
                         v-model="filter.search"
-                        :class="'shrink-0 shadow w-96 2xl:w-[484px] h-9 shadow-[5px_4px_17px_-2px_rgba(0,0,0,0.15)]'"
+                        :class="'shrink-0 w-96 2xl:w-[484px] h-9'"
                         bg="bg-white"
                         placeholder="Search for events, artists"
                         type="search"
@@ -43,19 +43,65 @@
         </div>
 
         <div class="flex flex-wrap gap-4">
-            <ArtistCard :artist="artist" v-for="artist in artists" v-if="selectedButton ==='cards' " />
-
-            <div class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] w-full px-12 grid text-xs" v-show="selectedButton === 'list'">
-                <p class="col-span-2">Image</p>
-                <p class="col-span-5">Artist</p>
-                <p class="col-span-7">Short Description</p>
-                <p class="col-span-3 text-center">Events</p>
-            </div>
-
-            <ArtistList v-if="selectedButton === 'list' " :artist="artist" v-for="artist in artists"   />
-
+            <ArtistCard
+                :artist="artist"
+                v-for="artist in artists"
+                v-if="selectedButton ==='cards' " />
         </div>
 
+        <div v-if="selectedButton === 'list'" class="flex flex-col">
+            <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                <div
+                    class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
+                >
+                    <div class="md:rounded-lg">
+                        <table
+                            class="min-w-full divide-y divide-white-secondary"
+                        >
+                            <thead class="bg-white bg-opacity-50">
+                            <tr>
+                                <th
+                                    class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                                    scope="col"
+                                >
+                                    Image
+                                </th>
+                                <th
+                                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    scope="col"
+                                >
+                                    Artist
+                                </th>
+                                <th
+                                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    scope="col"
+                                >
+                                    Short Description
+                                </th>
+                                <th
+                                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                                    scope="col"
+                                >
+                                    Total Events
+                                </th>
+                                <th
+                                    class="relative py-3.5 pl-3 pr-4 sm:pr-6"
+                                    scope="col"
+                                >
+                                    <span class="sr-only">Settings</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody
+                                class="divide-y divide-white-secondary bg-white"
+                            >
+                            <ArtistList v-if="selectedButton === 'list' " :artist="artist" v-for="artist in artists"   />
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </DefaultLayout>
 </template>
 

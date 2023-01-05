@@ -49,7 +49,7 @@
                         @click="$emit('selectOption', option)"
 
                     >
-                        <ArtistImage
+                        <CircleImage
                             :artist="option"
                             size="small"
                         />
@@ -62,11 +62,11 @@
 
 <script>
 import {Link} from "@inertiajs/inertia-vue3";
-import ArtistImage from "./ArtistImage";
+import CircleImage from "./CircleImage";
 
 export default {
     components: {
-        ArtistImage,
+        CircleImage,
         Link,
     },
     props: {

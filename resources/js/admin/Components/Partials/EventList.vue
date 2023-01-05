@@ -28,7 +28,7 @@
             <DatesStatus :dates="event.dates" length="short"/>
         </td>
         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            <p class="text-gray-900">{{ $date(event.sale_start) }}</p>
+            <p class="text-gray-500">{{ $date(event.sale_start) }}</p>
             <p class="text-gray-500">{{ $time(event.sale_start) }}</p>
 
         </td>

@@ -1,12 +1,16 @@
 <template>
-    <div class="bg-white p-2.5 pt-5 w-[12.8rem] h-[17rem] rounded-2xl relative shadow-[0px_8px_21px_rgba(0,0,0,0.25)] flex flex-col gap-3 items-center">
+    <div class="bg-white p-2.5 pt-5 w-[12.8rem] h-[17rem] rounded-2xl relative flex flex-col gap-3 items-center">
         <div class="absolute top-4 right-1 z-10 self-end">
-            <button class="text-black self-end hover:text-primary" type="button" @click="open = !open" v-click-away="onClickAway" >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                    <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
+            <button v-click-away="onClickAway"
+                    class="text-black rounded-md self-end hover:bg-white-secondary hover:bg-opacity-60" type="button" @click.prevent="open = !open">
+                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                          d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+                          fill-rule="evenodd"/>
                 </svg>
             </button>
-            <div v-show="open" class="absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
+            <div v-show="open"
+                 class="absolute z-10 p-3 right-0 top-6 flex flex-col justify-start text-left w-32 bg-white text-black rounded-md shadow-[7px_7px_25px_-2px_rgba(216,208,208,0.75)]">
                 <div class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -42,15 +46,7 @@
                 </Teleport>
             </div>
         </div>
-        <div class="text-tab-secondary w-32 h-32 rounded-full shrink-0 overflow-hidden">
-            <img v-show="user.image" alt="" class="w-full h-full object-cover object-top" :src="'/images/artists/' + user.image"/>
-            <svg v-show="!user.image" class="w-full h-full" viewBox="0 0 167 167" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M140.751 144.279C149.05 136.482 155.661 127.065 160.176 116.611C164.69 106.156 167.013 94.8873 167 83.5C167 37.3823 129.618 0 83.5 0C37.3823 0 5.57455e-05 37.3823 5.57455e-05 83.5C-0.0131202 94.8873 2.30951 106.156 6.82436 116.611C11.3392 127.065 17.9503 136.482 26.249 144.279C41.7238 158.897 62.2126 167.029 83.5 167C104.787 167.029 125.276 158.897 140.751 144.279ZM55.6807 115.512C46.9999 119.681 39.3699 125.752 33.3572 133.275C39.9171 139.901 47.7273 145.158 56.3349 148.742C64.9425 152.326 74.176 154.166 83.5 154.154C92.824 154.166 102.058 152.326 110.665 148.742C119.273 145.158 127.083 139.901 133.643 133.275C127.63 125.752 120 119.681 111.319 115.512C102.639 111.343 93.1301 109.183 83.5 109.192C73.87 109.183 64.3615 111.343 55.6807 115.512ZM106.209 80.5167C112.232 74.4939 115.615 66.3252 115.615 57.8077C115.615 49.2901 112.232 41.1215 106.209 35.0987C100.186 29.0759 92.0175 25.6923 83.5 25.6923C74.9825 25.6923 66.8138 29.0759 60.791 35.0987C54.7682 41.1215 51.3846 49.2901 51.3846 57.8077C51.3846 66.3252 54.7682 74.4939 60.791 80.5167C66.8138 86.5395 74.9825 89.923 83.5 89.923C92.0175 89.923 100.186 86.5395 106.209 80.5167Z"/>
-            </svg>
-        </div>
-        <!--
-                <img alt="" class="rounded-t-2xl h-40 w-full" src="/images/nikolaj_stokholm.jpg"/>
-        -->
+        <CircleImage :user="user" size="large" />
         <div class="flex flex-col items-center">
             <h2 class="text-lg font-base text-center">
                 {{ user.first_name }} {{ user.last_name }}
@@ -71,10 +67,12 @@ import {directive} from "vue3-click-away";
 import CreateModal from "../CreateModal";
 import PublishedStatus from "./PublishedStatus";
 import Modal from "../Modal";
+import CircleImage from "./CircleImage";
 
 export default {
     // included child components
     components: {
+        CircleImage,
         Modal,
         DefaultLayout,
         PublishedStatus,

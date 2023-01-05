@@ -19,7 +19,7 @@
                     <div class="relative mt-[-10px] h-[450px] 2xl:h-[550px] bg-white rounded-md shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)]">
                         <div v-show="activeTab === 'general'" class="absolute overflow-scroll top-0 left-0 h-full w-full p-8 flex flex-col gap-4">
                             <div class="flex flex-row gap-6">
-                                <ArtistImage :artist="artist" size="large"/>
+                                <CircleImage :artist="artist" size="large"/>
                                 <div>
                                     <h2 class="text-xl font-bold mb-2 mt-2.5" >{{artist.name}}</h2>
                                     <label class="text-xs text-g mb-2">Short Description</label>
@@ -110,11 +110,11 @@ import Btn from "../../Components/Partials/Btn";
 import EventCardSmall from "../../Components/Partials/EventCardSmall";
 import LinkBtn from "../../Components/Partials/LinkBtn";
 import CreateModal from "../../Components/CreateModal";
-import ArtistImage from "../../Components/Partials/ArtistImage";
+import CircleImage from "../../Components/Partials/CircleImage";
 
 export default {
     components: {
-        ArtistImage,
+        CircleImage,
         CreateModal,
         LinkBtn,
         EventCardSmall,

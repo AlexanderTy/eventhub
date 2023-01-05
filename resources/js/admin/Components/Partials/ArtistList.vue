@@ -1,18 +1,29 @@
 <template>
-    <Link
-        :href="$route('admin::artists.show', { artist: artist.id, })"
-        class="grid gap-4 grid-cols-[repeat(18,_minmax(0,_1fr))] items-center col-span-1 px-12 text-sm bg-white w-full h-16 rounded-2xl shadow-[7px_7px_33px_-10px_rgba(0,0,0,0.25)] cursor-pointer">
-        <ArtistImage :artist="artist" size="medium" class="col-span-2"/>
-        <Link :href="$route('admin::artists.show', { artist: artist.id, })" class="col-span-5 text-lg font-semibold hover:underline">{{ artist.name }}</Link>
-        <p class="col-span-7">{{ artist.description_short }}</p>
-        <p v-if="artist.events" class="col-span-3 self-center text-center">{{artist.events.length}}</p>
-        <div class="col-span-1 relative">
-            <button class="text-black self-end hover:text-primary" type="button" @click.prevent="open = !open" v-click-away="onClickAway" >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                    <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
+<tr>
+    <td class="whitespace-nowrap py-4 pl-4 pr-3 sm:pl-6">
+        <CircleImage :artist="artist" size="medium"/>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 ">
+            <Link :href="$route('admin::artists.show', { artist: artist.id, })" class="text-lg font-semibold hover:underline">{{ artist.name }}</Link>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+        <p class="line-clamp-1">{{ artist.description_short }}</p>
+    </td>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+        <p v-if="artist.events">{{artist.events.length}}</p>
+    </td>
+    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+        <div class="relative">
+            <button v-click-away="onClickAway"
+                    class="text-black rounded-md self-end hover:bg-white-secondary hover:bg-opacity-60" type="button" @click.prevent="open = !open">
+                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                          d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"
+                          fill-rule="evenodd"/>
                 </svg>
             </button>
-            <div v-show="open" class="z-10 absolute p-3 left-4 top-6 flex flex-col justify-start text-left w-36 bg-white text-black rounded-md shadow-[-7px_7px_33px_rgba(114,121,125,0.25)]">
+            <div v-show="open"
+                 class="absolute z-10 p-3 right-0 top-6 flex flex-col justify-start text-left w-32 bg-white text-black rounded-md shadow-[7px_7px_25px_-2px_rgba(216,208,208,0.75)]">
                 <Link class="text-left py-2.5 flex flex-row items-center gap-2.5 hover:text-primary" :href="$route('admin::artists.show', { artist: artist.id })">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -48,7 +59,8 @@
                 </Teleport>
             </div>
         </div>
-    </Link>
+    </td>
+</tr>
 </template>
 
 <script>
@@ -58,12 +70,12 @@ import PublishedStatus from "./PublishedStatus";
 import {Link} from "@inertiajs/inertia-vue3";
 import {directive} from "vue3-click-away";
 import Modal from "../Modal";
-import ArtistImage from "./ArtistImage";
+import CircleImage from "./CircleImage";
 
 export default {
     // included child components
     components: {
-        ArtistImage,
+        CircleImage,
         CreateModal,
         Modal,
         DefaultLayout,

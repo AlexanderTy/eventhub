@@ -86,27 +86,20 @@
             <DisplayButtons @btnClick="(n) => (selectedButton = n)" />
         </div>
         <div class="flex flex-wrap gap-4">
-            <EventCard
-                v-for="event in events"
-                v-show="selectedButton === 'cards'"
-                :event="event"
-            />
+
+            <EventCard v-for="event in events"
+                       v-show="selectedButton === 'cards'"
+                       :event="event" />
+
         </div>
         <div v-show="selectedButton === 'list'" class="flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div
-                    class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8"
-                >
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                     <div class="overflow-hidden md:rounded-lg">
-                        <table
-                            class="min-w-full divide-y divide-white-secondary"
-                        >
+                        <table class="min-w-full divide-y divide-white-secondary">
                             <thead class="bg-white bg-opacity-50">
                                 <tr>
-                                    <th
-                                        class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                                        scope="col"
-                                    >
+                                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6" scope="col">
                                         Title
                                     </th>
                                     <th

@@ -74,6 +74,7 @@ class Date extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
     public function venue(): BelongsTo
     {
         return $this->belongsTo(Venue::class);

@@ -12,13 +12,9 @@
 <script>
 
 export default {
-
-
     props: {
         options: Object,
         modelValue: String,
     },
-
-
 }
 </script>

@@ -314,11 +314,9 @@ export default {
             this.venueSearchInputs[date.id] = this.venueOptions.find(
                 (x) => x.id === id
             ).name;
-            console.log(this.venueSearchInputs);
         },
 
         submit() {
-            console.log("yooo");
             this.form
                 .transform((data) => ({
                     ...data,

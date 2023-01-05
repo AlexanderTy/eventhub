@@ -38,11 +38,9 @@ class HandleAdminInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-
         return array_merge(parent::share($request), [
             'ziggy' => (new Ziggy)->toArray(),
             'locale' => app()->getLocale(),
-            //variable called profile which is Auth::user except auth::user->settings
             'profile' => Auth::user(),
             'flash' => [
                 'success' => fn () => ucfirst($request->session()->get('success')),

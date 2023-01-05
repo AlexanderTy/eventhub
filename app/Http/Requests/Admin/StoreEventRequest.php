@@ -24,7 +24,7 @@ class StoreEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'min:3'],
+            'title' => ['required', 'min:3', 'string', 'max:255'],
         ];
     }
 }

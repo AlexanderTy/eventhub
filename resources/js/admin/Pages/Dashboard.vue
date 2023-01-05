@@ -15,7 +15,7 @@
                 <Link v-for="date in upcomingDates"
                       :href="$route('admin::events.show', { event: date.event.id })"
                       class=" m-2 bg-white-secondary  h-24 rounded-md grid grid-cols-3">
-                    <img v-if="date.event.image" :src="'/images/events/' + date.event.image" alt=""
+                    <img v-if="date.event.image" :src="'/storage/images/events/' + date.event.image" alt=""
                          class="rounded-l-md h-24 w-full col-span-1 object-cover"/>
                     <div v-else
                          class="rounded-l-md h-24 w-full col-span-1 bg-tab-secondary text-white flex justify-center items-center">
@@ -54,7 +54,7 @@
                 <Link v-for="event in recentlyCreatedEvents"
                       :href="$route('admin::events.show', { event: event.id })"
                       class=" m-2 bg-white-secondary  h-24 rounded-md grid grid-cols-3">
-                    <img v-if="event.image" :src="'/images/events/' + event.image" alt=""
+                    <img v-if="event.image" :src="'/storage/images/events/' + event.image" alt=""
                          class="rounded-l-md h-24 w-full col-span-1 object-cover"/>
                     <div v-else
                          class="rounded-l-md h-24 w-full col-span-1 bg-tab-secondary text-white flex justify-center items-center">
@@ -96,7 +96,7 @@
                 <Link v-for="event in lastUpdatedEvents"
                       :href="$route('admin::events.show', { event: event.id })"
                       class=" mx-4 my-2 bg-white-secondary  h-24 rounded-md grid grid-cols-3">
-                    <img v-if="event.image" :src="'/images/events/' + event.image" alt=""
+                    <img v-if="event.image" :src="'/storage/images/events/' + event.image" alt=""
                          class="rounded-l-md h-24 w-full col-span-1 object-cover"/>
                     <div v-else
                          class="rounded-l-md h-24 w-full col-span-1 bg-tab-secondary text-white flex justify-center items-center">

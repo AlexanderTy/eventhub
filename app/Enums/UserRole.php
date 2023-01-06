@@ -19,6 +19,7 @@ enum UserRole: string
             UserRole::EDITOR => 'Editor',
             UserRole::ADMIN => 'Admin',
         };
+
     }
 
 

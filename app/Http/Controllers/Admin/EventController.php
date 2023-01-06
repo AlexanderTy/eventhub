@@ -38,19 +38,14 @@ class EventController extends Controller
         }
 
         if (!empty($request->filterArray)) {
-
-            //check if array contains 'sale_start'
             if (in_array('sale_start', $request->filterArray)) {
                 $query->where('sale_start', '<=', now());
-
             }
             if (in_array('sale_end', $request->filterArray)) {
                 $query->where('sale_end', '<=', now());
-
             }
             if (in_array('public', $request->filterArray)) {
                 $query->where('public', true);
-
             }
         }
         if (!empty($request->sortOption)) {

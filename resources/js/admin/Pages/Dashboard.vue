@@ -1,6 +1,10 @@
 <template>
-    <DefaultLayout type="tabpage">
+    <DefaultLayout class="overflow-scroll" type="tabpage">
+        <div class="mb-12 flex gap-8 col-span-full">
+            <h1 class="font-bold text-3xl">{{ greeting }}, {{ $page.props.profile.first_name }}</h1>
+        </div>
         <div class="grid grid-cols-6 gap-4 h-full overflow-hidden">
+
             <div class="bg-white p-2 col-span-4">
                 <div v-if="chartLoading">Loader...</div>
                 <LineChart
@@ -10,11 +14,11 @@
                 />
             </div>
             <div class="col-span-2 bg-white">
-                <h2 class="px-4 py-4 font-bold text-xl">Upcoming dates</h2>
+                <h2 class="px-4 py-4 font-bold text-xl">Upcoming Events</h2>
 
                 <Link v-for="date in upcomingDates"
                       :href="$route('admin::events.show', { event: date.event.id })"
-                      class=" m-2 bg-white-secondary  h-24 rounded-md grid grid-cols-3">
+                      class=" bg-white-secondary  h-24 rounded-md grid grid-cols-3 m-4 ">
                     <img v-if="date.event.image" :src="'/storage/images/events/' + date.event.image" alt=""
                          class="rounded-l-md h-24 w-full col-span-1 object-cover"/>
                     <div v-else
@@ -42,7 +46,7 @@
                                       d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
                                       fill-rule="evenodd"/>
                             </svg>
-                            {{ $date(date.date, 'ddd, DD. MMM YY HH:mm') }}
+                            {{ $date(date.date, 'ddd, DD. MMM YY, HH:mm') }}
                         </p>
                     </div>
 
@@ -73,7 +77,8 @@
 
 
                         </div>
-                        <h3 v-if="event.artists>0" :class="event.artists.length >= 4 ? 'text-sm' : event.artists.length >= 2 ? 'text-xs' : 'text-sm'"
+                        <h3 v-if="event.artists>0"
+                            :class="event.artists.length >= 4 ? 'text-sm' : event.artists.length >= 2 ? 'text-xs' : 'text-sm'"
                             class="text-sm">
                             by
                             <span v-for="(artist, index) in event.artists" v-show="event.artists.length < 4">
@@ -115,7 +120,8 @@
 
 
                         </div>
-                        <h3 v-if="event.artists.length>0" :class="event.artists.length >= 4 ? 'text-sm' : event.artists.length >= 2 ? 'text-xs' : 'text-sm'"
+                        <h3 v-if="event.artists.length>0"
+                            :class="event.artists.length >= 4 ? 'text-sm' : event.artists.length >= 2 ? 'text-xs' : 'text-sm'"
                             class="text-sm">
                             by
                             <span v-for="(artist, index) in event.artists" v-show="event.artists.length < 4">
@@ -164,6 +170,9 @@ export default {
         return {
             chartLoading: true,
             chartData: null,
+            // create a variable called greeting, if the current time is between 6am and 12pm, it will say "Good morning", if it's between 12pm and 6pm, it will say "Good afternoon", otherwise it will say "Good evening"
+            greeting: new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening',
+
         };
     },
     mounted() {

@@ -181,7 +181,6 @@ export default {
                 if (this.filter.order === 'desc') {
                     // set sort direction to ascending
                     this.filter.order  = 'asc';
-                    console.log("yo")
                 } else {
                     // toggle sort direction
                     this.filter.order = this.filter.order === 'asc' ? 'desc' : 'asc';

@@ -122,13 +122,10 @@ export default {
             isDragging: false,
         };
     },
-    mounted() {
-        console.log(this.imageSrc);
-    },
+
     methods: {
         onDragOver(e) {
             e.preventDefault();
-            console.log(e);
             this.isDragging = true;
         },
         onDragLeave(e) {

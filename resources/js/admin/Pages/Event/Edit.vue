@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="activeTab === 'dates'" class="w-full h-full p-6 overflow-y-auto">
+                <div v-show="activeTab === 'dates'" class="w-full h-full p-6 overflow-y-auto min-h-[50vh]">
                     <div class="text-xs grid grid-cols-[repeat(22,_minmax(0,_1fr))] gap-4 mb-1">
                         <label class="col-span-1"></label>
                         <label class="col-span-3">Release Date</label>
@@ -111,7 +111,8 @@
                                 <SearchResults v-show="this.showSearchVenues === date.id"
                                                :class="this.showSearchVenues === date.id? 'rounded-b-md': 'rounded-md'"
                                                :options="this.filteredVenueOptions"
-                                               type="venues" @selectOption="selectVenue($event, date)"/>
+                                               type="venues" @selectOption="selectVenue($event, date)"
+                                />
                             </div>
                             <Input v-model="date.date" class="col-span-3" type="datetime-local"/>
                             <Input v-model="date.duration" class="col-span-2" placeholder="Eg. 02:45:00" type="time"/>

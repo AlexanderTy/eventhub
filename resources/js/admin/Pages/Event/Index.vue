@@ -55,7 +55,7 @@
                                         : ''
                                 "
                                 :value="key"
-                                class="flex gap-1.5 items-center my-6"
+                                class="flex gap-1.5 items-center my-2 py-2 px-1 rounded-md hover:bg-gray-100"
                             >
                                 {{ value }}
                             </option>

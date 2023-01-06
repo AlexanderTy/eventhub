@@ -1,6 +1,7 @@
 <template>
     <div
         class="absolute top-full bg-white-secondary w-full max-h-72 overflow-y-auto z-50"
+        v-click-away="onClickAway"
     >
         <div class="border-t border-white mb-2"></div>
 
@@ -63,15 +64,25 @@
 <script>
 import {Link} from "@inertiajs/inertia-vue3";
 import CircleImage from "./CircleImage";
+import {directive} from "vue3-click-away";
 
 export default {
     components: {
         CircleImage,
         Link,
+
     },
     props: {
         type: String,
         options: Object,
+    },
+    methods: {
+        onClickAway(event) {
+
+        },
+    },
+    directives: {
+        ClickAway: directive,
     },
 };
 </script>

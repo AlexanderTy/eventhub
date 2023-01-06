@@ -139,10 +139,6 @@ export default {
         }
     },
     methods: {
-
-        thing(){
-            console.log("click");
-        },
         onClickAway(artist) {
             this.open = false;
 
